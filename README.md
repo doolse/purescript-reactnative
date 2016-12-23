@@ -119,7 +119,7 @@ The decision to not do anything special with the type system concerning platform
 - a) Usually it very obvious from the component name
 - b) It would be a significant amount of extra work and type signature noise and I don't think the benefits justify it.
 
-Having said that the Platform module is supported and the platform specific properties have been separated into sub properties for clarity.
+Having said that, platform specific properties have been separated into sub properties for clarity.
 For example:
 
 ```purescript
@@ -136,6 +136,52 @@ type ViewProps eff = {
 ```
 
 
-## Fully Supported components
+## Component support table
 
-TODO
+The plan is to initially support a subset of the components fully, and provide unsafe functions for many of the others. Type safe versions of the components are created based off the react-native documentation, this table shows the current status:
+
+|Component   | Version|
+|----------  |-------------|
+|`View`      | 0.39        |
+|`Text`      | 0.39        |
+|`TextInput` | 0.39|
+|`Switch`    | 0.39|
+|`Touchable*`| 0.39|
+|`Picker`    | 0.39|
+|`Slider`    | 0.39|
+|`ActivityIndicator` |0.39|
+|`ListView`  | 0.39|
+|`ScrollView` | 0.39|
+|`Image`     |0.39|
+|`RefreshControl` | 0.39|
+|`Button`    |0.39|
+|`Navigator` |0.39 *|
+|`DrawerLayoutAndroid` |0.39|
+|`ToolbarAndroid` |0.39|
+|`DatePickerIOS`|-|
+|`KeyboardAvoidingView`|-|
+|`MapView`|-|
+|`Modal`|-|
+|`ProgressBarAndroid`|-|
+|`ProgressViewIOS`|-|
+|`SegmentedControlIOS`|-|
+|`StatusBar`|-|
+|`SnapshotViewIOS`|-|
+|`TabBarIOS`|-|
+|`TabBarIOSItem`|-|
+|`ViewPagerAndroid`|-|
+|`WebView`|-|
+
+|API         | Version |
+|------------| --------|
+|`alert`     | 0.39|
+|`color`     | 0.39|
+|`ListViewDataSource` | 0.39 *|
+|`NavigationExpiremental` | 0.39 *|
+
+Anything marked with * may not have 100% coverage of API calls yet.
+
+## TODO
+
+* Add documentation comments for important functions and types
+* Add export lists to most modules - currently everything is exported in all modules

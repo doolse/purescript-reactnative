@@ -99,3 +99,42 @@ navigatorU = createNoChild navigatorClass
 
 textInputU :: forall props. props -> ReactElement
 textInputU = createNoChild textInputClass
+
+datePickerIOSU :: forall props. props -> ReactElement
+datePickerIOSU = createNoChild datePickerIOSClass
+
+keyboardAvoidingViewU :: forall props. props -> Array ReactElement -> ReactElement
+keyboardAvoidingViewU = createElement keyboardAvoidingViewClass
+
+mapViewU :: forall props. props -> Array ReactElement -> ReactElement
+mapViewU = createElement mapViewClass
+
+modalU :: forall props. props -> Array ReactElement -> ReactElement
+modalU = createElement modalClass
+
+progressBarAndroidU :: forall props. props -> ReactElement
+progressBarAndroidU = createNoChild progressBarAndroidClass
+
+progressViewIOSU :: forall props. props -> ReactElement
+progressViewIOSU = createNoChild progressViewIOSClass
+
+segmentedControlIOSU :: forall props. props -> ReactElement
+segmentedControlIOSU = createNoChild segmentedControlIOSClass
+
+statusBarU :: forall props. props -> ReactElement
+statusBarU = createNoChild statusBarClass
+
+snapshotViewIOSU :: forall props. props -> ReactElement
+snapshotViewIOSU = createNoChild snapshotViewIOSClass
+
+tabBarIOSU :: forall props. props -> Array ReactElement -> ReactElement
+tabBarIOSU = createElement tabBarIOSClass
+
+tabBarIOSItemU :: forall props. props -> Array ReactElement -> ReactElement
+tabBarIOSItemU = createElement tabBarIOSItemClass
+
+viewPagerAndroidU :: forall props. props -> Array ReactElement -> ReactElement
+viewPagerAndroidU = createElement viewPagerAndroidClass
+
+webViewU :: forall props. props -> ReactElement
+webViewU = createNoChild webViewClass
