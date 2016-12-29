@@ -8,11 +8,16 @@
   "authors": [
     "Jolse Maginnis <doolse@gmail.com>"
   ],
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components"
   ],
+  "repository": {
+      "type": "git",
+      "url": "git://github.com/doolse/purescript-reactnative.git"
+  },
   "dependencies": {
     "purescript-react": "^2.0.0",
     "purescript-maybe": "^2.0.1",
