@@ -1,4 +1,7 @@
-module ReactNative.Components.Switch where
+-- | See [Switch](https://facebook.github.io/react-native/docs/switch.html)
+module ReactNative.Components.Switch (
+  SwitchProps, switch, switch'
+) where
 
 import React (ReactElement)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
@@ -20,8 +23,10 @@ type SwitchProps eff  = {
   }
 }
 
+-- | Create a Switch with a value and change handler
 switch :: forall eff. {onValueChange::EventHandler eff Boolean, value :: Boolean} -> ReactElement
 switch = switchU
 
+-- | Create a Switch with props, a value and a change handler
 switch' :: forall eff. Prop (SwitchProps eff) -> {onValueChange::EventHandler eff Boolean, value :: Boolean} -> ReactElement
 switch' p d = switchU (unsafeApplyProps d p)

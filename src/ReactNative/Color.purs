@@ -1,16 +1,49 @@
-module ReactNative.PropTypes.Color where
+module ReactNative.PropTypes.Color (
+  Color
+, rgb, rgba, rgbi
+, transparent
+, aliceblue, antiquewhite, aqua, aquamarine, azure
+, beige, bisque, black, blanchedalmond, blue, blueviolet, brown, burlywood
+, cadetblue, chartreuse, chocolate, coral, cornflowerblue, cornsilk, crimson, cyan
+, darkblue, darkcyan, darkgoldenrod, darkgray, darkgreen, darkgrey, darkkhaki, darkmagenta, darkolivegreen
+, darkorange, darkorchid, darkred, darksalmon, darkseagreen, darkslateblue, darkslategray, darkslategrey
+, darkturquoise, darkviolet, deeppink, deepskyblue, dimgray, dimgrey, dodgerblue
+, firebrick, floralwhite, forestgreen, fuchsia
+, gainsboro, ghostwhite, gold, goldenrod, gray, green, greenyellow, grey
+, honeydew, hotpink
+, indianred, indigo, ivory
+, khaki
+, lavender, lavenderblush, lawngreen, lemonchiffon, lightblue, lightcoral, lightcyan
+, lightgoldenrodyellow, lightgray, lightgreen, lightgrey, lightpink, lightsalmon, lightseagreen
+, lightskyblue, lightslategray, lightslategrey, lightsteelblue, lightyellow, lime, limegreen, linen
+, magenta, maroon, mediumaquamarine, mediumblue, mediumorchid, mediumpurple, mediumseagreen
+, mediumslateblue, mediumspringgreen, mediumturquoise, mediumvioletred, midnightblue, mintcream
+, mistyrose, moccasin
+, navajowhite, navy
+, oldlace, olive, olivedrab, orange, orangered, orchid
+, palegoldenrod, palegreen, paleturquoise, palevioletred, papayawhip, peachpuff, peru, pink, plum, powderblue, purple
+, rebeccapurple, red, rosybrown, royalblue
+, saddlebrown, salmon, sandybrown, seagreen, seashell, sienna, silver, skyblue, slateblue, slategray, slategrey, snow, springgreen, steelblue
+, tan, teal, thistle, tomato, turquoise
+, violet
+, wheat, white, whitesmoke
+, yellow, yellowgreen
+) where
 
 import Prelude
 import Data.Int (hexadecimal, toStringAs)
 
 newtype Color = Color String
 
+-- | Create a Color from RGB components
 rgb :: Int -> Int -> Int -> Color
 rgb r g b = Color $ "rgb(" <> show r <> ", " <> show g <> ", " <> show b <> ")"
 
+-- | Create a Color from RGB and an Alpha component
 rgba :: Int -> Int -> Int -> Number -> Color
 rgba r g b a = Color $ "rgba(" <> show r <> ", " <> show g <> ", " <> show b <> ", " <> show a <> ")"
 
+-- | Create a Color from the Hex representation of an integer
 rgbi :: Int -> Color
 rgbi i = Color $ "#" <> toStringAs hexadecimal i
 

@@ -176,7 +176,7 @@ The plan is to initially support a subset of the components fully, and provide u
 |------------| --------|
 |`alert`     | 0.39|
 |`color`     | 0.39|
-|`ListViewDataSource` | 0.39 *|
+|`ListViewDataSource` | 0.39|
 |`NavigationExpiremental` | 0.39 *|
 
 Anything marked with * may not have 100% coverage of API calls yet.

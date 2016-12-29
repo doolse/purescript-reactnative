@@ -1,23 +1,82 @@
-module ReactNative.Components.TextInput where
+-- | See [TextInput](https://facebook.github.io/react-native/docs/textinput.html)
+module ReactNative.Components.TextInput (
+  textInput', TextInputProps, TextInputRef
+, ClearButtonMode, KeyboardAppearance, DocumentSelectionState, DataDetectorType
+, AutoCapitalize, KeyboardType, ReturnKeyType
+, clearButtonMode, keyboardType, dataDetectorType, autoCapitalize, keyboardAppearance
+, dataDetectors, returnKeyType
+, focus, isFocused, clear
+) where
 
 import Control.Monad.Eff (Eff)
 import Data.Unit (Unit)
 import React (ReactElement, ReactThis)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
-import ReactNative.Components.View (ViewPropsEx)
+import ReactNative.Components.View (ViewPropsEx')
 import ReactNative.Events (ContentSizeEvent, EventHandler, ScrollEvent, TextInputEvent)
 import ReactNative.PropTypes (Prop)
 import ReactNative.PropTypes.Color (Color)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (textInputU)
 import Unsafe.Coerce (unsafeCoerce)
 
-foreign import focus :: forall p s eff. ReactThis p s -> Eff eff Unit
-foreign import isFocused :: forall p s. ReactThis p s -> Boolean
-foreign import clear :: forall p s eff. ReactThis p s -> Eff eff Unit
+newtype TextInputRef = TextInputRef (forall p s. ReactThis p s)
+
+type TextInputProps eff = ViewPropsEx' eff TextInputRef (
+    autoCapitalize:: AutoCapitalize
+  , autoCorrect :: Boolean
+  , autoFocus :: Boolean
+  , blurOnSubmit :: Boolean
+  , editable :: Boolean
+  , multiline :: Boolean
+  , secureTextEntry :: Boolean
+  , selectTextOnFocus :: Boolean
+  , defaultValue :: String
+  , keyboardType :: KeyboardType
+  , maxLength :: Int
+  , onBlur :: EventHandler eff TextInputEvent
+  , onChange :: EventHandler eff TextInputEvent
+  , onChangeText :: EventHandler eff String
+  , onContentSizeChange :: EventHandler eff ContentSizeEvent
+  , onEndEditing :: EventHandler eff TextInputEvent
+  , onFocus :: EventHandler eff TextInputEvent
+  , onScroll :: EventHandler eff ScrollEvent
+  , onSelectionChange :: EventHandler eff TextInputEvent
+  , onSubmitEditing :: EventHandler eff TextInputEvent
+  , placeholder :: String
+  , placeholderTextColor :: Color
+  , selection :: {start:: Int, end:: Int}
+  , selectionColor :: Color
+  , returnKeyType :: ReturnKeyType
+  , value :: String
+) (
+    inlineImagePadding :: Int
+  , inlineImageLeft :: String
+  , returnKeyLabel :: String
+  , underlineColorAndroid :: Color
+  , numberOfLines :: Int
+) (
+    clearTextOnFocus :: Boolean
+  , enablesReturnKeyAutomatically :: Boolean
+  , clearButtonMode :: ClearButtonMode
+  , keyboardAppearance :: KeyboardAppearance
+  , onKeyPress :: EventHandler eff TextInputEvent
+  , selectionState :: DocumentSelectionState
+  , dataDetectorTypes :: DataDetectorType
+)
+
+-- | Create a TextInput with the given props
+textInput' :: forall eff. Prop (TextInputProps eff) -> ReactElement
+textInput' p = textInputU (unsafeApplyProps {} p)
+
+-- | Focus the TextInput for the given ref
+foreign import focus :: forall eff. TextInputRef -> Eff eff Unit
+-- | See if TextInput is focussed for the given ref
+foreign import isFocused :: TextInputRef -> Boolean
+-- | Clear the value of the TextInput for the given ref
+foreign import clear :: forall eff. TextInputRef -> Eff eff Unit
 
 foreign import data DocumentSelectionState :: *
 
-newtype AutoCapitalize = AutoCapitalize String
 
 newtype KeyboardType = KeyboardType String
 
@@ -50,6 +109,7 @@ keyboardType = {
   , webSearch: KeyboardType "web-search"
 }
 
+newtype AutoCapitalize = AutoCapitalize String
 autoCapitalize :: {
     none :: AutoCapitalize
   , sentences :: AutoCapitalize
@@ -151,49 +211,3 @@ dataDetectorType = {
 
 dataDetectors :: Array DataDetectorType -> DataDetectorType
 dataDetectors = unsafeCoerce
-
-type TextInputProps eff = ViewPropsEx eff (
-    autoCapitalize:: AutoCapitalize
-  , autoCorrect :: Boolean
-  , autoFocus :: Boolean
-  , blurOnSubmit :: Boolean
-  , editable :: Boolean
-  , multiline :: Boolean
-  , secureTextEntry :: Boolean
-  , selectTextOnFocus :: Boolean
-  , defaultValue :: String
-  , keyboardType :: KeyboardType
-  , maxLength :: Int
-  , onBlur :: EventHandler eff TextInputEvent
-  , onChange :: EventHandler eff TextInputEvent
-  , onChangeText :: EventHandler eff String
-  , onContentSizeChange :: EventHandler eff ContentSizeEvent
-  , onEndEditing :: EventHandler eff TextInputEvent
-  , onFocus :: EventHandler eff TextInputEvent
-  , onScroll :: EventHandler eff ScrollEvent
-  , onSelectionChange :: EventHandler eff TextInputEvent
-  , onSubmitEditing :: EventHandler eff TextInputEvent
-  , placeholder :: String
-  , placeholderTextColor :: Color
-  , selection :: {start:: Int, end:: Int}
-  , selectionColor :: Color
-  , returnKeyType :: ReturnKeyType
-  , value :: String
-) (
-    inlineImagePadding :: Int
-  , inlineImageLeft :: String
-  , returnKeyLabel :: String
-  , underlineColorAndroid :: Color
-  , numberOfLines :: Int
-) (
-    clearTextOnFocus :: Boolean
-  , enablesReturnKeyAutomatically :: Boolean
-  , clearButtonMode :: ClearButtonMode
-  , keyboardAppearance :: KeyboardAppearance
-  , onKeyPress :: EventHandler eff TextInputEvent
-  , selectionState :: DocumentSelectionState
-  , dataDetectorTypes :: DataDetectorType
-)
-
-textInput' :: forall eff. Prop (TextInputProps eff) -> ReactElement
-textInput' p = textInputU (unsafeApplyProps {} p)

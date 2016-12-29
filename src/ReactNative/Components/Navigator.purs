@@ -1,4 +1,10 @@
-module ReactNative.Components.Navigator where
+-- | See [Navigator](https://facebook.github.io/react-native/docs/navigator.html)
+module ReactNative.Components.Navigator (
+  Navigator, navigator', NavigatorProps
+, SceneRenderer, SceneConfigurer, sceneConfig, sceneConfig', sceneConfigs
+, SceneConfig, sceneRenderer
+, getCurrentRoutes, push, pop
+) where
 
 import Prelude
 import Control.Monad.Eff (Eff)
@@ -10,13 +16,7 @@ import ReactNative.PropTypes (Prop, RefType)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.Components (navigatorU)
 
-foreign import sceneConfigEnum :: String -> SceneConfig
-
 newtype Navigator r = Navigator (forall props state. ReactThis props state)
-foreign import data SceneConfig :: *
-foreign import data RouteStack :: *
-newtype SceneRenderer r = SceneRenderer (Fn2 r (Navigator r) ReactElement)
-newtype SceneConfigurer r = SceneConfigurer (Fn2 r RouteStack SceneConfig)
 
 type NavigatorProps r eff = {
     ref :: RefType (Navigator r)
@@ -32,36 +32,54 @@ type NavigatorProps r eff = {
   , style :: Styles
 }
 
-sceneConfig' :: forall r. (r -> RouteStack -> SceneConfig) -> SceneConfigurer r
+-- | Create a Navigator with the given props, initialRoute and scene renderer
+navigator' :: forall r eff. Prop (NavigatorProps r eff) -> r -> SceneRenderer r -> ReactElement
+navigator' p initialRoute renderScene = navigatorU $ unsafeApplyProps {initialRoute, renderScene} p
+
+foreign import sceneConfigEnum :: String -> SceneConfig
+
+newtype SceneRenderer r = SceneRenderer (Fn2 r (Navigator r) ReactElement)
+newtype SceneConfigurer r = SceneConfigurer (Fn2 r (Array r) SceneConfig)
+
+
+foreign import data SceneConfig :: *
+sceneConfig' :: forall r. (r -> Array r -> SceneConfig) -> SceneConfigurer r
 sceneConfig' = SceneConfigurer <<< mkFn2
 
 sceneConfig :: forall r. SceneConfig -> SceneConfigurer r
 sceneConfig c = sceneConfig' \_ _ -> c
 
-sceneConfigs :: { pushFromRight :: SceneConfig
-, fadeAndroid :: SceneConfig
+sceneConfigs :: {
+    pushFromRight :: SceneConfig
+  , fadeAndroid :: SceneConfig
+  , floatFromRight :: SceneConfig
+  , floatFromLeft :: SceneConfig
+  , floatFromBottom :: SceneConfig
+  , floatFromBottomAndroid :: SceneConfig
+  , swipeFromLeft :: SceneConfig
+  , horizontalSwipeJump :: SceneConfig
+  , horizontalSwipeJumpFromRight :: SceneConfig
+  , horizontalSwipeJumpFromLeft :: SceneConfig
+  , verticalUpSwipeJump :: SceneConfig
+  , verticalDownSwipeJump :: SceneConfig
 }
 sceneConfigs = {
     pushFromRight: sceneConfigEnum "PushFromRight"
   , fadeAndroid: sceneConfigEnum "FadeAndroid"
---   Navigator.SceneConfigs.PushFromRight (default)
--- Navigator.SceneConfigs.FloatFromRight
--- Navigator.SceneConfigs.FloatFromLeft
--- Navigator.SceneConfigs.FloatFromBottom
--- Navigator.SceneConfigs.FloatFromBottomAndroid
--- Navigator.SceneConfigs.SwipeFromLeft
--- Navigator.SceneConfigs.HorizontalSwipeJump
--- Navigator.SceneConfigs.HorizontalSwipeJumpFromRight
--- Navigator.SceneConfigs.HorizontalSwipeJumpFromLeft
--- Navigator.SceneConfigs.VerticalUpSwipeJump
--- Navigator.SceneConfigs.VerticalDownSwipeJump
+  , floatFromRight: sceneConfigEnum "FloatFromRight"
+  , floatFromLeft: sceneConfigEnum "FloatFromLeft"
+  , floatFromBottom: sceneConfigEnum "FloatFromBottom"
+  , floatFromBottomAndroid: sceneConfigEnum "FloatFromBottomAndroid"
+  , swipeFromLeft: sceneConfigEnum "SwipeFromLeft"
+  , horizontalSwipeJump: sceneConfigEnum "HorizontalSwipeJump"
+  , horizontalSwipeJumpFromRight: sceneConfigEnum "HorizontalSwipeJumpFromRight"
+  , horizontalSwipeJumpFromLeft: sceneConfigEnum "HorizontalSwipeJumpFromLeft"
+  , verticalUpSwipeJump: sceneConfigEnum "VerticalUpSwipeJump"
+  , verticalDownSwipeJump: sceneConfigEnum "VerticalDownSwipeJump"
 }
 
 sceneRenderer :: forall r. (r -> Navigator r -> ReactElement) -> SceneRenderer r
 sceneRenderer = SceneRenderer <<< mkFn2
-
-navigator' :: forall r eff. Prop (NavigatorProps r eff) -> r -> SceneRenderer r -> ReactElement
-navigator' p initialRoute renderScene = navigatorU $ unsafeApplyProps {initialRoute, renderScene} p
 
 foreign import getCurrentRoutes :: forall r. Navigator r -> Array r
 

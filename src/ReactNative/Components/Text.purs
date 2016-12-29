@@ -1,4 +1,9 @@
-module ReactNative.Components.Text where
+-- | See [Text](https://facebook.github.io/react-native/docs/text.html)
+module ReactNative.Components.Text (
+  TextProps, textElem, text', text_, text
+, texts', texts, texts_
+, EllipsizeMode, ellipsizeMode
+) where
 
 import React (ReactElement)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
@@ -8,18 +13,6 @@ import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.Components (textU)
 import Unsafe.Coerce (unsafeCoerce)
 
-newtype EllipsizeMode = EllipsizeMode String
-ellipsizeMode :: { head :: EllipsizeMode
-, middle :: EllipsizeMode
-, tail :: EllipsizeMode
-, clip :: EllipsizeMode
-}
-ellipsizeMode = {
-    head: EllipsizeMode "head"
-  , middle: EllipsizeMode "middle"
-  , tail: EllipsizeMode "tail"
-  , clip: EllipsizeMode "clip"
-}
 
 type TextProps eff = {
     style :: Styles
@@ -60,3 +53,17 @@ texts_ = textU {}
 
 texts' :: forall eff. Prop (TextProps eff) -> Array ReactElement -> ReactElement
 texts' p = textU (unsafeApplyProps {} p)
+
+newtype EllipsizeMode = EllipsizeMode String
+ellipsizeMode :: {
+    head :: EllipsizeMode
+  , middle :: EllipsizeMode
+  , tail :: EllipsizeMode
+  , clip :: EllipsizeMode
+}
+ellipsizeMode = {
+    head: EllipsizeMode "head"
+  , middle: EllipsizeMode "middle"
+  , tail: EllipsizeMode "tail"
+  , clip: EllipsizeMode "clip"
+}

@@ -1,4 +1,8 @@
-module ReactNative.API where
+module ReactNative.API (
+  alert, ALERT
+, keyboardDismiss
+, registerComponent, REGISTER
+) where
 
 import Control.Monad.Eff (Eff)
 import Data.Function.Uncurried (Fn4, runFn4)

@@ -1,17 +1,60 @@
-module ReactNative.Components.ScrollView where
+-- | See [ScrollView](https://facebook.github.io/react-native/docs/scrollview.html)
+module ReactNative.Components.ScrollView (
+  scrollView', scrollView_, scrollView, scrollTo, scrollTo'
+, Scrollable, DecelerationRate, IndicatorStyle, SnapToAlignment, KeyboardDismissMode
+, keyboardDismissMode, decelerationRate, decelerateBy, indicatorStyle, snapToAlignment
+, ScrollViewPropsEx, ScrollViewAndroid, ScrollViewIOS
+, RefreshControl, RefreshControlSize
+, refreshControl, refreshControl', refreshControlSize
+)
+where
 
 import Prelude
 import Control.Monad.Eff (Eff)
 import Data.Function.Uncurried (Fn2, runFn2)
 import React (ReactElement, ReactThis)
 import ReactNative.Components.View (ViewPropsEx)
-import ReactNative.Events (UnitEventHandler, EventHandler2)
+import ReactNative.Events (EventHandler2, ScrollEvent, UnitEventHandler, EventHandler)
 import ReactNative.PropTypes (Prop, Insets)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (refreshControlU, scrollViewU)
 import Unsafe.Coerce (unsafeCoerce)
+
+type ScrollViewProps eff = ScrollViewPropsEx eff ()
+
+scrollView' :: forall eff. Prop (ScrollViewProps eff) -> Array ReactElement -> ReactElement
+scrollView' p = scrollViewU (unsafeApplyProps {} p)
+
+scrollView_ :: Array ReactElement -> ReactElement
+scrollView_ = scrollViewU {}
+
+scrollView :: Styles -> Array ReactElement -> ReactElement
+scrollView style = scrollViewU {style}
+
+type RefreshProps eff = {
+    onRefresh :: UnitEventHandler eff
+  , refreshing :: Boolean
+  , android :: Prop {
+      colors :: Array Color
+    , enabled :: Boolean
+    , progressBackgroundColor :: Color
+    , progressViewOffset :: Number
+    , size :: RefreshControlSize
+  }
+  , ios :: Prop {
+      tintColor :: Color
+    , title :: String
+    , titleColor :: Color
+  }
+}
+
+refreshControl :: forall eff. UnitEventHandler eff -> Boolean -> RefreshControl
+refreshControl onRefresh refreshing = RefreshControl $ refreshControlU {onRefresh, refreshing}
+
+refreshControl' :: forall eff. Prop (RefreshProps eff) -> UnitEventHandler eff -> Boolean -> RefreshControl
+refreshControl' p onRefresh refreshing = RefreshControl $ refreshControlU (unsafeApplyProps {onRefresh, refreshing} p)
 
 newtype RefreshControl = RefreshControl ReactElement
 
@@ -76,6 +119,21 @@ snapToAlignment = {
   , end: SnapToAlignment "end"
 }
 
+type ScrollViewPropsEx eff r = ViewPropsEx eff (
+    contentContainerStyle :: Styles
+  , horizontal :: Boolean
+  , keyboardDismissMode :: KeyboardDismissMode
+  , keyboardShouldPersistTaps :: Boolean
+  , onContentSizeChange :: EventHandler2 eff Number Number
+  , onScroll :: EventHandler eff ScrollEvent
+  , pagingEnabled :: Boolean
+  , refreshControl :: RefreshControl
+  , scrollEnabled :: Boolean
+  , showsHorizontalScrollIndicator :: Boolean
+  , showsVerticalScrollIndicator :: Boolean
+  | r
+) ScrollViewAndroid (ScrollViewIOS eff)
+
 type ScrollViewAndroid =  (
     endFillColor :: Color
   , scrollPerfTag :: String
@@ -105,55 +163,6 @@ type ScrollViewIOS eff = (
   , stickyHeaderIndices :: Array Number
   , zoomScale :: Number
 )
-
-type ScrollViewPropsEx eff r = ViewPropsEx eff (
-    contentContainerStyle :: Styles
-  , horizontal :: Boolean
-  , keyboardDismissMode :: KeyboardDismissMode
-  , keyboardShouldPersistTaps :: Boolean
-  , onContentSizeChange :: EventHandler2 eff Number Number
-  , onScroll :: UnitEventHandler eff
-  , pagingEnabled :: Boolean
-  , refreshControl :: RefreshControl
-  , scrollEnabled :: Boolean
-  , showsHorizontalScrollIndicator :: Boolean
-  , showsVerticalScrollIndicator :: Boolean
-  | r
-) ScrollViewAndroid (ScrollViewIOS eff)
-
-type ScrollViewProps eff = ScrollViewPropsEx eff ()
-
-scrollView' :: forall eff. Prop (ScrollViewProps eff) -> Array ReactElement -> ReactElement
-scrollView' p = scrollViewU (unsafeApplyProps {} p)
-
-scrollView_ :: Array ReactElement -> ReactElement
-scrollView_ = scrollViewU {}
-
-scrollView :: Styles -> Array ReactElement -> ReactElement
-scrollView style = scrollViewU {style}
-
-type RefreshProps eff = {
-    onRefresh :: UnitEventHandler eff
-  , refreshing :: Boolean
-  , android :: Prop {
-      colors :: Array Color
-    , enabled :: Boolean
-    , progressBackgroundColor :: Color
-    , progressViewOffset :: Number
-    , size :: RefreshControlSize
-  }
-  , ios :: Prop {
-      tintColor :: Color
-    , title :: String
-    , titleColor :: Color
-  }
-}
-
-refreshControl :: forall eff. UnitEventHandler eff -> Boolean -> RefreshControl
-refreshControl onRefresh refreshing = RefreshControl $ refreshControlU {onRefresh, refreshing}
-
-refreshControl' :: forall eff. Prop (RefreshProps eff) -> UnitEventHandler eff -> Boolean -> RefreshControl
-refreshControl' p onRefresh refreshing = RefreshControl $ refreshControlU (unsafeApplyProps {onRefresh, refreshing} p)
 
 newtype Scrollable = Scrollable (forall props state. ReactThis props state)
 
