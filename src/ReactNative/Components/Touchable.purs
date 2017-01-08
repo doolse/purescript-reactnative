@@ -2,7 +2,7 @@ module ReactNative.Components.Touchable (
   TouchableWithoutFeedbackProps, TouchableOpacityProps
 , TouchableHilightProps, TouchablePropsEx
 , touchableWithoutFeedback'
-, touchableOpacity', touchableHilight'
+, touchableOpacity', touchableHilight, touchableHilight'
 ) where
 
 import Prelude
@@ -53,6 +53,10 @@ type TouchableHilightProps eff = TouchablePropsEx eff (
   , style :: Styles
   , underlayColor :: Color
 )
+
+-- | Create a [TouchableHilight](https://facebook.github.io/react-native/docs/touchablehilight.html) with the given onPress handler
+touchableHilight :: forall eff. EventHandler eff TouchEvent -> ReactElement -> ReactElement
+touchableHilight onPress = touchableHilightU {onPress}
 
 -- | Create a [TouchableHilight](https://facebook.github.io/react-native/docs/touchablehilight.html) with the given props
 touchableHilight' :: forall eff. Prop (TouchableHilightProps eff) -> ReactElement -> ReactElement

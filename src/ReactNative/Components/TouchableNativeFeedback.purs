@@ -1,3 +1,4 @@
+-- See [TouchableNativeFeedback](https://facebook.github.io/react-native/docs/touchablenativefeedback.html)
 module ReactNative.Components.TouchableNativeFeedback (
   TouchableNativeFeedbackProps
 , TouchableNativeBackground
@@ -20,11 +21,11 @@ type TouchableNativeFeedbackProps eff = TouchablePropsEx eff (
   , useForeground :: Boolean
 )
 
--- | Create a [TouchableNativeFeedback](https://facebook.github.io/react-native/docs/touchablenativefeedback.html) with the given onPress handler
+-- | Create a TouchableNativeFeedback with the given onPress handler
 touchableNativeFeedback :: forall eff. EventHandler eff TouchEvent -> ReactElement -> ReactElement
 touchableNativeFeedback onPress = touchableNativeFeedbackU {onPress}
 
--- | Create a [TouchableNativeFeedback](https://facebook.github.io/react-native/docs/touchablenativefeedback.html) with the given props
+-- | Create a TouchableNativeFeedback with the given props
 touchableNativeFeedback' :: forall eff. Prop (TouchableNativeFeedbackProps eff) -> ReactElement -> ReactElement
 touchableNativeFeedback' = touchableNativeFeedbackU <<< unsafeApplyProps {}
 
