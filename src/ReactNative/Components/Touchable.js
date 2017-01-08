@@ -8,4 +8,4 @@ exports.ripple = function (color) {
     return TNF.Ripple(color,b);
   }
 }
-exports.canUseNativeForeground = RNF.canUseNativeForeground();
+exports.canUseNativeForeground = TNF.canUseNativeForeground();
