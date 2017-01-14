@@ -18,6 +18,7 @@ module ReactNative.Unsafe.Components (
 , pickerItemU
 , sliderU
 , navigatorU
+, navigatorIOSU
 , textInputU
 , datePickerIOSU
 , keyboardAvoidingViewU
@@ -46,6 +47,7 @@ foreign import listViewClass                 :: forall props. ReactClass props
 foreign import mapViewClass                  :: forall props. ReactClass props
 foreign import modalClass                    :: forall props. ReactClass props
 foreign import navigatorClass                :: forall props. ReactClass props
+foreign import navigatorIOSClass             :: forall props. ReactClass props
 foreign import pickerClass                   :: forall props. ReactClass props
 foreign import pickerItemClass               :: forall props. ReactClass props
 foreign import progressBarAndroidClass       :: forall props. ReactClass props
@@ -148,6 +150,10 @@ sliderU = createNoChild sliderClass
 -- | Create a [Navigator](https://facebook.github.io/react-native/docs/navigator.html) component unsafely
 navigatorU :: forall props. props -> ReactElement
 navigatorU = createNoChild navigatorClass
+
+-- | Create a [NavigatorIOS](https://facebook.github.io/react-native/docs/navigatorios.html) component unsafely
+navigatorIOSU :: forall props. props -> ReactElement
+navigatorIOSU = createNoChild navigatorIOSClass
 
 -- | Create a [TextInput](https://facebook.github.io/react-native/docs/textinput.html) component unsafely
 textInputU :: forall props. props -> ReactElement
