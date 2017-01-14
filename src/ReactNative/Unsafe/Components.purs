@@ -7,7 +7,7 @@ module ReactNative.Unsafe.Components (
 , activityIndicatorU
 , touchableNativeFeedbackU
 , touchableWithoutFeedbackU
-, touchableHilightU
+, touchableHighlightU
 , touchableOpacityU
 , scrollViewU
 , refreshControlU
@@ -107,9 +107,9 @@ touchableNativeFeedbackU p c = createElement touchableNativeFeedbackClass p [c]
 touchableWithoutFeedbackU :: forall props. props -> ReactElement -> ReactElement
 touchableWithoutFeedbackU p c = createElement touchableWithoutFeedbackClass p [c]
 
--- | Create a [TouchableHilight](https://facebook.github.io/react-native/docs/touchablehilight.html) component unsafely
-touchableHilightU :: forall props. props -> ReactElement -> ReactElement
-touchableHilightU p c = createElement touchableHighlightClass p [c]
+-- | Create a [TouchableHighlight](http://facebook.github.io/react-native/docs/touchablehighlight.html#touchablehighlight) component unsafely
+touchableHighlightU :: forall props. props -> ReactElement -> ReactElement
+touchableHighlightU p c = createElement touchableHighlightClass p [c]
 
 -- | Create a [TouchableOpacity](https://facebook.github.io/react-native/docs/touchableopacity.html) component unsafely
 touchableOpacityU :: forall props. props -> ReactElement -> ReactElement

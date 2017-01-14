@@ -1,8 +1,8 @@
 module ReactNative.Components.Touchable (
   TouchableWithoutFeedbackProps, TouchableOpacityProps
-, TouchableHilightProps, TouchablePropsEx
+, TouchableHighlightProps, TouchablePropsEx
 , touchableWithoutFeedback'
-, touchableOpacity', touchableHilight, touchableHilight'
+, touchableOpacity', touchableHighlight, touchableHighlight'
 ) where
 
 import Prelude
@@ -13,7 +13,7 @@ import ReactNative.PropTypes (Prop, Insets)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
-import ReactNative.Unsafe.Components (touchableHilightU, touchableOpacityU, touchableWithoutFeedbackU)
+import ReactNative.Unsafe.Components (touchableHighlightU, touchableOpacityU, touchableWithoutFeedbackU)
 
 type TouchablePropsEx eff r = {
     accessible :: Boolean
@@ -46,7 +46,7 @@ type TouchableOpacityProps eff = TouchablePropsEx eff (
 touchableOpacity' :: forall eff. Prop (TouchableOpacityProps eff) -> ReactElement -> ReactElement
 touchableOpacity' = touchableOpacityU <<< unsafeApplyProps {}
 
-type TouchableHilightProps eff = TouchablePropsEx eff (
+type TouchableHighlightProps eff = TouchablePropsEx eff (
     activeOpacity :: Number
   , onHideUnderlay :: EventHandler eff TouchEvent
   , onshowUnderlay :: EventHandler eff TouchEvent
@@ -54,10 +54,10 @@ type TouchableHilightProps eff = TouchablePropsEx eff (
   , underlayColor :: Color
 )
 
--- | Create a [TouchableHilight](https://facebook.github.io/react-native/docs/touchablehilight.html) with the given onPress handler
-touchableHilight :: forall eff. EventHandler eff TouchEvent -> ReactElement -> ReactElement
-touchableHilight onPress = touchableHilightU {onPress}
+-- | Create a [TouchableHighlight](http://facebook.github.io/react-native/docs/touchablehighlight.html#touchablehighlight) with the given onPress handler
+touchableHighlight :: forall eff. EventHandler eff TouchEvent -> ReactElement -> ReactElement
+touchableHighlight onPress = touchableHighlightU {onPress}
 
--- | Create a [TouchableHilight](https://facebook.github.io/react-native/docs/touchablehilight.html) with the given props
-touchableHilight' :: forall eff. Prop (TouchableHilightProps eff) -> ReactElement -> ReactElement
-touchableHilight' = touchableHilightU <<< unsafeApplyProps {}
+-- | Create a [TouchableHighlight](https://facebook.github.io/react-native/docs/touchablehilight.html) with the given props
+touchableHighlight' :: forall eff. Prop (TouchableHighlightProps eff) -> ReactElement -> ReactElement
+touchableHighlight' = touchableHighlightU <<< unsafeApplyProps {}
