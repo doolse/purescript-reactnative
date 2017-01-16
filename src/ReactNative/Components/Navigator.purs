@@ -1,9 +1,10 @@
 -- | See [Navigator](https://facebook.github.io/react-native/docs/navigator.html)
 module ReactNative.Components.Navigator (
-  Navigator, navigator', NavigatorProps
+  class NavigatorClass, push, pop
+, Navigator, navigator', NavigatorProps
 , SceneRenderer, SceneConfigurer, sceneConfig, sceneConfig', sceneConfigs
 , SceneConfig, sceneRenderer
-, getCurrentRoutes, push, pop
+, getCurrentRoutes
 ) where
 
 import Prelude
@@ -16,10 +17,18 @@ import ReactNative.PropTypes (Prop, RefType)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.Components (navigatorU)
 
-newtype Navigator r = Navigator (forall props state. ReactThis props state)
+class NavigatorClass n where
+  push :: forall r eff. n -> r -> Eff (state::ReactState ReadWrite|eff) Unit
+  pop :: forall eff. n -> Eff (state::ReactState ReadWrite|eff) Unit
+
+instance navigator :: NavigatorClass Navigator where
+  push nav route = pushImpl nav route
+  pop nav = popImpl nav
+
+newtype Navigator = Navigator (forall props state. ReactThis props state)
 
 type NavigatorProps r eff = {
-    ref :: RefType (Navigator r)
+    ref :: RefType Navigator
   , configureScene :: SceneConfigurer r
   , initialRoute :: r
   , initialRouteStack :: Array r
@@ -38,7 +47,7 @@ navigator' p initialRoute renderScene = navigatorU $ unsafeApplyProps {initialRo
 
 foreign import sceneConfigEnum :: String -> SceneConfig
 
-newtype SceneRenderer r = SceneRenderer (Fn2 r (Navigator r) ReactElement)
+newtype SceneRenderer r = SceneRenderer (Fn2 r Navigator ReactElement)
 newtype SceneConfigurer r = SceneConfigurer (Fn2 r (Array r) SceneConfig)
 
 
@@ -78,11 +87,11 @@ sceneConfigs = {
   , verticalDownSwipeJump: sceneConfigEnum "VerticalDownSwipeJump"
 }
 
-sceneRenderer :: forall r. (r -> Navigator r -> ReactElement) -> SceneRenderer r
+sceneRenderer :: forall r. (r -> Navigator -> ReactElement) -> SceneRenderer r
 sceneRenderer = SceneRenderer <<< mkFn2
 
-foreign import getCurrentRoutes :: forall r. Navigator r -> Array r
+foreign import getCurrentRoutes :: forall r. Navigator -> Array r
 
-foreign import push :: forall r eff. Navigator r -> r -> Eff (state::ReactState ReadWrite|eff) Unit
+foreign import pushImpl :: forall r eff. Navigator -> r -> Eff (state::ReactState ReadWrite|eff) Unit
 
-foreign import pop :: forall r eff. Navigator r -> Eff (state::ReactState ReadWrite|eff) Unit
+foreign import popImpl :: forall eff. Navigator -> Eff (state::ReactState ReadWrite|eff) Unit
