@@ -38,11 +38,13 @@ type ImageProps eff = {
 }
 
 -- | Create a background image with give styles and source
+-- |
 -- | Background images are simply normal images with children overalayed ontop
 backgroundImage :: Styles -> ImageSource -> Array ReactElement -> ReactElement
 backgroundImage = backgroundImage' <<< styleOnly
 
 -- | Create a background image with props and source
+-- |
 -- | Background images are simply normal images with children overalayed ontop
 backgroundImage' :: forall eff. Prop (ImageProps eff) -> ImageSource -> Array ReactElement -> ReactElement
 backgroundImage' p source = imageU (unsafeApplyProps {source} p)

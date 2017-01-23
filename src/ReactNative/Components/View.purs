@@ -1,4 +1,4 @@
--- | See [View](https://facebook.github.io/react-native/docs/view.html) with the given onPress handler
+-- | See [View](https://facebook.github.io/react-native/docs/view.html)
 module ReactNative.Components.View (
   view', view_, view
 , PointerEvents, AccessibilityType, AccessibilityLiveRegion, ImportanceForAccessibility, AccessibilityTraits

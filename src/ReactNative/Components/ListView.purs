@@ -68,7 +68,8 @@ type ListViewDataSourceProps blob a section = {
 foreign import refEquality :: forall a. Fn2 a a Boolean
 
 -- | Create a ListViewDataSource from an Array
--- | Use reference equality for `rowHasChanged`
+-- |
+-- | Uses reference equality for `rowHasChanged`
 listViewDataSource :: forall a. Array a -> ListViewDataSource a
 listViewDataSource = cloneWithRows (listViewDataSource' id)
 

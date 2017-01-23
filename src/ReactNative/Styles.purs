@@ -38,7 +38,7 @@ foreign import staticStyles :: Array StyleProp -> Styles
 -- | Create styles from an array, if the styles are static, use `staticStyles`
 foreign import styles :: Array StyleProp -> Styles
 
--- | Create a `Style` from an array of them, last style has precedence
+-- | Create `Styles` from an array of them, last style has precedence
 styles' :: Array Styles -> Styles
 styles' = unsafeCoerce
 

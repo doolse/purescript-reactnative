@@ -14,9 +14,9 @@ purescript bindings continually up-to-date, so the goals are:
 - Keep up to date with `purescript` language releases.
 
 - Keep the official [React Native docs](http://facebook.github.io/react-native/releases/next/docs/getting-started.html) as the best
-place to go for help. This will be achived by:
+place to go for help. This will be acheived by:
  - Using record types for property passing.
- - Use `newtype`|`foreign import data` + smart constructors for property types.
+ - Use `newtype | foreign import data` + smart constructors for property types.
 
 - Have unsafe versions of all the component functions, so if the library is
 lagging behind or the component does not yet have a safe version, it's still possible to use
@@ -180,8 +180,3 @@ The plan is to initially support a subset of the components fully, and provide u
 |`NavigationExpiremental` | 0.39 *|
 
 Anything marked with * may not have 100% coverage of API calls yet.
-
-## TODO
-
-* Add documentation comments for important functions and types
-* Add export lists to most modules - currently everything is exported in all modules
