@@ -13,14 +13,14 @@ import ReactNative.Unsafe.Components (navigatorIOSU)
 import ReactNative.Components.Navigator (class NavigatorClass)
 import ReactNative.PropTypes.Color (Color)
 
-instance navigatorIOS :: NavigatorClass NavigatorIOS where
+instance navigatorIOS :: NavigatorClass NavigatorIOS r where
   push nav route = pushImpl nav route
   pop nav = popImpl nav
 
-newtype NavigatorIOS = NavigatorIOS (forall props state. ReactThis props state)
+newtype NavigatorIOS r = NavigatorIOS (forall props state. ReactThis props state)
 
 type NavigatorIOSProps r = {
-    ref :: RefType NavigatorIOS
+    ref :: RefType (NavigatorIOS r)
   , barTintColor :: Color
   , initialRoute :: r
   , interactivePopGestureEnabled :: Boolean
@@ -37,6 +37,6 @@ type NavigatorIOSProps r = {
 navigatorIOS' :: forall r. Prop (NavigatorIOSProps r) -> r -> ReactElement
 navigatorIOS' p initialRoute = navigatorIOSU $ unsafeApplyProps {initialRoute} p
 
-foreign import pushImpl :: forall r eff. NavigatorIOS -> r -> Eff (state::ReactState ReadWrite|eff) Unit
+foreign import pushImpl :: forall r eff. (NavigatorIOS r) -> r -> Eff (state::ReactState ReadWrite|eff) Unit
 
-foreign import popImpl :: forall eff. NavigatorIOS -> Eff (state::ReactState ReadWrite|eff) Unit
+foreign import popImpl :: forall r eff. (NavigatorIOS r) -> Eff (state::ReactState ReadWrite|eff) Unit

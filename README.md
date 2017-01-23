@@ -156,6 +156,7 @@ The plan is to initially support a subset of the components fully, and provide u
 |`RefreshControl` | 0.39|
 |`Button`    |0.39|
 |`Navigator` |0.39 *|
+|`NavigatorIOS` |0.39 *|
 |`DrawerLayoutAndroid` |0.39|
 |`ToolbarAndroid` |0.39|
 |`DatePickerIOS`|-|
@@ -180,3 +181,8 @@ The plan is to initially support a subset of the components fully, and provide u
 |`NavigationExpiremental` | 0.39 *|
 
 Anything marked with * may not have 100% coverage of API calls yet.
+
+## Contributors
+
+Jolse Maginnis (`doolse@gmail.com @doolse2`)
+Jens Krause (`@sectore`)

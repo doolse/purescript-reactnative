@@ -1,3 +1,15 @@
+# 2.39.0
+
+## New
+
+- `NavigatorIOS` (Jens Krause `@sectore`)
+
+## Breaking changes
+
+- `exitApi` is now returns an `Eff`
+- Fix name of `touchableHighlight` - was `touchableHilight` (Jens Krause `@sectore`)
+- Moved `touchableNativeFeedback` to it's own module and fixed it so it won't break on iOS (Jens Krause `@sectore`)
+
 # 1.0.0
 
 ## New
