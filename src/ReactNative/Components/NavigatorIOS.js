@@ -2,7 +2,7 @@
 
 const RN = require('react-native');
 
-exports.pushImpl = function(this_) {
+exports.push = function(this_) {
   return function (route) {
     return function() {
       this_.push(route);
@@ -10,7 +10,7 @@ exports.pushImpl = function(this_) {
   }
 }
 
-exports.popImpl = function(this_) {
+exports.pop = function(this_) {
     return function() {
       this_.pop();
     }

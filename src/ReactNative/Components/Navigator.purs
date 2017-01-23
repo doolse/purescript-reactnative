@@ -1,6 +1,6 @@
 -- | See [Navigator](https://facebook.github.io/react-native/docs/navigator.html)
 module ReactNative.Components.Navigator (
-  class NavigatorClass, push, pop
+  push, pop
 , Navigator, navigator', NavigatorProps
 , SceneRenderer, SceneConfigurer, sceneConfig, sceneConfig', sceneConfigs
 , SceneConfig, sceneRenderer
@@ -16,14 +16,6 @@ import ReactNative.Events (UnitEventHandler)
 import ReactNative.PropTypes (Prop, RefType)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.Components (navigatorU)
-
-class NavigatorClass n r where
-  push :: forall eff. n r -> r -> Eff (state::ReactState ReadWrite|eff) Unit
-  pop :: forall eff. n r -> Eff (state::ReactState ReadWrite|eff) Unit
-
-instance navigator :: NavigatorClass Navigator r where
-  push nav route = pushImpl nav route
-  pop nav = popImpl nav
 
 newtype Navigator r = Navigator (forall props state. ReactThis props state)
 
@@ -92,6 +84,6 @@ sceneRenderer = SceneRenderer <<< mkFn2
 
 foreign import getCurrentRoutes :: forall r. (Navigator r) -> Array r
 
-foreign import pushImpl :: forall r eff. (Navigator r) -> r -> Eff (state::ReactState ReadWrite|eff) Unit
+foreign import push :: forall r eff. (Navigator r) -> r -> Eff (state::ReactState ReadWrite|eff) Unit
 
-foreign import popImpl :: forall r eff. (Navigator r) -> Eff (state::ReactState ReadWrite|eff) Unit
+foreign import pop :: forall r eff. (Navigator r) -> Eff (state::ReactState ReadWrite|eff) Unit
