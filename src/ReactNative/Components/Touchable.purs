@@ -1,9 +1,8 @@
 module ReactNative.Components.Touchable (
-  TouchableWithoutFeedbackProps, TouchableNativeFeedbackProps, TouchableOpacityProps
-, TouchableHilightProps, TouchablePropsEx, TouchableNativeBackground
-, touchableWithoutFeedback', touchableNativeFeedback', touchableNativeFeedback
-, touchableOpacity', touchableHilight'
-, selectableBackground, selectableBackgroundBorderless, ripple, canUseNativeForeground
+  TouchableWithoutFeedbackProps, TouchableOpacityProps
+, TouchableHighlightProps, TouchablePropsEx
+, touchableWithoutFeedback'
+, touchableOpacity', touchableHighlight, touchableHighlight'
 ) where
 
 import Prelude
@@ -14,7 +13,7 @@ import ReactNative.PropTypes (Prop, Insets)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
-import ReactNative.Unsafe.Components (touchableHilightU, touchableNativeFeedbackU, touchableOpacityU, touchableWithoutFeedbackU)
+import ReactNative.Unsafe.Components (touchableHighlightU, touchableOpacityU, touchableWithoutFeedbackU)
 
 type TouchablePropsEx eff r = {
     accessible :: Boolean
@@ -40,25 +39,6 @@ type TouchableWithoutFeedbackProps eff = TouchablePropsEx eff ()
 touchableWithoutFeedback' :: forall eff. Prop (TouchableWithoutFeedbackProps eff) -> ReactElement -> ReactElement
 touchableWithoutFeedback' = touchableWithoutFeedbackU <<< unsafeApplyProps {}
 
-foreign import data TouchableNativeBackground :: *
-type TouchableNativeFeedbackProps eff = TouchablePropsEx eff (
-    background :: TouchableNativeBackground
-  , useForeground :: Boolean
-)
-
--- | Create a [TouchableNativeFeedback](https://facebook.github.io/react-native/docs/touchablenativefeedback.html) with the given onPress handler
-touchableNativeFeedback :: forall eff. EventHandler eff TouchEvent -> ReactElement -> ReactElement
-touchableNativeFeedback onPress = touchableNativeFeedbackU {onPress}
-
--- | Create a [TouchableNativeFeedback](https://facebook.github.io/react-native/docs/touchablenativefeedback.html) with the given props
-touchableNativeFeedback' :: forall eff. Prop (TouchableNativeFeedbackProps eff) -> ReactElement -> ReactElement
-touchableNativeFeedback' = touchableNativeFeedbackU <<< unsafeApplyProps {}
-
-foreign import selectableBackground :: TouchableNativeBackground
-foreign import selectableBackgroundBorderless :: TouchableNativeBackground
-foreign import ripple :: Color -> Boolean -> TouchableNativeBackground
-foreign import canUseNativeForeground :: Boolean
-
 type TouchableOpacityProps eff = TouchablePropsEx eff (
     activeOpacity :: Number
 )
@@ -66,7 +46,7 @@ type TouchableOpacityProps eff = TouchablePropsEx eff (
 touchableOpacity' :: forall eff. Prop (TouchableOpacityProps eff) -> ReactElement -> ReactElement
 touchableOpacity' = touchableOpacityU <<< unsafeApplyProps {}
 
-type TouchableHilightProps eff = TouchablePropsEx eff (
+type TouchableHighlightProps eff = TouchablePropsEx eff (
     activeOpacity :: Number
   , onHideUnderlay :: EventHandler eff TouchEvent
   , onshowUnderlay :: EventHandler eff TouchEvent
@@ -74,6 +54,10 @@ type TouchableHilightProps eff = TouchablePropsEx eff (
   , underlayColor :: Color
 )
 
--- | Create a [TouchableHilight](https://facebook.github.io/react-native/docs/touchablehilight.html) with the given props
-touchableHilight' :: forall eff. Prop (TouchableHilightProps eff) -> ReactElement -> ReactElement
-touchableHilight' = touchableHilightU <<< unsafeApplyProps {}
+-- | Create a [TouchableHighlight](http://facebook.github.io/react-native/docs/touchablehighlight.html#touchablehighlight) with the given onPress handler
+touchableHighlight :: forall eff. EventHandler eff TouchEvent -> ReactElement -> ReactElement
+touchableHighlight onPress = touchableHighlightU {onPress}
+
+-- | Create a [TouchableHighlight](https://facebook.github.io/react-native/docs/touchablehilight.html) with the given props
+touchableHighlight' :: forall eff. Prop (TouchableHighlightProps eff) -> ReactElement -> ReactElement
+touchableHighlight' = touchableHighlightU <<< unsafeApplyProps {}

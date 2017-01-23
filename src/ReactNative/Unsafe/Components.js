@@ -12,6 +12,7 @@ exports.listViewClass                 = RN.ListView;
 exports.mapViewClass                  = RN.MapView;
 exports.modalClass                    = RN.Modal;
 exports.navigatorClass                = RN.Navigator;
+exports.navigatorIOSClass             = RN.NavigatorIOS;
 exports.pickerClass                   = RN.Picker;
 exports.pickerItemClass               = RN.Picker.Item;
 exports.progressBarAndroidClass       = RN.ProgressBarAndroid;

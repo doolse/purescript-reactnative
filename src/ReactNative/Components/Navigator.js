@@ -7,7 +7,7 @@ exports.sceneConfigEnum = function(n) {
   return SC[n];
 }
 
-exports.push = function(this_) {
+exports.pushImpl = function(this_) {
   return function (s) {
     return function() {
       this_.push(s);
@@ -15,7 +15,7 @@ exports.push = function(this_) {
   }
 }
 
-exports.pop = function(this_) {
+exports.popImpl = function(this_) {
     return function() {
       this_.pop();
     }
