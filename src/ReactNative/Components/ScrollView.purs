@@ -1,8 +1,10 @@
 -- | See [ScrollView](https://facebook.github.io/react-native/docs/scrollview.html)
 module ReactNative.Components.ScrollView (
   scrollView', scrollView_, scrollView, scrollTo, scrollTo'
-, Scrollable, DecelerationRate, IndicatorStyle, SnapToAlignment, KeyboardDismissMode
-, keyboardDismissMode, decelerationRate, decelerateBy, indicatorStyle, snapToAlignment
+, Scrollable, DecelerationRate, IndicatorStyle, SnapToAlignment
+, KeyboardDismissMode, KeyboardShouldPersistTaps
+, keyboardDismissMode, decelerationRate, decelerateBy, indicatorStyle
+, snapToAlignment, keyboardShouldPersistTaps
 , ScrollViewPropsEx, ScrollViewAndroid, ScrollViewIOS
 , RefreshControl, RefreshControlSize
 , refreshControl, refreshControl', refreshControlSize
@@ -119,11 +121,23 @@ snapToAlignment = {
   , end: SnapToAlignment "end"
 }
 
+newtype KeyboardShouldPersistTaps = KeyboardShouldPersistTaps String
+keyboardShouldPersistTaps :: {
+    always :: KeyboardShouldPersistTaps
+  , never :: KeyboardShouldPersistTaps
+  , handled :: KeyboardShouldPersistTaps
+}
+keyboardShouldPersistTaps = {
+    always: KeyboardShouldPersistTaps "always"
+  , never: KeyboardShouldPersistTaps "never"
+  , handled: KeyboardShouldPersistTaps "handled"
+}
+
 type ScrollViewPropsEx eff r = ViewPropsEx eff (
     contentContainerStyle :: Styles
   , horizontal :: Boolean
   , keyboardDismissMode :: KeyboardDismissMode
-  , keyboardShouldPersistTaps :: Boolean
+  , keyboardShouldPersistTaps :: KeyboardShouldPersistTaps
   , onContentSizeChange :: EventHandler2 eff Number Number
   , onScroll :: EventHandler eff ScrollEvent
   , pagingEnabled :: Boolean
