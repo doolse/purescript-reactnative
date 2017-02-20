@@ -1,7 +1,7 @@
 # purescript-reactnative
 
 [![Latest release](https://pursuit.purescript.org/packages/purescript-reactnative/badge)](https://pursuit.purescript.org/packages/purescript-reactnative)
-[![Travis Build]https://travis-ci.org/doolse/purescript-reactnative.svg?branch=master)](https://travis-ci.org/doolse/purescript-reactnative)
+[![Travis Build](https://travis-ci.org/doolse/purescript-reactnative.svg?branch=master)](https://travis-ci.org/doolse/purescript-reactnative)
 
 Purescript bindings for [react-native](http://facebook.github.io/react-native)
 
