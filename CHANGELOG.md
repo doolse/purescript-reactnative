@@ -1,3 +1,9 @@
+# 2.42.0
+
+## Breaking change
+
+- `keyboardShouldPersistTaps` for ScrollView is now an enum instead of a boolean (`@sectore`)
+
 # 2.39.0
 
 ## New
@@ -6,7 +12,7 @@
 
 ## Breaking changes
 
-- `exitApi` is now returns an `Eff`
+- `exitApi` now returns an `Eff`
 - Fix name of `touchableHighlight` - was `touchableHilight` (Jens Krause `@sectore`)
 - Moved `touchableNativeFeedback` to it's own module and fixed it so it won't break on iOS (Jens Krause `@sectore`)
 

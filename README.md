@@ -1,9 +1,12 @@
 # purescript-reactnative
 
+[![Latest release](https://pursuit.purescript.org/packages/purescript-reactnative/badge)](https://pursuit.purescript.org/packages/purescript-reactnative)
+
 Purescript bindings for [react-native](http://facebook.github.io/react-native)
 
 - [Movie example project](https://github.com/doolse/purescript-reactnative-example)
 - `bower install purescript-reactnative --save`
+
 
 ## Goals
 
