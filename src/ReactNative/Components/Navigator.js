@@ -21,6 +21,14 @@ exports.pop = function(this_) {
     }
 }
 
+exports.jumpTo = function(this_) {
+  return function (s) {
+    return function() {
+      this_.jumpTo(s);
+    }
+  }
+}
+
 exports.getCurrentRoutes = function(this_) {
     return this_.getCurrentRoutes();
 }

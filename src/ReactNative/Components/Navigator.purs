@@ -1,6 +1,6 @@
 -- | See [Navigator](https://facebook.github.io/react-native/docs/navigator.html)
 module ReactNative.Components.Navigator (
-  push, pop
+  push, pop, jumpTo
 , Navigator, navigator', NavigatorProps
 , SceneRenderer, SceneConfigurer, sceneConfig, sceneConfig', sceneConfigs
 , SceneConfig, sceneRenderer
@@ -87,3 +87,5 @@ foreign import getCurrentRoutes :: forall r. (Navigator r) -> Array r
 foreign import push :: forall r eff. (Navigator r) -> r -> Eff (state::ReactState ReadWrite|eff) Unit
 
 foreign import pop :: forall r eff. (Navigator r) -> Eff (state::ReactState ReadWrite|eff) Unit
+
+foreign import jumpTo :: forall r eff. (Navigator r) -> Eff (state::ReactState ReadWrite|eff) Unit
