@@ -29,6 +29,26 @@ exports.jumpTo = function(this_) {
   }
 }
 
+exports.replace = function(this_) {
+  return function (s) {
+    return function() {
+      this_.replace(s);
+    }
+  }
+}
+
+exports.jumpForward = function(this_) {
+    return function() {
+      this_.jumpForward();
+    }
+}
+
+exports.jumpBack = function(this_) {
+    return function() {
+      this_.jumpBack();
+    }
+}
+
 exports.getCurrentRoutes = function(this_) {
     return this_.getCurrentRoutes();
 }
