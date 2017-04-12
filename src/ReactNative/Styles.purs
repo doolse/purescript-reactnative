@@ -25,10 +25,10 @@ import ReactNative.PropTypes.Color (Color)
 import Unsafe.Coerce (unsafeCoerce)
 
 -- | A type that represents things that can be passed into 'style' properties
-foreign import data Styles :: *
+foreign import data Styles :: Type
 
 -- | A type which represents a single style
-foreign import data StyleProp :: *
+foreign import data StyleProp :: Type
 
 foreign import unsafeStyleProp :: forall a. String -> a -> StyleProp
 

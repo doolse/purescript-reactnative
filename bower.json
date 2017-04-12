@@ -19,15 +19,14 @@
       "url": "git://github.com/doolse/purescript-reactnative.git"
   },
   "dependencies": {
-    "purescript-react": "^2.0.0",
-    "purescript-maybe": "^2.0.1",
-    "purescript-newtype": "^1.1.0",
-    "purescript-integers": "^2.1.0",
-    "purescript-maps": "^2.0.2",
-    "purescript-nullable": "^2.0.0",
-    "purescript-eff-functions": "^2.0.0"
+    "purescript-react": "^3.0.0",
+    "purescript-maybe": "^3.0.0",
+    "purescript-newtype": "^2.0.0",
+    "purescript-integers": "^3.0.0",
+    "purescript-maps": "^3.0.0",
+    "purescript-nullable": "^3.0.0"
   },
   "devDependencies": {
-    "purescript-spec": "^0.10.0"
+    "purescript-spec": "^0.13.0"
   }
 }

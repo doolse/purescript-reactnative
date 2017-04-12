@@ -1,8 +1,10 @@
 module Test.Main where
 
 import Test.Spec.Runner
+import Control.Monad.Aff.AVar (AVAR)
 import Control.Monad.Eff (Eff)
 import Control.Monad.Eff.Console (CONSOLE)
+import Control.Monad.Eff.Timer (TIMER)
 import Data.Eq (class Eq)
 import Data.Generic (class Generic)
 import Data.Show (class Show)
@@ -14,7 +16,7 @@ import Test.Spec (describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import Test.Spec.Reporter.Console (consoleReporter)
 
-main :: forall eff. Eff ( process :: PROCESS, console :: CONSOLE | eff) Unit
+main :: forall eff. Eff ( avar :: AVAR, timer :: TIMER, process :: PROCESS, console :: CONSOLE | eff) Unit
 main = run [consoleReporter] do
   describe "purescript-reactnative" do
     unsafeApplySpec

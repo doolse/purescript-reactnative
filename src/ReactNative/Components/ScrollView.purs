@@ -60,7 +60,7 @@ refreshControl' p onRefresh refreshing = RefreshControl $ refreshControlU (unsaf
 
 newtype RefreshControl = RefreshControl ReactElement
 
-foreign import data RefreshControlSize :: *
+foreign import data RefreshControlSize :: Type
 
 foreign import rcSizeImpl :: String -> RefreshControlSize
 
