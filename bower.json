@@ -24,7 +24,8 @@
     "purescript-newtype": "^2.0.0",
     "purescript-integers": "^3.0.0",
     "purescript-maps": "^3.0.0",
-    "purescript-nullable": "^3.0.0"
+    "purescript-nullable": "^3.0.0",
+    "purescript-eff": "^3.1.0"
   },
   "devDependencies": {
     "purescript-spec": "^0.13.0"
