@@ -75,7 +75,7 @@ foreign import isFocused :: TextInputRef -> Boolean
 -- | Clear the value of the TextInput for the given ref
 foreign import clear :: forall eff. TextInputRef -> Eff eff Unit
 
-foreign import data DocumentSelectionState :: *
+foreign import data DocumentSelectionState :: Type
 
 
 newtype KeyboardType = KeyboardType String

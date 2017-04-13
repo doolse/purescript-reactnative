@@ -13,7 +13,7 @@ module ReactNative.Components.ListView (
 ) where
 
 import Prelude
-import Data.Function.Eff (EffFn2)
+import Control.Monad.Eff.Uncurried (EffFn2)
 import Data.Function.Uncurried (Fn2, Fn3, Fn4, mkFn2, mkFn4, runFn3, runFn4)
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
@@ -119,10 +119,10 @@ foreign import getSectionHeaderData  :: forall blob a section. ListViewDataSourc
 
 -- | See [ListView.DataSource](https://facebook.github.io/react-native/docs/listviewdatasource.html)
 type ListViewDataSource a = ListViewDataSource' (Array a) a (Array a)
-foreign import data ListViewDataSource' :: * -> * -> * -> *
+foreign import data ListViewDataSource' :: Type -> Type -> Type -> Type
 
-foreign import data RowRenderer :: * -> *
-foreign import data SectionRenderer :: * -> *
+foreign import data RowRenderer :: Type -> Type
+foreign import data SectionRenderer :: Type -> Type
 
 rowRenderer :: forall a. (a -> ReactElement) -> RowRenderer a
 rowRenderer = unsafeCoerce

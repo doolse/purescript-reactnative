@@ -1,6 +1,6 @@
 module ReactNative.Events where
 
-import Data.Function.Eff (EffFn1, EffFn2)
+import Control.Monad.Eff.Uncurried (EffFn1, EffFn2)
 import Prelude (Unit)
 
 type TouchEvent = {

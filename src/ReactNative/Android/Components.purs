@@ -68,7 +68,7 @@ never = ActionShow "never"
 foreign import dpLeft :: DrawerPosition
 foreign import dpRight :: DrawerPosition
 
-foreign import data DrawerPosition :: *
+foreign import data DrawerPosition :: Type
 
 drawerPosition :: {
     left :: DrawerPosition

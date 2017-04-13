@@ -15,7 +15,7 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (touchableNativeFeedbackU)
 import ReactNative.Components.Touchable(TouchablePropsEx)
 
-foreign import data TouchableNativeBackground :: *
+foreign import data TouchableNativeBackground :: Type
 type TouchableNativeFeedbackProps eff = TouchablePropsEx eff (
     background :: TouchableNativeBackground
   , useForeground :: Boolean

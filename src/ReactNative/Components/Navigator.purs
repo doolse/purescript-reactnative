@@ -43,7 +43,7 @@ newtype SceneRenderer r = SceneRenderer (Fn2 r (Navigator r) ReactElement)
 newtype SceneConfigurer r = SceneConfigurer (Fn2 r (Array r) SceneConfig)
 
 
-foreign import data SceneConfig :: *
+foreign import data SceneConfig :: Type
 sceneConfig' :: forall r. (r -> Array r -> SceneConfig) -> SceneConfigurer r
 sceneConfig' = SceneConfigurer <<< mkFn2
 

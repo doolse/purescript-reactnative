@@ -1,6 +1,6 @@
 module ReactNative.PropTypes where
 
-import Data.Function.Eff (EffFn1)
+import Control.Monad.Eff.Uncurried (EffFn1)
 import Data.Nullable (Nullable)
 import Data.Unit (Unit)
 import Unsafe.Coerce (unsafeCoerce)
@@ -24,7 +24,7 @@ type Prop a = a -> a
 -- | `Images.js`
 -- | ```javascript
 -- | exports.myImage = require("myimage.png");```
-foreign import data ImageSource :: *
+foreign import data ImageSource :: Type
 
 -- | Create an ImageSource from a URI string
 uriSrc :: String -> ImageSource
@@ -39,7 +39,7 @@ urisSrc :: Array ImageSource -> ImageSource
 urisSrc = unsafeCoerce
 
 -- | Data type representing the ["ref" attribute](https://facebook.github.io/react/docs/refs-and-the-dom.html)
-foreign import data RefType :: * -> *
+foreign import data RefType :: Type -> Type
 
 -- | Provide a named ref which will be accessible using `React.getRefs`
 -- | Facebook say they are deprecating the use of named refs.
