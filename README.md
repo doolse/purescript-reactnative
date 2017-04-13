@@ -28,7 +28,7 @@ the library without too much hassle.
 
 - Stay event framework agnostic. This is acheived by using `EffFnX` to model the event callbacks.
 There will be additional libraries for your favourite action library - e.g. `purescript-reactnative-thermite`
-I have also made a very small and simple library for dispatching react actions [purescript-react-simpelaction](http://github.com/doolse/purescript-react-simpelaction).
+I have also made a very small and simple library for dispatching react actions [purescript-dispatcher-react](http://github.com/doolse/purescript-dispatcher-react).
 
 ## Examples and Naming conventions
 
