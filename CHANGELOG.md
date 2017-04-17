@@ -1,3 +1,9 @@
+# 3.0.0
+
+- Purescript 0.11 support (Don Abrams `@donabrams`)
+- `Modal` support (`@NicholasAaronBrady`)
+- Stop using RN version numbering
+
 # 2.42.0
 
 ## Breaking change
