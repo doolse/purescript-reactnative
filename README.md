@@ -36,7 +36,7 @@ All component functions follow the naming convention of:
 
 - `image` - The most common properties
 - `image_` - Only mandatory properties
-- `image'` - Mandatory properties and all optional properties
+- `image'` - Mandatory properties and all optional properties - uses purescript row constraints to allow a single record to be passed in.
 - `imageU` - Unsafe, takes any properties
 
 Enum property types will either be accessible through functions with the name of the enum:

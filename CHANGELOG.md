@@ -1,3 +1,10 @@
+# 4.0.0
+
+## Breaking changes
+
+ - Use `Subrow` from [purescript-records](https://github.com/doolse/purescript-records) for optional properties
+ - Rename `SectionIndex` and `RowIndex` to `SectionId` and `RowId`
+
 # 3.0.1
  - `ProgressBarAndroid` support (`@NicholasAaronBrady`)
  - Hello world example docs (`@NicholasAaronBrady`)
