@@ -7,7 +7,7 @@ Purescript bindings for [react-native](http://facebook.github.io/react-native)
 
 - [Movie example project](https://github.com/doolse/purescript-reactnative-example)
 - `bower install purescript-reactnative --save`
-- [CHANGELOG](CHANGELOG.MD)
+- [CHANGELOG](CHANGELOG.md)
 
 ## Goals
 
