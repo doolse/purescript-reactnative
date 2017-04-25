@@ -5,16 +5,16 @@ module ReactNative.Components.Picker (
 ) where
 
 import Prelude
+import Data.Record.Class (class Subrow)
 import React (ReactElement)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
-import ReactNative.Components.View (ViewPropsEx)
+import ReactNative.Components.View (ViewPropsEx2)
 import ReactNative.Events (EventHandler)
-import ReactNative.PropTypes (Prop)
 import ReactNative.Styles (Styles)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
 import ReactNative.Unsafe.Components (pickerItemU, pickerU)
 import Unsafe.Coerce (unsafeCoerce)
 
-type PickerProps a eff = ViewPropsEx eff (
+type PickerProps a eff = ViewPropsEx2 eff (
     onValueChange :: EventHandler eff {itemValue :: a, itemPosition :: Int}
   , selectedValue :: a
 ) (
@@ -28,8 +28,11 @@ type PickerProps a eff = ViewPropsEx eff (
 picker :: forall a eff. PickerType a => a -> EventHandler eff {itemValue :: a, itemPosition :: Int} -> Array PickerItem -> ReactElement
 picker selectedValue onValueChange items = pickerU {selectedValue, onValueChange} (unsafeCoerce items)
 
-picker' :: forall a eff. PickerType a => Prop (PickerProps a eff) -> Array PickerItem -> ReactElement
-picker' p items = pickerU (unsafeApplyProps {} p) $ unsafeCoerce items
+picker' :: forall a eff o
+  .  PickerType a
+  => Subrow o (PickerProps a eff)
+  => {|o} -> Array PickerItem -> ReactElement
+picker' p items = pickerU (unsafeApplyProps2 p) $ unsafeCoerce items
 
 pickerItem :: forall a. PickerType a => String -> a -> PickerItem
 pickerItem label value = PickerItem $ pickerItemU {label,value}

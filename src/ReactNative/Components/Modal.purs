@@ -2,7 +2,6 @@ module ReactNative.Components.Modal (
     AnimationType
   , OnRequestClose
   , Orientation
-  , ModalProps
   , animationType
   , modal'
   , modal_
@@ -10,10 +9,10 @@ module ReactNative.Components.Modal (
 ) where
 
 import Prelude
+import Data.Record.Class (class Subrow)
 import React (ReactElement)
 import ReactNative.Events (EventHandler, UnitEventHandler)
-import ReactNative.PropTypes (Prop)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
 import ReactNative.Unsafe.Components (modalU)
 
 newtype AnimationType = AnimationType String
@@ -40,23 +39,25 @@ orientationType = {
 
 type OnRequestClose eff =  UnitEventHandler eff
 
-type ModalProps a eff = {
+type ModalPropsO a eff = (
     animationType :: AnimationType
   , onShow :: UnitEventHandler eff
   , transparent :: Boolean
   , visible :: Boolean
-  , android :: Prop {
+  , android :: {
       hardwareAccelerated :: Boolean
     , onRequestClose :: OnRequestClose eff
   }
-  , ios :: Prop {
+  , ios :: {
       onOrientationChange :: EventHandler eff Orientation
     , supportedOrientations :: Array Orientation
   }
-}
+)
 
-modal' :: forall a eff. Prop (ModalProps a eff) -> Array ReactElement -> ReactElement
-modal' p = modalU $ unsafeApplyProps {} p
+modal' :: forall a eff o
+  .  Subrow o (ModalPropsO a eff)
+  => {|o} -> Array ReactElement -> ReactElement
+modal' = modalU <<< unsafeApplyProps2
 
 -- On request is required *for android*. Least nasty solution is to require it, and provide a default for iOS
 -- https://github.com/facebook/react-native/commit/ce81f8b35af8d273072583d369594d4f5fd6d696

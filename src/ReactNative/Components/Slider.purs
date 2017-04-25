@@ -1,17 +1,19 @@
 -- | See [Slider](https://facebook.github.io/react-native/docs/slider.html)
 module ReactNative.Components.Slider (
-  SliderProps, slider, slider', class SliderType
+  slider, slider', class SliderType
 ) where
 
+import Prelude
+import Data.Record.Class (class Subrow)
 import React (ReactElement)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
-import ReactNative.Components.View (ViewPropsEx)
+import ReactNative.Components.View (ViewPropsEx2)
 import ReactNative.Events (EventHandler)
-import ReactNative.PropTypes (ImageSource, Prop)
+import ReactNative.PropTypes (ImageSource)
 import ReactNative.PropTypes.Color (Color)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
 import ReactNative.Unsafe.Components (sliderU)
 
-type SliderProps a eff = ViewPropsEx eff (
+type SliderPropsO a eff = ViewPropsEx2 eff (
     disabled :: Boolean
   , maximumValue :: a
   , minimumValue :: a
@@ -33,8 +35,11 @@ slider :: forall a eff. SliderType a => {minimumValue::a, maximumValue::a, step:
 slider = sliderU
 
 -- | Create a slider using props
-slider' :: forall a eff. SliderType a => Prop (SliderProps a eff) -> ReactElement
-slider' p = sliderU (unsafeApplyProps {} p)
+slider' :: forall a eff o
+  .  SliderType a
+  => Subrow o (SliderPropsO a eff)
+  => {|o} -> ReactElement
+slider' = sliderU <<< unsafeApplyProps2
 
 class SliderType a
 

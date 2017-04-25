@@ -1,6 +1,6 @@
 -- | See [Button](https://facebook.github.io/react-native/docs/button.html)
 module ReactNative.Components.Button (
-  ButtonProps, button, button_, button'
+  button, button_, button'
 ) where
 
 import Data.Record.Class (class Subrow)
@@ -11,7 +11,7 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
 import ReactNative.Unsafe.Components (buttonU)
 import Prelude
 
-type ButtonProps eff = (
+type ButtonPropsO eff = (
     accessibilityLabel :: String
   , color :: Color
   , disabled :: Boolean
@@ -28,5 +28,5 @@ button_ :: String -> ReactElement
 button_ title = buttonU {title}
 
 -- | Create a button with the given props and `title`
-button' :: forall p eff. Subrow p (ButtonProps eff) => {|p} -> ReactElement
+button' :: forall o eff. Subrow o (ButtonPropsO eff) => {|o} -> ReactElement
 button' = buttonU <<< unsafeApplyProps2

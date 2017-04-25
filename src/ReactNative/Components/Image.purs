@@ -1,19 +1,25 @@
 -- | See [Image](https://facebook.github.io/react-native/docs/image.html)
 module ReactNative.Components.Image (
-  ImageProps, backgroundImage, backgroundImage', image_, image, image'
+  backgroundImage, backgroundImage', image_, image, image'
 , ResizeMethod, resize, scale, ImageProgressEvent
 ) where
 
 import Prelude
+import Data.Record.Class (class Subrow)
 import React (ReactElement)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
-import ReactNative.Components (styleOnly)
+import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, UnitEventHandler, EventHandler)
-import ReactNative.PropTypes (class AutoEnum, ImageSource, Prop)
+import ReactNative.PropTypes (class AutoEnum, ImageSource)
 import ReactNative.Styles (ResizeMode, Styles)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
 import ReactNative.Unsafe.Components (imageU)
 
-type ImageProps eff = {
+type ImageProps r = {
+  source :: ImageSource
+  | r
+}
+
+type ImagePropsO eff = BaseProps (
     style :: Styles
   , onError :: UnitEventHandler eff
   , onLayout :: EventHandler eff LayoutEvent
@@ -21,12 +27,10 @@ type ImageProps eff = {
   , onLoadEnd :: UnitEventHandler eff
   , onLoadStart :: UnitEventHandler eff
   , resizeMode :: ResizeMode
-  , source :: ImageSource
-  , testID :: String
-  , android :: Prop {
+  , android :: {
       resizeMethod :: ResizeMethod
     }
-  , ios :: Prop {
+  , ios :: {
       accessibilityLabel :: String
     , accessible :: Boolean
     , blurRadius :: Number
@@ -35,19 +39,21 @@ type ImageProps eff = {
     , onPartialLoad :: UnitEventHandler eff
     , onProgress :: EventHandler eff ImageProgressEvent
     }
-}
+)
 
 -- | Create a background image with give styles and source
 -- |
 -- | Background images are simply normal images with children overalayed ontop
 backgroundImage :: Styles -> ImageSource -> Array ReactElement -> ReactElement
-backgroundImage = backgroundImage' <<< styleOnly
+backgroundImage style source = imageU {style, source}
 
 -- | Create a background image with props and source
 -- |
 -- | Background images are simply normal images with children overalayed ontop
-backgroundImage' :: forall eff. Prop (ImageProps eff) -> ImageSource -> Array ReactElement -> ReactElement
-backgroundImage' p source = imageU (unsafeApplyProps {source} p)
+backgroundImage' :: forall eff o
+  .  Subrow o (ImagePropsO eff)
+  => ImageProps o -> Array ReactElement -> ReactElement
+backgroundImage' = imageU <<< unsafeApplyProps2
 
 -- | Create an Image from source only
 image_ :: ImageSource -> ReactElement
@@ -58,8 +64,10 @@ image :: Styles -> ImageSource -> ReactElement
 image style source = imageU {style, source} []
 
 -- | Create an Image with props and source
-image' :: forall eff. Prop (ImageProps eff) -> ImageSource -> ReactElement
-image' p source = imageU (unsafeApplyProps {source} p) []
+image' :: forall eff o
+  .  Subrow o (ImagePropsO eff)
+  => ImageProps o -> ReactElement
+image' p = imageU (unsafeApplyProps2 p) []
 
 newtype ResizeMethod = ResizeMethod String
 

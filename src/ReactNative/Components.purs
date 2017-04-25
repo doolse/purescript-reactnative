@@ -1,7 +1,13 @@
 module ReactNative.Components where
 
-import ReactNative.PropTypes (Prop)
-import ReactNative.Styles (Styles)
+import Data.Record.Class (class Subrow)
+import Unsafe.Coerce (unsafeCoerce)
 
-styleOnly :: forall r. Styles -> Prop {style::Styles|r}
-styleOnly style = _ {style=style}
+type BaseProps r = (
+    key :: String
+  , testID :: String
+  | r
+)
+
+iosProps :: forall o r. Subrow o r => {|o} -> {|r}
+iosProps = unsafeCoerce

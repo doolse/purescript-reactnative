@@ -17,21 +17,27 @@ import Control.Monad.Eff.Uncurried (EffFn2)
 import Data.Function.Uncurried (Fn2, Fn3, Fn4, mkFn2, mkFn4, runFn3, runFn4)
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
+import Data.Record (merge)
+import Data.Record.Class (class Subrow)
 import Data.StrMap (StrMap)
 import React (ReactElement)
 import ReactNative.Components.ScrollView (ScrollViewPropsEx)
 import ReactNative.Events (EventHandler, EventHandler2, ScrollEvent)
-import ReactNative.PropTypes (Prop)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
 import ReactNative.Unsafe.Components (listViewU)
 import Unsafe.Coerce (unsafeCoerce)
 
 type SectionId = String
 type RowId = String
 
-type ListViewProps a section blob eff = ScrollViewPropsEx eff (
+type ListViewProps a section blob r = {
     dataSource :: ListViewDataSource' blob a section
-  , enableEmptySections :: Boolean
+  , renderRow :: RowRenderer a
+  | r
+}
+
+type ListViewPropsO section eff = ScrollViewPropsEx eff (
+    enableEmptySections :: Boolean
   , initialListSize :: Int
   , onChangeVisibleRows :: EventHandler2 eff RowMap RowMap
   , onEndReached :: EventHandler eff (Nullable ScrollEvent)
@@ -39,7 +45,6 @@ type ListViewProps a section blob eff = ScrollViewPropsEx eff (
   , pageSize :: Int
   , renderFooter :: Unit -> ReactElement
   , renderHeader :: Unit -> ReactElement
-  , renderRow :: RowRenderer a
   , renderScrollComponent :: forall props. props -> ReactElement
   , renderSectionHeader :: SectionRenderer section
   , renderSeparator :: Fn3 SectionId RowId Boolean ReactElement
@@ -51,19 +56,19 @@ listView :: forall blob a section. ListViewDataSource' blob a section -> (a -> R
 listView dataSource rf = listViewU {dataSource,renderRow:rowRenderer rf,enableEmptySections:true}
 
 -- | Create a list view with props, a data source and a row renderer
-listView' :: forall blob a section eff.
-  Prop (ListViewProps blob a section  eff)
-  -> ListViewDataSource' blob a section
-  -> RowRenderer a
+listView' :: forall o blob a section eff
+  .  Subrow o (ListViewPropsO section eff)
+  => ListViewProps a section blob o
   -> ReactElement
-listView' f dataSource renderRow = listViewU (unsafeApplyProps {dataSource,renderRow} f)
+listView' = listViewU <<< unsafeApplyProps2
 
-type ListViewDataSourceProps blob a section = {
+type ListViewDataSourceProps blob a section = {|ListViewDataSourcePropsO blob a section}
+type ListViewDataSourcePropsO blob a section = (
     getRowData :: Fn3 blob SectionId RowId a
   , getSectionHeaderData :: Fn2 blob SectionId section
   , rowHasChanged :: Fn2 a a Boolean
   , sectionHeaderHasChanged :: Fn2 section section Boolean
-}
+)
 
 foreign import refEquality :: forall a. Fn2 a a Boolean
 
@@ -71,13 +76,15 @@ foreign import refEquality :: forall a. Fn2 a a Boolean
 -- |
 -- | Uses reference equality for `rowHasChanged`
 listViewDataSource :: forall a. Array a -> ListViewDataSource a
-listViewDataSource = cloneWithRows (listViewDataSource' id)
+listViewDataSource = cloneWithRows (listViewDataSource' {})
 
 sectionListViewDataSource :: forall blob a section. DataSourceSectionCloneable blob a section => blob -> ListViewDataSource' blob a section
-sectionListViewDataSource = cloneWithRowsAndSections (listViewDataSource' _ {sectionHeaderHasChanged=refEquality})
+sectionListViewDataSource = cloneWithRowsAndSections (listViewDataSource' {sectionHeaderHasChanged:refEquality :: Fn2 section section Boolean})
 
-listViewDataSource' :: forall blob a section. Prop (ListViewDataSourceProps blob a section) -> ListViewDataSource' blob a section
-listViewDataSource' p = listViewDataSourceImpl (unsafeApplyProps {rowHasChanged:refEquality} p)
+listViewDataSource' :: forall blob a section o
+  .  Subrow o (ListViewDataSourcePropsO blob a section)
+  => {|o} -> ListViewDataSource' blob a section
+listViewDataSource' p = listViewDataSourceImpl $ merge ((unsafeCoerce {rowHasChanged:refEquality}) :: ListViewDataSourceProps blob a section) p
 
 cloneWithRows :: forall a. ListViewDataSource' (Array a) a (Array a) -> Array a -> ListViewDataSource' (Array a) a (Array a)
 cloneWithRows = cloneWithRows' Nothing

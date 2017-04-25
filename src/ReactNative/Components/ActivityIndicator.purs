@@ -1,22 +1,27 @@
 -- | See [ActivityIndicator](https://facebook.github.io/react-native/docs/activityindicator.html)
 module ReactNative.Components.ActivityIndicator (
   ActivityIndicatorSize, small, large, indicatorSized
-, ActivityIndicatorProps, activityIndicator, activityIndicator'
+, activityIndicator, activityIndicator'
 )
 where
 
+import Prelude
+import Data.Record.Class (class Subrow)
 import React (ReactElement)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
-import ReactNative.Components.View (ViewPropsEx)
-import ReactNative.PropTypes (Prop)
+import ReactNative.Components.View (ViewPropsEx2)
 import ReactNative.PropTypes.Color (Color)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
 import ReactNative.Unsafe.Components (activityIndicatorU)
 import Unsafe.Coerce (unsafeCoerce)
-import Prelude
 
-type ActivityIndicatorProps eff = ViewPropsEx eff (
-    animating :: Boolean
-  , color :: Color
+
+type ActivityIndicatorProps r = {
+  animating :: Boolean
+  | r
+}
+
+type ActivityIndicatorPropsO eff = ViewPropsEx2 eff (
+    color :: Color
   , size :: ActivityIndicatorSize
 ) () (
   hidesWhenStopped :: Boolean
@@ -27,8 +32,10 @@ activityIndicator :: Boolean -> ReactElement
 activityIndicator animating = activityIndicatorU {animating}
 
 -- | Create an ActivityIndicator with props and the `animating` flag
-activityIndicator' :: forall eff. Prop (ActivityIndicatorProps eff) -> Boolean -> ReactElement
-activityIndicator' p animating = activityIndicatorU $ unsafeApplyProps {animating} p
+activityIndicator' :: forall eff o
+  .  Subrow o (ActivityIndicatorPropsO eff)
+  => ActivityIndicatorProps o -> ReactElement
+activityIndicator' = activityIndicatorU <<< unsafeApplyProps2
 
 newtype ActivityIndicatorSize = AISize String
 
