@@ -5,13 +5,6 @@ import Data.Nullable (Nullable)
 import Data.Unit (Unit)
 import Unsafe.Coerce (unsafeCoerce)
 
--- | The type for passing in properties to Components.
--- | Unfortunately at the moment the only way to specify a subset of
--- | all properties is to use [record update syntax](https://github.com/purescript/documentation/blob/master/language/Records.md)
--- |
--- | It is hoped that in the future [Row constraints](https://github.com/purescript/purescript/issues/469) will replace the need for this
-type Prop a = a -> a
-
 -- | A type representing the source of an [image](https://facebook.github.io/react-native/docs/images.html)
 -- |
 -- | Unfortunately the purescript compiler currently cannot generate `require("./image.png")` calls directly, so

@@ -2,28 +2,29 @@
 module ReactNative.Components.View (
   view', view_, view
 , PointerEvents, AccessibilityType, AccessibilityLiveRegion, ImportanceForAccessibility, AccessibilityTraits
-, ViewProps, ViewPropsEx, ViewPropsEx'
+, ViewPropsEx2, ViewPropsEx2'
 , boxOnly, none, boxNone
 , traits, accessibilityTraits, accessibiltyType, accessibiltyLiveRegion
 , importanceForAccessibility
 ) where
 
+import Prelude
+import Data.Record.Class (class Subrow)
 import React (ReactElement, ReactThis)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
+import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, TouchEvent, EventHandler)
-import ReactNative.PropTypes (class AutoEnum, class NoneEnum, Prop, RefType)
+import ReactNative.PropTypes (class AutoEnum, class NoneEnum, RefType)
 import ReactNative.Styles (Styles)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (viewU)
 import Unsafe.Coerce (unsafeCoerce)
 
-type ViewProps eff = ViewPropsEx eff () () ()
+type ViewPropsO eff = ViewPropsEx2 eff () () ()
 
-type ViewPropsEx eff r ra ri = ViewPropsEx' eff (forall props state. ReactThis props state) r ra ri
-type ViewPropsEx' eff ref r ra ri = {
-    key :: String
-  , ref :: RefType ref
+type ViewPropsEx2 eff r ra ri = ViewPropsEx2' eff (forall props state. ReactThis props state) r ra ri
+type ViewPropsEx2' eff ref r ra ri = BaseProps (
+    ref :: RefType ref
   , style :: Styles
-  , testID :: String
   , accessibilityLabel :: String
   , accessible :: Boolean
   , hitSlop :: {top:: Number, left:: Number, bottom:: Number, right:: Number}
@@ -42,7 +43,7 @@ type ViewPropsEx' eff ref r ra ri = {
   , onStartShouldSetResponderCapture :: TouchEvent -> Boolean
   , pointerEvents :: PointerEvents
   , removeClippedSubviews :: Boolean
-  , android :: Prop {
+  , android :: {
       accessibilityComponentType :: AccessibilityType
     , accessibilityLiveRegion :: AccessibilityLiveRegion
     , collapsable :: Boolean
@@ -51,13 +52,14 @@ type ViewPropsEx' eff ref r ra ri = {
     , renderToHardwareTextureAndroid :: Boolean
     | ra
   }
-  , ios :: Prop {
+  , ios :: {
       accessibilityTraits :: AccessibilityTraits
     , shouldRasterizeIOS :: Boolean
     | ri
   }
   | r
-}
+)
+
 
 -- | Create a View with only children
 view_ :: Array ReactElement -> ReactElement
@@ -68,8 +70,10 @@ view :: Styles -> Array ReactElement -> ReactElement
 view style = viewU {style}
 
 -- | Create a View with the given props and children
-view' :: forall eff. Prop (ViewProps eff) -> Array ReactElement -> ReactElement
-view' f = viewU (unsafeApplyProps {} f)
+view' :: forall eff o
+  .  Subrow o (ViewPropsO eff)
+  => {|o} -> Array ReactElement -> ReactElement
+view' = viewU <<< unsafeApplyProps
 
 newtype PointerEvents = PointerEvents String
 

@@ -22,7 +22,7 @@ main = run [consoleReporter] do
     unsafeApplySpec
 
 newtype AppliedProps = AppliedProps {
-  default:: String, ok:: String, second::String, iosProp:: Int, whatever:: String
+  ok:: String, second::String, iosProp:: Int, whatever:: String
 }
 derive instance genAP :: Generic AppliedProps
 derive instance eqAP :: Eq AppliedProps
@@ -30,7 +30,6 @@ instance showAP :: Show AppliedProps where
   show = unsafeStringify
 
 unsafeApplySpec = it "unsafeApplyProps" do
-  let defaults = {default:"prop"}
-  let props = _ {ok = "1", second = "2", ios = _ {iosProp=12}, android = _ {whatever="something"} }
-  let after = AppliedProps {default:"prop", ok: "1", second:"2", iosProp: 12, whatever: "something"}
-  unsafeApplyProps defaults props `shouldEqual` after
+  let props = {ok: "1", second: "2", ios: {iosProp:12}, android: {whatever:"something"} }
+  let after = AppliedProps {ok: "1", second:"2", iosProp: 12, whatever: "something"}
+  unsafeApplyProps props `shouldEqual` after

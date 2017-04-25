@@ -1,32 +1,36 @@
 -- | See [Switch](https://facebook.github.io/react-native/docs/switch.html)
 module ReactNative.Components.Switch (
-  SwitchProps, switch, switch'
+  switch'
 ) where
 
+import Data.Record.Class (class Subrow)
 import React (ReactElement)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
+import ReactNative.Components (BaseProps)
 import ReactNative.Events (EventHandler)
-import ReactNative.PropTypes (Prop)
 import ReactNative.PropTypes.Color (Color)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (switchU)
+import Prelude
 
-
-type SwitchProps eff  = {
+type SwitchProps eff r = {
     onValueChange :: EventHandler eff Boolean
   , value :: Boolean
-  , disabled :: Boolean
-  , testID :: String
-  , ios:: Prop {
-      onTintColor :: Color
-    , thumbTintColor :: Color
-    , tintColor :: Color
-  }
+  | r
 }
 
--- | Create a Switch with a value and change handler
-switch :: forall eff. {onValueChange::EventHandler eff Boolean, value :: Boolean} -> ReactElement
-switch = switchU
+type SwitchPropsIOS = (
+    onTintColor :: Color
+  , thumbTintColor :: Color
+  , tintColor :: Color
+)
 
--- | Create a Switch with props, a value and a change handler
-switch' :: forall eff. Prop (SwitchProps eff) -> {onValueChange::EventHandler eff Boolean, value :: Boolean} -> ReactElement
-switch' p d = switchU (unsafeApplyProps d p)
+type SwitchPropsO = BaseProps (
+    disabled :: Boolean
+  , ios:: {|SwitchPropsIOS}
+)
+
+-- | Create a Switch with a value and change handler
+switch' :: forall eff o
+  .  Subrow o SwitchPropsO
+  => SwitchProps eff o -> ReactElement
+switch' = switchU <<< unsafeApplyProps

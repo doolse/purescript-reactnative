@@ -15,8 +15,8 @@
     "bower_components"
   ],
   "repository": {
-      "type": "git",
-      "url": "git://github.com/doolse/purescript-reactnative.git"
+    "type": "git",
+    "url": "git://github.com/doolse/purescript-reactnative.git"
   },
   "dependencies": {
     "purescript-react": "^3.0.0",
@@ -25,7 +25,8 @@
     "purescript-integers": "^3.0.0",
     "purescript-maps": "^3.0.0",
     "purescript-nullable": "^3.0.0",
-    "purescript-eff": "^3.1.0"
+    "purescript-eff": "^3.1.0",
+    "purescript-records": "^1.0.0"
   },
   "devDependencies": {
     "purescript-spec": "^0.13.0"

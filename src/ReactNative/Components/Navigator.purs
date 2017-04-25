@@ -1,7 +1,7 @@
 -- | See [Navigator](https://facebook.github.io/react-native/docs/navigator.html)
 module ReactNative.Components.Navigator (
   push, pop, jumpTo, jumpForward, jumpBack, replace
-, Navigator, navigator', NavigatorProps
+, Navigator, navigator'
 , SceneRenderer, SceneConfigurer, sceneConfig, sceneConfig', sceneConfigs
 , SceneConfig, sceneRenderer
 , getCurrentRoutes
@@ -10,32 +10,39 @@ module ReactNative.Components.Navigator (
 import Prelude
 import Control.Monad.Eff (Eff)
 import Data.Function.Uncurried (Fn2, mkFn2)
+import Data.Record.Class (class Subrow)
 import React (ReactElement, ReactState, ReactThis, ReadWrite)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Events (UnitEventHandler)
-import ReactNative.PropTypes (Prop, RefType)
+import ReactNative.PropTypes (RefType)
 import ReactNative.Styles (Styles)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (navigatorU)
 
 newtype Navigator r = Navigator (forall props state. ReactThis props state)
 
-type NavigatorProps r eff = {
+type NavigatorProps r o = {
+    initialRoute :: r
+  , renderScene :: SceneRenderer r
+  | o
+}
+
+type NavigatorPropsO r eff = (
     ref :: RefType (Navigator r)
   , configureScene :: SceneConfigurer r
-  , initialRoute :: r
   , initialRouteStack :: Array r
   , navigationBar :: ReactElement
   , navigator :: ReactElement
   , onDidFocus :: UnitEventHandler eff
-  , onWillFocus :: UnitEventHandler eff
-  , renderScene :: SceneRenderer r
   , sceneStyle :: Styles
+  , onWillFocus :: UnitEventHandler eff
   , style :: Styles
-}
+)
 
 -- | Create a Navigator with the given props, initialRoute and scene renderer
-navigator' :: forall r eff. Prop (NavigatorProps r eff) -> r -> SceneRenderer r -> ReactElement
-navigator' p initialRoute renderScene = navigatorU $ unsafeApplyProps {initialRoute, renderScene} p
+navigator' :: forall r eff o
+  .  Subrow o (NavigatorPropsO r eff)
+  => NavigatorProps r o -> ReactElement
+navigator' = navigatorU <<< unsafeApplyProps
 
 foreign import sceneConfigEnum :: String -> SceneConfig
 

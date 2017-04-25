@@ -1,6 +1,6 @@
 -- | See [TextInput](https://facebook.github.io/react-native/docs/textinput.html)
 module ReactNative.Components.TextInput (
-  textInput', TextInputProps, TextInputRef
+  textInput', TextInputRef
 , ClearButtonMode, KeyboardAppearance, DocumentSelectionState, DataDetectorType
 , AutoCapitalize, KeyboardType, ReturnKeyType
 , clearButtonMode, keyboardType, dataDetectorType, autoCapitalize, keyboardAppearance
@@ -8,12 +8,12 @@ module ReactNative.Components.TextInput (
 , focus, isFocused, clear
 ) where
 
+import Prelude
 import Control.Monad.Eff (Eff)
-import Data.Unit (Unit)
+import Data.Record.Class (class Subrow)
 import React (ReactElement, ReactThis)
-import ReactNative.Components.View (ViewPropsEx')
+import ReactNative.Components.View (ViewPropsEx2')
 import ReactNative.Events (ContentSizeEvent, EventHandler, ScrollEvent, TextInputEvent)
-import ReactNative.PropTypes (Prop)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (textInputU)
@@ -21,7 +21,7 @@ import Unsafe.Coerce (unsafeCoerce)
 
 newtype TextInputRef = TextInputRef (forall p s. ReactThis p s)
 
-type TextInputProps eff = ViewPropsEx' eff TextInputRef (
+type TextInputPropsO eff = ViewPropsEx2' eff TextInputRef (
     autoCapitalize:: AutoCapitalize
   , autoCorrect :: Boolean
   , autoFocus :: Boolean
@@ -65,8 +65,10 @@ type TextInputProps eff = ViewPropsEx' eff TextInputRef (
 )
 
 -- | Create a TextInput with the given props
-textInput' :: forall eff. Prop (TextInputProps eff) -> ReactElement
-textInput' p = textInputU (unsafeApplyProps {} p)
+textInput' :: forall eff o
+  .  Subrow o (TextInputPropsO eff)
+  => {|o} -> ReactElement
+textInput' = textInputU <<< unsafeApplyProps
 
 -- | Focus the TextInput for the given ref
 foreign import focus :: forall eff. TextInputRef -> Eff eff Unit

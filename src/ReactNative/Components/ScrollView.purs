@@ -14,20 +14,23 @@ where
 import Prelude
 import Control.Monad.Eff (Eff)
 import Data.Function.Uncurried (Fn2, runFn2)
+import Data.Record.Class (class Subrow)
 import React (ReactElement, ReactThis)
-import ReactNative.Components.View (ViewPropsEx)
+import ReactNative.Components.View (ViewPropsEx2)
 import ReactNative.Events (EventHandler2, ScrollEvent, UnitEventHandler, EventHandler)
-import ReactNative.PropTypes (Prop, Insets)
+import ReactNative.PropTypes (Insets)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (refreshControlU, scrollViewU)
 import Unsafe.Coerce (unsafeCoerce)
 
-type ScrollViewProps eff = ScrollViewPropsEx eff ()
+type ScrollViewPropsO eff = ScrollViewPropsEx eff ()
 
-scrollView' :: forall eff. Prop (ScrollViewProps eff) -> Array ReactElement -> ReactElement
-scrollView' p = scrollViewU (unsafeApplyProps {} p)
+scrollView' :: forall eff o
+  .  Subrow o (ScrollViewPropsO eff)
+  => {|o} -> Array ReactElement -> ReactElement
+scrollView' = scrollViewU <<< unsafeApplyProps
 
 scrollView_ :: Array ReactElement -> ReactElement
 scrollView_ = scrollViewU {}
@@ -35,28 +38,36 @@ scrollView_ = scrollViewU {}
 scrollView :: Styles -> Array ReactElement -> ReactElement
 scrollView style = scrollViewU {style}
 
-type RefreshProps eff = {
+type RefreshProps eff r = {
     onRefresh :: UnitEventHandler eff
   , refreshing :: Boolean
-  , android :: Prop {
+  | r
+}
+
+type RefreshPropsO eff = (
+    onRefresh :: UnitEventHandler eff
+  , refreshing :: Boolean
+  , android :: {
       colors :: Array Color
     , enabled :: Boolean
     , progressBackgroundColor :: Color
     , progressViewOffset :: Number
     , size :: RefreshControlSize
   }
-  , ios :: Prop {
+  , ios :: {
       tintColor :: Color
     , title :: String
     , titleColor :: Color
   }
-}
+)
 
 refreshControl :: forall eff. UnitEventHandler eff -> Boolean -> RefreshControl
 refreshControl onRefresh refreshing = RefreshControl $ refreshControlU {onRefresh, refreshing}
 
-refreshControl' :: forall eff. Prop (RefreshProps eff) -> UnitEventHandler eff -> Boolean -> RefreshControl
-refreshControl' p onRefresh refreshing = RefreshControl $ refreshControlU (unsafeApplyProps {onRefresh, refreshing} p)
+refreshControl' :: forall eff o
+  .  Subrow o (RefreshPropsO eff)
+  => {|o} -> RefreshControl
+refreshControl' = RefreshControl <<< refreshControlU <<< unsafeApplyProps
 
 newtype RefreshControl = RefreshControl ReactElement
 
@@ -133,7 +144,7 @@ keyboardShouldPersistTaps = {
   , handled: KeyboardShouldPersistTaps "handled"
 }
 
-type ScrollViewPropsEx eff r = ViewPropsEx eff (
+type ScrollViewPropsEx eff r = ViewPropsEx2 eff (
     contentContainerStyle :: Styles
   , horizontal :: Boolean
   , keyboardDismissMode :: KeyboardDismissMode

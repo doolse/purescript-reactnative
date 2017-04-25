@@ -7,13 +7,13 @@ module ReactNative.Components.TouchableNativeFeedback (
 ) where
 
 import Prelude
+import Data.Record.Class (class Subrow)
 import React (ReactElement)
+import ReactNative.Components.Touchable (TouchablePropsEx)
 import ReactNative.Events (EventHandler, TouchEvent)
-import ReactNative.PropTypes (Prop)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (touchableNativeFeedbackU)
-import ReactNative.Components.Touchable(TouchablePropsEx)
 
 foreign import data TouchableNativeBackground :: Type
 type TouchableNativeFeedbackProps eff = TouchablePropsEx eff (
@@ -26,8 +26,10 @@ touchableNativeFeedback :: forall eff. EventHandler eff TouchEvent -> ReactEleme
 touchableNativeFeedback onPress = touchableNativeFeedbackU {onPress}
 
 -- | Create a TouchableNativeFeedback with the given props
-touchableNativeFeedback' :: forall eff. Prop (TouchableNativeFeedbackProps eff) -> ReactElement -> ReactElement
-touchableNativeFeedback' = touchableNativeFeedbackU <<< unsafeApplyProps {}
+touchableNativeFeedback' :: forall eff o
+  .  Subrow o (TouchableNativeFeedbackProps eff)
+  => {|o} -> ReactElement -> ReactElement
+touchableNativeFeedback' = touchableNativeFeedbackU <<< unsafeApplyProps
 
 foreign import selectableBackground :: TouchableNativeBackground
 foreign import selectableBackgroundBorderless :: TouchableNativeBackground
