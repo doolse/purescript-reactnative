@@ -8,7 +8,7 @@ module ReactNative.Components.ListView (
 , cloneWithRows, cloneWithRows', cloneWithRowsAndSections, cloneWithRowsAndSections'
 , RowRenderer, rowRenderer, rowRenderer'
 , SectionRenderer, sectionRenderer, sectionRenderer'
-, SectionIndex, RowIndex
+, SectionId, RowId
 , RowMap
 ) where
 
@@ -26,8 +26,8 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (listViewU)
 import Unsafe.Coerce (unsafeCoerce)
 
-type SectionIndex = String
-type RowIndex = String
+type SectionId = String
+type RowId = String
 
 type ListViewProps a section blob eff = ScrollViewPropsEx eff (
     dataSource :: ListViewDataSource' blob a section
@@ -42,7 +42,7 @@ type ListViewProps a section blob eff = ScrollViewPropsEx eff (
   , renderRow :: RowRenderer a
   , renderScrollComponent :: forall props. props -> ReactElement
   , renderSectionHeader :: SectionRenderer section
-  , renderSeparator :: Fn3 SectionIndex RowIndex Boolean ReactElement
+  , renderSeparator :: Fn3 SectionId RowId Boolean ReactElement
   , scrollRenderAheadDistance :: Int
 )
 
@@ -59,8 +59,8 @@ listView' :: forall blob a section eff.
 listView' f dataSource renderRow = listViewU (unsafeApplyProps {dataSource,renderRow} f)
 
 type ListViewDataSourceProps blob a section = {
-    getRowData :: Fn3 blob SectionIndex RowIndex a
-  , getSectionHeaderData :: Fn2 blob SectionIndex section
+    getRowData :: Fn3 blob SectionId RowId a
+  , getSectionHeaderData :: Fn2 blob SectionId section
   , rowHasChanged :: Fn2 a a Boolean
   , sectionHeaderHasChanged :: Fn2 section section Boolean
 }
@@ -82,7 +82,7 @@ listViewDataSource' p = listViewDataSourceImpl (unsafeApplyProps {rowHasChanged:
 cloneWithRows :: forall a. ListViewDataSource' (Array a) a (Array a) -> Array a -> ListViewDataSource' (Array a) a (Array a)
 cloneWithRows = cloneWithRows' Nothing
 
-cloneWithRows' :: forall blob a. Maybe (Array RowIndex) -> DataSourceRowCloneable blob a => ListViewDataSource' blob a blob -> blob -> ListViewDataSource' blob a blob
+cloneWithRows' :: forall blob a. Maybe (Array RowId) -> DataSourceRowCloneable blob a => ListViewDataSource' blob a blob -> blob -> ListViewDataSource' blob a blob
 cloneWithRows' ids ds blob  = runFn3 cloneWithRowsImpl ds blob (toNullable ids)
 
 class DataSourceRowCloneable blob a | blob -> a
@@ -98,24 +98,24 @@ cloneWithRowsAndSections ds blob = runFn4 cloneWithRowsAndSectionsImpl ds blob (
 
 cloneWithRowsAndSections' :: forall blob a section. DataSourceSectionCloneable blob a section =>
   ListViewDataSource' blob a section -> blob
-  -> Maybe (Array SectionIndex)
-  -> Maybe (Array (Array RowIndex))
+  -> Maybe (Array SectionId)
+  -> Maybe (Array (Array RowId))
   -> ListViewDataSource' blob a section
 cloneWithRowsAndSections' ds blob sIds rIds = runFn4 cloneWithRowsAndSectionsImpl ds blob (toNullable sIds) (toNullable rIds)
 
-foreign import cloneWithRowsImpl :: forall blob a section. Fn3 (ListViewDataSource' blob a section) blob (Nullable (Array RowIndex)) (ListViewDataSource' blob a section)
-foreign import cloneWithRowsAndSectionsImpl :: forall blob a section. Fn4 (ListViewDataSource' blob a section) blob (Nullable (Array SectionIndex)) (Nullable (Array (Array RowIndex))) (ListViewDataSource' blob a section)
+foreign import cloneWithRowsImpl :: forall blob a section. Fn3 (ListViewDataSource' blob a section) blob (Nullable (Array RowId)) (ListViewDataSource' blob a section)
+foreign import cloneWithRowsAndSectionsImpl :: forall blob a section. Fn4 (ListViewDataSource' blob a section) blob (Nullable (Array SectionId)) (Nullable (Array (Array RowId))) (ListViewDataSource' blob a section)
 
 foreign import listViewDataSourceImpl :: forall blob a section. ListViewDataSourceProps blob a section -> ListViewDataSource' blob a section
 foreign import getRowCount :: forall blob a section. ListViewDataSource' blob a section -> Int
 foreign import getRowAndSectionCount :: forall blob a section. ListViewDataSource' blob a section -> Int
-foreign import rowShouldUpdate :: forall blob a section. ListViewDataSource' blob a section -> SectionIndex -> RowIndex -> Boolean
-foreign import getRowData :: forall blob a section. ListViewDataSource' blob a section -> SectionIndex -> RowIndex -> a
+foreign import rowShouldUpdate :: forall blob a section. ListViewDataSource' blob a section -> SectionId -> RowId -> Boolean
+foreign import getRowData :: forall blob a section. ListViewDataSource' blob a section -> SectionId -> RowId -> a
 foreign import getRowIDForFlatIndex :: forall blob a section. ListViewDataSource' blob a section -> Int -> Nullable String
 foreign import getSectionIDForFlatIndex :: forall blob a section. ListViewDataSource' blob a section -> Int -> Nullable String
 foreign import getSectionLengths  :: forall blob a section. ListViewDataSource' blob a section -> Array Int
-foreign import sectionHeaderShouldUpdate :: forall blob a section. ListViewDataSource' blob a section -> SectionIndex -> Boolean
-foreign import getSectionHeaderData  :: forall blob a section. ListViewDataSource' blob a section -> SectionIndex -> section
+foreign import sectionHeaderShouldUpdate :: forall blob a section. ListViewDataSource' blob a section -> SectionId -> Boolean
+foreign import getSectionHeaderData  :: forall blob a section. ListViewDataSource' blob a section -> SectionId -> section
 
 -- | See [ListView.DataSource](https://facebook.github.io/react-native/docs/listviewdatasource.html)
 type ListViewDataSource a = ListViewDataSource' (Array a) a (Array a)
@@ -127,13 +127,13 @@ foreign import data SectionRenderer :: Type -> Type
 rowRenderer :: forall a. (a -> ReactElement) -> RowRenderer a
 rowRenderer = unsafeCoerce
 
-rowRenderer' :: forall a eff. (a -> SectionIndex -> RowIndex -> EffFn2 eff SectionIndex RowIndex Unit -> ReactElement) -> RowRenderer a
+rowRenderer' :: forall a eff. (a -> SectionId -> RowId -> EffFn2 eff SectionId RowId Unit -> ReactElement) -> RowRenderer a
 rowRenderer' = unsafeCoerce <<< mkFn4
 
 sectionRenderer :: forall section. (section -> ReactElement) -> SectionRenderer section
 sectionRenderer = unsafeCoerce
 
-sectionRenderer' :: forall section. (section -> SectionIndex -> ReactElement) -> SectionRenderer section
+sectionRenderer' :: forall section. (section -> SectionId -> ReactElement) -> SectionRenderer section
 sectionRenderer' = unsafeCoerce <<< mkFn2
 
 type RowMap = StrMap (StrMap Boolean)
