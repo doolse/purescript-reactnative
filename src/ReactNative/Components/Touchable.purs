@@ -12,7 +12,7 @@ import ReactNative.Events (EventHandler, TouchEvent, LayoutEvent)
 import ReactNative.PropTypes (Insets)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (touchableHighlightU, touchableOpacityU, touchableWithoutFeedbackU)
 
 type TouchablePropsEx eff r = (
@@ -37,7 +37,7 @@ type TouchablePropsEx eff r = (
 touchableWithoutFeedback' :: forall eff o
   .  Subrow o (TouchablePropsEx eff o)
   => {|o} -> ReactElement -> ReactElement
-touchableWithoutFeedback' = touchableWithoutFeedbackU <<< unsafeApplyProps2
+touchableWithoutFeedback' = touchableWithoutFeedbackU <<< unsafeApplyProps
 
 type TouchableOpacityProps eff = TouchablePropsEx eff (
     activeOpacity :: Number
@@ -46,7 +46,7 @@ type TouchableOpacityProps eff = TouchablePropsEx eff (
 touchableOpacity' :: forall eff o
   .  Subrow o (TouchableOpacityProps eff)
   => {|o} -> ReactElement -> ReactElement
-touchableOpacity' = touchableOpacityU <<< unsafeApplyProps2
+touchableOpacity' = touchableOpacityU <<< unsafeApplyProps
 
 type TouchableHighlightProps eff = TouchablePropsEx eff (
     activeOpacity :: Number
@@ -64,4 +64,4 @@ touchableHighlight onPress = touchableHighlightU {onPress}
 touchableHighlight' :: forall eff o
   .  Subrow o (TouchableHighlightProps eff)
   => {|o} -> ReactElement -> ReactElement
-touchableHighlight' = touchableHighlightU <<< unsafeApplyProps2
+touchableHighlight' = touchableHighlightU <<< unsafeApplyProps

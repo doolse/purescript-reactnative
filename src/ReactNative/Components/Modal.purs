@@ -12,7 +12,7 @@ import Prelude
 import Data.Record.Class (class Subrow)
 import React (ReactElement)
 import ReactNative.Events (EventHandler, UnitEventHandler)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (modalU)
 
 newtype AnimationType = AnimationType String
@@ -57,7 +57,7 @@ type ModalPropsO a eff = (
 modal' :: forall a eff o
   .  Subrow o (ModalPropsO a eff)
   => {|o} -> Array ReactElement -> ReactElement
-modal' = modalU <<< unsafeApplyProps2
+modal' = modalU <<< unsafeApplyProps
 
 -- On request is required *for android*. Least nasty solution is to require it, and provide a default for iOS
 -- https://github.com/facebook/react-native/commit/ce81f8b35af8d273072583d369594d4f5fd6d696

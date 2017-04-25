@@ -22,7 +22,7 @@ import ReactNative.Events (EventHandler, UnitEventHandler)
 import ReactNative.Internal.Undefinable (Undefinable, toUndefinable)
 import ReactNative.PropTypes (ImageSource, RefType)
 import ReactNative.PropTypes.Color (Color)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (drawerLayoutAndroidU, toolbarAndroidU)
 
 type ToolbarAndroidPropO eff = ViewPropsEx2 eff (
@@ -45,7 +45,7 @@ type ToolbarAndroidPropO eff = ViewPropsEx2 eff (
 toolbarAndroid' :: forall eff o
   .  Subrow o (ToolbarAndroidPropO eff)
   => {|o} -> Array ReactElement -> ReactElement
-toolbarAndroid' = toolbarAndroidU <<< unsafeApplyProps2
+toolbarAndroid' = toolbarAndroidU <<< unsafeApplyProps
 
 action :: String -> ToolbarAction
 action title = action' {title, icon:Nothing, show:never, showWithText:true}
@@ -128,7 +128,7 @@ drawerLayoutAndroid' :: forall eff o
   => DrawerLayoutProps o
   -> Array ReactElement
   -> ReactElement
-drawerLayoutAndroid' = drawerLayoutAndroidU <<< unsafeApplyProps2
+drawerLayoutAndroid' = drawerLayoutAndroidU <<< unsafeApplyProps
 
 foreign import openDrawer :: forall eff. DrawerLayoutRef -> Eff eff Unit
 foreign import closeDrawer :: forall eff. DrawerLayoutRef -> Eff eff Unit

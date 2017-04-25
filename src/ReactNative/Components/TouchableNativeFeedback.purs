@@ -12,7 +12,7 @@ import React (ReactElement)
 import ReactNative.Components.Touchable (TouchablePropsEx)
 import ReactNative.Events (EventHandler, TouchEvent)
 import ReactNative.PropTypes.Color (Color)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (touchableNativeFeedbackU)
 
 foreign import data TouchableNativeBackground :: Type
@@ -29,7 +29,7 @@ touchableNativeFeedback onPress = touchableNativeFeedbackU {onPress}
 touchableNativeFeedback' :: forall eff o
   .  Subrow o (TouchableNativeFeedbackProps eff)
   => {|o} -> ReactElement -> ReactElement
-touchableNativeFeedback' = touchableNativeFeedbackU <<< unsafeApplyProps2
+touchableNativeFeedback' = touchableNativeFeedbackU <<< unsafeApplyProps
 
 foreign import selectableBackground :: TouchableNativeBackground
 foreign import selectableBackgroundBorderless :: TouchableNativeBackground

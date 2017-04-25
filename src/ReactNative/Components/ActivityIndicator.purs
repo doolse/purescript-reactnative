@@ -10,7 +10,7 @@ import Data.Record.Class (class Subrow)
 import React (ReactElement)
 import ReactNative.Components.View (ViewPropsEx2)
 import ReactNative.PropTypes.Color (Color)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (activityIndicatorU)
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -35,7 +35,7 @@ activityIndicator animating = activityIndicatorU {animating}
 activityIndicator' :: forall eff o
   .  Subrow o (ActivityIndicatorPropsO eff)
   => ActivityIndicatorProps o -> ReactElement
-activityIndicator' = activityIndicatorU <<< unsafeApplyProps2
+activityIndicator' = activityIndicatorU <<< unsafeApplyProps
 
 newtype ActivityIndicatorSize = AISize String
 

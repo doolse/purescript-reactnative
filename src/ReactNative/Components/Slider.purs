@@ -10,7 +10,7 @@ import ReactNative.Components.View (ViewPropsEx2)
 import ReactNative.Events (EventHandler)
 import ReactNative.PropTypes (ImageSource)
 import ReactNative.PropTypes.Color (Color)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (sliderU)
 
 type SliderPropsO a eff = ViewPropsEx2 eff (
@@ -39,7 +39,7 @@ slider' :: forall a eff o
   .  SliderType a
   => Subrow o (SliderPropsO a eff)
   => {|o} -> ReactElement
-slider' = sliderU <<< unsafeApplyProps2
+slider' = sliderU <<< unsafeApplyProps
 
 class SliderType a
 

@@ -15,7 +15,7 @@ import React (ReactElement, ReactState, ReactThis, ReadWrite)
 import ReactNative.Events (UnitEventHandler)
 import ReactNative.PropTypes (RefType)
 import ReactNative.Styles (Styles)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (navigatorU)
 
 newtype Navigator r = Navigator (forall props state. ReactThis props state)
@@ -42,7 +42,7 @@ type NavigatorPropsO r eff = (
 navigator' :: forall r eff o
   .  Subrow o (NavigatorPropsO r eff)
   => NavigatorProps r o -> ReactElement
-navigator' = navigatorU <<< unsafeApplyProps2
+navigator' = navigatorU <<< unsafeApplyProps
 
 foreign import sceneConfigEnum :: String -> SceneConfig
 

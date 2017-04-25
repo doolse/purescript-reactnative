@@ -7,7 +7,7 @@ import Prelude
 import React (ReactElement)
 import ReactNative.Components (BaseProps)
 import ReactNative.PropTypes.Color (Color)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (progressBarAndroidU)
 
 newtype StyleAttr = StyleAttr String
@@ -45,7 +45,7 @@ type ProgressBarAndroidPropsO = BaseProps (
 progressBarAndroid' :: forall o
   .  Subrow o ProgressBarAndroidPropsO
   => {|o} -> ReactElement
-progressBarAndroid' = progressBarAndroidU <<< unsafeApplyProps2
+progressBarAndroid' = progressBarAndroidU <<< unsafeApplyProps
 
 progressBarAndroid_ :: ReactElement
 progressBarAndroid_ = progressBarAndroidU {}

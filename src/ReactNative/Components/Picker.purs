@@ -10,7 +10,7 @@ import React (ReactElement)
 import ReactNative.Components.View (ViewPropsEx2)
 import ReactNative.Events (EventHandler)
 import ReactNative.Styles (Styles)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (pickerItemU, pickerU)
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -32,7 +32,7 @@ picker' :: forall a eff o
   .  PickerType a
   => Subrow o (PickerProps a eff)
   => {|o} -> Array PickerItem -> ReactElement
-picker' p items = pickerU (unsafeApplyProps2 p) $ unsafeCoerce items
+picker' p items = pickerU (unsafeApplyProps p) $ unsafeCoerce items
 
 pickerItem :: forall a. PickerType a => String -> a -> PickerItem
 pickerItem label value = PickerItem $ pickerItemU {label,value}

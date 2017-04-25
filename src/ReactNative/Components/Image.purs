@@ -11,7 +11,7 @@ import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, UnitEventHandler, EventHandler)
 import ReactNative.PropTypes (class AutoEnum, ImageSource)
 import ReactNative.Styles (ResizeMode, Styles)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (imageU)
 
 type ImageProps r = {
@@ -53,7 +53,7 @@ backgroundImage style source = imageU {style, source}
 backgroundImage' :: forall eff o
   .  Subrow o (ImagePropsO eff)
   => ImageProps o -> Array ReactElement -> ReactElement
-backgroundImage' = imageU <<< unsafeApplyProps2
+backgroundImage' = imageU <<< unsafeApplyProps
 
 -- | Create an Image from source only
 image_ :: ImageSource -> ReactElement
@@ -67,7 +67,7 @@ image style source = imageU {style, source} []
 image' :: forall eff o
   .  Subrow o (ImagePropsO eff)
   => ImageProps o -> ReactElement
-image' p = imageU (unsafeApplyProps2 p) []
+image' p = imageU (unsafeApplyProps p) []
 
 newtype ResizeMethod = ResizeMethod String
 

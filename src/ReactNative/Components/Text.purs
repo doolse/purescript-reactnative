@@ -10,7 +10,7 @@ import React (ReactElement)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, TouchEvent, EventHandler)
 import ReactNative.Styles (Styles)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (textU)
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -37,7 +37,7 @@ textElem = unsafeCoerce
 text' :: forall eff o
   .  Subrow o (TextPropsO eff)
   => {|o} -> String -> ReactElement
-text' p s = textU (unsafeApplyProps2 p) [textElem s]
+text' p s = textU (unsafeApplyProps p) [textElem s]
 
 text :: Styles -> String -> ReactElement
 text style s = textU {style} [textElem s]
@@ -54,7 +54,7 @@ texts_ = textU {}
 texts' :: forall eff o
   .  Subrow o (TextPropsO eff)
   => {|o} -> Array ReactElement -> ReactElement
-texts' p = textU (unsafeApplyProps2 p)
+texts' p = textU (unsafeApplyProps p)
 
 newtype EllipsizeMode = EllipsizeMode String
 ellipsizeMode :: {

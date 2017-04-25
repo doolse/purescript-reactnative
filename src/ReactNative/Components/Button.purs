@@ -7,7 +7,7 @@ import Data.Record.Class (class Subrow)
 import React (ReactElement)
 import ReactNative.Events (TouchEvent, EventHandler)
 import ReactNative.PropTypes.Color (Color)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (buttonU)
 import Prelude
 
@@ -29,4 +29,4 @@ button_ title = buttonU {title}
 
 -- | Create a button with the given props and `title`
 button' :: forall o eff. Subrow o (ButtonPropsO eff) => {|o} -> ReactElement
-button' = buttonU <<< unsafeApplyProps2
+button' = buttonU <<< unsafeApplyProps

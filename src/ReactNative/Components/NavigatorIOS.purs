@@ -5,14 +5,14 @@ module ReactNative.Components.NavigatorIOS (
 ) where
 
 import Prelude
-import Control.Monad.Eff (Eff)
+import Control.Monad.Eff (Eff, kind Effect)
 import Data.Record.Class (class Subrow)
 import React (ReactElement, ReactState, ReactThis, ReadWrite)
 import ReactNative.Events (UnitEventHandler)
 import ReactNative.PropTypes (ImageSource, RefType)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (navigatorIOSU)
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -28,7 +28,7 @@ type RouteDefaults r = (
   | r
 )
 
-type Route eff props = RouteM props (|RouteO eff)
+foreign import data Route :: # Effect -> Type
 
 type RouteM props o = {
     title :: String
@@ -52,8 +52,8 @@ type RouteO eff = RouteDefaults (
   , wrapperStyle :: Styles
 )
 
-type NavigatorIOSProps o = {
-  initialRoute :: forall eff props. Route eff props
+type NavigatorIOSProps o eff = {
+  initialRoute :: Route eff
   | o
 }
 
@@ -66,15 +66,15 @@ type NavigatorIOSPropsO = RouteDefaults (
 
 mkRoute :: forall props eff o
   .  Subrow o (RouteO eff)
-  => RouteM props o -> Route eff props
+  => RouteM props o -> Route eff
 mkRoute = unsafeCoerce
 
 -- | Create a NavigatorIOS with the given props and initialRoute
-navigatorIOS' :: forall o
+navigatorIOS' :: forall o eff
   .  Subrow o NavigatorIOSPropsO
-  => NavigatorIOSProps o -> ReactElement
-navigatorIOS' = navigatorIOSU <<< unsafeApplyProps2
+  => NavigatorIOSProps o eff -> ReactElement
+navigatorIOS' = navigatorIOSU <<< unsafeApplyProps
 
-foreign import push :: forall eff props. NavigatorIOS -> Route eff props -> Eff (state::ReactState ReadWrite|eff) Unit
+foreign import push :: forall eff. NavigatorIOS -> Route eff -> Eff (state::ReactState ReadWrite|eff) Unit
 
 foreign import pop :: forall eff. NavigatorIOS -> Eff (state::ReactState ReadWrite|eff) Unit

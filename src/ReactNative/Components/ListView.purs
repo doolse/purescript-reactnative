@@ -23,7 +23,7 @@ import Data.StrMap (StrMap)
 import React (ReactElement)
 import ReactNative.Components.ScrollView (ScrollViewPropsEx)
 import ReactNative.Events (EventHandler, EventHandler2, ScrollEvent)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (listViewU)
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -60,7 +60,7 @@ listView' :: forall o blob a section eff
   .  Subrow o (ListViewPropsO section eff)
   => ListViewProps a section blob o
   -> ReactElement
-listView' = listViewU <<< unsafeApplyProps2
+listView' = listViewU <<< unsafeApplyProps
 
 type ListViewDataSourceProps blob a section = {|ListViewDataSourcePropsO blob a section}
 type ListViewDataSourcePropsO blob a section = (

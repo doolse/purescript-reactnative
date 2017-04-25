@@ -15,7 +15,7 @@ import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, TouchEvent, EventHandler)
 import ReactNative.PropTypes (class AutoEnum, class NoneEnum, RefType)
 import ReactNative.Styles (Styles)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (viewU)
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -73,7 +73,7 @@ view style = viewU {style}
 view' :: forall eff o
   .  Subrow o (ViewPropsO eff)
   => {|o} -> Array ReactElement -> ReactElement
-view' = viewU <<< unsafeApplyProps2
+view' = viewU <<< unsafeApplyProps
 
 newtype PointerEvents = PointerEvents String
 

@@ -8,7 +8,7 @@ import React (ReactElement)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (EventHandler)
 import ReactNative.PropTypes.Color (Color)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (switchU)
 import Prelude
 
@@ -33,4 +33,4 @@ type SwitchPropsO = BaseProps (
 switch' :: forall eff o
   .  Subrow o SwitchPropsO
   => SwitchProps eff o -> ReactElement
-switch' = switchU <<< unsafeApplyProps2
+switch' = switchU <<< unsafeApplyProps

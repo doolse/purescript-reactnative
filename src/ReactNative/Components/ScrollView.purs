@@ -21,7 +21,7 @@ import ReactNative.Events (EventHandler2, ScrollEvent, UnitEventHandler, EventHa
 import ReactNative.PropTypes (Insets)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (refreshControlU, scrollViewU)
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -30,7 +30,7 @@ type ScrollViewPropsO eff = ScrollViewPropsEx eff ()
 scrollView' :: forall eff o
   .  Subrow o (ScrollViewPropsO eff)
   => {|o} -> Array ReactElement -> ReactElement
-scrollView' = scrollViewU <<< unsafeApplyProps2
+scrollView' = scrollViewU <<< unsafeApplyProps
 
 scrollView_ :: Array ReactElement -> ReactElement
 scrollView_ = scrollViewU {}
@@ -67,7 +67,7 @@ refreshControl onRefresh refreshing = RefreshControl $ refreshControlU {onRefres
 refreshControl' :: forall eff o
   .  Subrow o (RefreshPropsO eff)
   => {|o} -> RefreshControl
-refreshControl' = RefreshControl <<< refreshControlU <<< unsafeApplyProps2
+refreshControl' = RefreshControl <<< refreshControlU <<< unsafeApplyProps
 
 newtype RefreshControl = RefreshControl ReactElement
 

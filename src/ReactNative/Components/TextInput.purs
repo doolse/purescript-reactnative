@@ -15,7 +15,7 @@ import React (ReactElement, ReactThis)
 import ReactNative.Components.View (ViewPropsEx2')
 import ReactNative.Events (ContentSizeEvent, EventHandler, ScrollEvent, TextInputEvent)
 import ReactNative.PropTypes.Color (Color)
-import ReactNative.Unsafe.ApplyProps (unsafeApplyProps2)
+import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (textInputU)
 import Unsafe.Coerce (unsafeCoerce)
 
@@ -68,7 +68,7 @@ type TextInputPropsO eff = ViewPropsEx2' eff TextInputRef (
 textInput' :: forall eff o
   .  Subrow o (TextInputPropsO eff)
   => {|o} -> ReactElement
-textInput' = textInputU <<< unsafeApplyProps2
+textInput' = textInputU <<< unsafeApplyProps
 
 -- | Focus the TextInput for the given ref
 foreign import focus :: forall eff. TextInputRef -> Eff eff Unit
