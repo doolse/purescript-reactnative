@@ -139,6 +139,53 @@ type ViewProps eff = {
 }
 ```
 
+## Getting started - Hello World
+This is a barebones starter "in accordance with the ancient traditions of our people" meant to parallel [the example on facebook's react-native docs.](https://facebook.github.io/react-native/docs/tutorial.html)
+
+Firstly, install the react native cli if you don't have it already, and then start a barebones `react-native` project:
+```
+npm install -g react-native-cli
+react-native init HelloWorld
+```
+Also add in the basic purescript project structure to the project.
+```
+cd HelloWorld
+pulp init --force
+```
+Install purescript react native dependency:
+```
+bower install purescript-reactnative --save
+```
+Replace the contents of `src/Main.purs` with
+```
+module Main where
+
+import Prelude
+import Control.Monad.Eff (Eff)
+import React (ReactClass, Render, createClass, getProps, spec)
+import ReactNative.API (REGISTER, registerComponent)
+import ReactNative.Components.Text (text_)
+
+render :: forall props state eff. Render props state eff
+render ctx = do
+            _ <- getProps ctx  -- get props from context if needed
+            pure(text_ "Hello World")
+
+app :: forall p. ReactClass p
+app = createClass $ spec {} render
+
+main :: forall e. Eff (register:: REGISTER | e) Unit
+main = do
+  registerComponent "HelloWorld" app
+```
+Then from your project root, build the purescript project and output it to `index.android.js`
+```
+pulp build --to index.android.js
+```
+And that's it! Fire up an emulator (e.g. `android avd`) or connect a device and launch your app:
+```
+react-native run-android
+```
 
 ## Component support table
 
