@@ -1,3 +1,7 @@
+# 3.0.1
+ - `ProgressBarAndroid` support (`@NicholasAaronBrady`)
+ - Hello world example @NicholasAaronBrady
+
 # 3.0.0
 
 - Purescript 0.11 support (Don Abrams `@donabrams`)

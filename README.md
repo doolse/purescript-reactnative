@@ -7,7 +7,7 @@ Purescript bindings for [react-native](http://facebook.github.io/react-native)
 
 - [Movie example project](https://github.com/doolse/purescript-reactnative-example)
 - `bower install purescript-reactnative --save`
-
+- [CHANGELOG](CHANGELOG.MD)
 
 ## Goals
 
@@ -143,21 +143,21 @@ type ViewProps eff = {
 This is a barebones starter "in accordance with the ancient traditions of our people" meant to parallel [the example on facebook's react-native docs.](https://facebook.github.io/react-native/docs/tutorial.html)
 
 Firstly, install the react native cli if you don't have it already, and then start a barebones `react-native` project:
-```
+```sh
 npm install -g react-native-cli
 react-native init HelloWorld
 ```
 Also add in the basic purescript project structure to the project.
-```
+```sh
 cd HelloWorld
 pulp init --force
 ```
 Install purescript react native dependency:
-```
+```sh
 bower install purescript-reactnative --save
 ```
 Replace the contents of `src/Main.purs` with
-```
+```purescript
 module Main where
 
 import Prelude
@@ -179,7 +179,7 @@ main = do
   registerComponent "HelloWorld" app
 ```
 Then from your project root, build the purescript project and output it to `index.android.js`
-```
+```sh
 pulp build --to index.android.js
 ```
 And that's it! Fire up an emulator (e.g. `android avd`) or connect a device and launch your app:
@@ -191,30 +191,30 @@ react-native run-android
 
 The plan is to initially support a subset of the components fully, and provide unsafe functions for many of the others. Type safe versions of the components are created based off the react-native documentation, this table shows the current status:
 
-|Component   | Version|
+|Component   | Supported|
 |----------  |-------------|
-|`View`      | 0.39        |
-|`Text`      | 0.39        |
-|`TextInput` | 0.39|
-|`Switch`    | 0.39|
-|`Touchable*`| 0.39|
-|`Picker`    | 0.39|
-|`Slider`    | 0.39|
-|`ActivityIndicator` |0.39|
-|`ListView`  | 0.39|
-|`ScrollView` | 0.39|
-|`Image`     |0.39|
-|`RefreshControl` | 0.39|
-|`Button`    |0.39|
-|`Navigator` |0.39 *|
-|`NavigatorIOS` |0.39 *|
-|`DrawerLayoutAndroid` |0.39|
-|`ToolbarAndroid` |0.39|
+|`View`      | [x] |
+|`Text`      | [x] |
+|`TextInput` | [x]|
+|`Switch`    | [x]|
+|`Touchable*`| [x]|
+|`Picker`    | [x]|
+|`Slider`    | [x]|
+|`ActivityIndicator` |[x]|
+|`ListView`  | [x]|
+|`ScrollView` | [x]|
+|`Image`     |[x]|
+|`RefreshControl` | [x]|
+|`Button`    |[x]|
+|`Navigator` |[x] *|
+|`NavigatorIOS` |[x] *|
+|`DrawerLayoutAndroid` |[x]|
+|`ToolbarAndroid` |[x]|
+|`Modal`|[x]|
+|`ProgressBarAndroid`|[x]|
 |`DatePickerIOS`|-|
 |`KeyboardAvoidingView`|-|
 |`MapView`|-|
-|`Modal`|-|
-|`ProgressBarAndroid`|-|
 |`ProgressViewIOS`|-|
 |`SegmentedControlIOS`|-|
 |`StatusBar`|-|
@@ -226,14 +226,17 @@ The plan is to initially support a subset of the components fully, and provide u
 
 |API         | Version |
 |------------| --------|
-|`alert`     | 0.39|
-|`color`     | 0.39|
-|`ListViewDataSource` | 0.39|
-|`NavigationExpiremental` | 0.39 *|
+|`alert`     | [x]|
+|`color`     | [x]|
+|`ListViewDataSource` | [x]|
+|`NavigationExpiremental` | [x] *|
 
 Anything marked with * may not have 100% coverage of API calls yet.
 
 ## Contributors
 
-Jolse Maginnis (`doolse@gmail.com @doolse2`)
-Jens Krause (`@sectore`)
+- Jolse Maginnis (`doolse@gmail.com @doolse2`)
+- Jens Krause (`@sectore`)
+- Nicholas Brady (`nick.brady@smartrac-group.com`)
+- Don Abrams (`don.abrams@smartrac-group.com`)
+- Ben Fleisch (`bfly2000@gmail.com`)

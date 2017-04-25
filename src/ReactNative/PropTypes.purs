@@ -18,12 +18,15 @@ type Prop a = a -> a
 -- | currently you will need to use FFI code:
 -- |
 -- | `Images.purs`
--- | ```purescript
+-- | ``` purescript
 -- | module Images where
--- | foreign import myImage :: ImageSource```
+-- | foreign import myImage :: ImageSource
+-- | ```
+-- | 
 -- | `Images.js`
--- | ```javascript
--- | exports.myImage = require("myimage.png");```
+-- | ``` javascript
+-- | exports.myImage = require("myimage.png");
+-- | ```
 foreign import data ImageSource :: Type
 
 -- | Create an ImageSource from a URI string
