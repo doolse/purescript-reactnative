@@ -1,6 +1,6 @@
 # 3.0.1
  - `ProgressBarAndroid` support (`@NicholasAaronBrady`)
- - Hello world example @NicholasAaronBrady
+ - Hello world example docs (`@NicholasAaronBrady`)
 
 # 3.0.0
 
