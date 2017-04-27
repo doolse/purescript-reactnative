@@ -17,7 +17,7 @@ import Control.Monad.Eff (Eff)
 import Data.Maybe (Maybe(..))
 import Data.Record.Class (class Subrow)
 import React (ReactElement, ReactThis)
-import ReactNative.Components.View (ViewPropsEx2)
+import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.Events (EventHandler, UnitEventHandler)
 import ReactNative.Internal.Undefinable (Undefinable, toUndefinable)
 import ReactNative.PropTypes (ImageSource, RefType)
@@ -25,7 +25,7 @@ import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (drawerLayoutAndroidU, toolbarAndroidU)
 
-type ToolbarAndroidPropO eff = ViewPropsEx2 eff (
+type ToolbarAndroidPropO eff = ViewPropsEx eff (
     actions :: Array ToolbarAction
   , navIcon :: ImageSource
   , onIconClicked :: UnitEventHandler eff

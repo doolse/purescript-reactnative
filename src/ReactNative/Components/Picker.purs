@@ -7,14 +7,14 @@ module ReactNative.Components.Picker (
 import Prelude
 import Data.Record.Class (class Subrow)
 import React (ReactElement)
-import ReactNative.Components.View (ViewPropsEx2)
+import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.Events (EventHandler)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (pickerItemU, pickerU)
 import Unsafe.Coerce (unsafeCoerce)
 
-type PickerProps a eff = ViewPropsEx2 eff (
+type PickerProps a eff = ViewPropsEx eff (
     onValueChange :: EventHandler eff a
   , selectedValue :: a
 ) (

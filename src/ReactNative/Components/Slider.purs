@@ -6,14 +6,14 @@ module ReactNative.Components.Slider (
 import Prelude
 import Data.Record.Class (class Subrow)
 import React (ReactElement)
-import ReactNative.Components.View (ViewPropsEx2)
+import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.Events (EventHandler)
 import ReactNative.PropTypes (ImageSource)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (sliderU)
 
-type SliderPropsO a eff = ViewPropsEx2 eff (
+type SliderPropsO a eff = ViewPropsEx eff (
     disabled :: Boolean
   , maximumValue :: a
   , minimumValue :: a

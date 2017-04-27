@@ -12,7 +12,7 @@ import Prelude
 import Control.Monad.Eff (Eff)
 import Data.Record.Class (class Subrow)
 import React (ReactElement, ReactThis)
-import ReactNative.Components.View (ViewPropsEx2')
+import ReactNative.Components.View (ViewPropsEx')
 import ReactNative.Events (ContentSizeEvent, EventHandler, ScrollEvent, TextInputEvent)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
@@ -21,7 +21,7 @@ import Unsafe.Coerce (unsafeCoerce)
 
 newtype TextInputRef = TextInputRef (forall p s. ReactThis p s)
 
-type TextInputPropsO eff = ViewPropsEx2' eff TextInputRef (
+type TextInputPropsO eff = ViewPropsEx' eff TextInputRef (
     autoCapitalize:: AutoCapitalize
   , autoCorrect :: Boolean
   , autoFocus :: Boolean

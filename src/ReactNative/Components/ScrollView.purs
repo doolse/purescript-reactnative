@@ -16,7 +16,7 @@ import Control.Monad.Eff (Eff)
 import Data.Function.Uncurried (Fn2, runFn2)
 import Data.Record.Class (class Subrow)
 import React (ReactElement, ReactThis)
-import ReactNative.Components.View (ViewPropsEx2)
+import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.Events (EventHandler2, ScrollEvent, UnitEventHandler, EventHandler)
 import ReactNative.PropTypes (Insets)
 import ReactNative.PropTypes.Color (Color)
@@ -144,7 +144,7 @@ keyboardShouldPersistTaps = {
   , handled: KeyboardShouldPersistTaps "handled"
 }
 
-type ScrollViewPropsEx eff r = ViewPropsEx2 eff (
+type ScrollViewPropsEx eff r = ViewPropsEx eff (
     contentContainerStyle :: Styles
   , horizontal :: Boolean
   , keyboardDismissMode :: KeyboardDismissMode

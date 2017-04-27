@@ -11,3 +11,6 @@ type BaseProps r = (
 
 iosProps :: forall o r. Subrow o r => {|o} -> {|r}
 iosProps = unsafeCoerce
+
+androidProps :: forall o r. Subrow o r => {|o} -> {|r}
+androidProps = unsafeCoerce

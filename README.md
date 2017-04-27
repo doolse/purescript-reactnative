@@ -130,13 +130,19 @@ For example:
 type ViewProps eff = {
     style :: Styles
     -- More platform neutral properties
-  , ios :: Prop {
+  , ios :: {
         shouldRasterizeIOS :: Boolean
     },
-  , android :: Prop {
+  , android :: {
         needsOffscreenAlphaCompositing :: Boolean
     }
 }
+```
+
+```purescript
+import ReactNative.Components (iosProps,androidProps)
+
+main = view' {accessible:true, android:androidProps {collapsable:true}, ios:iosProps {shouldRasterizeIOS:true} }
 ```
 
 ## Getting started - Hello World
@@ -240,3 +246,4 @@ Anything marked with * may not have 100% coverage of API calls yet.
 - Nicholas Brady (`nick.brady@smartrac-group.com`)
 - Don Abrams (`don.abrams@smartrac-group.com`)
 - Ben Fleisch (`bfly2000@gmail.com`)
+- Alexander Obi (`alexander.obi@smartrac-group.com`)

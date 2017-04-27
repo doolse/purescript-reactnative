@@ -8,7 +8,7 @@ where
 import Prelude
 import Data.Record.Class (class Subrow)
 import React (ReactElement)
-import ReactNative.Components.View (ViewPropsEx2)
+import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (activityIndicatorU)
@@ -20,7 +20,7 @@ type ActivityIndicatorProps r = {
   | r
 }
 
-type ActivityIndicatorPropsO eff = ViewPropsEx2 eff (
+type ActivityIndicatorPropsO eff = ViewPropsEx eff (
     color :: Color
   , size :: ActivityIndicatorSize
 ) () (

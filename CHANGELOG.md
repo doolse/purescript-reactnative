@@ -1,3 +1,10 @@
+# 4.0.1
+
+  - Edit README doc about platform specific props
+
+## Fixes
+ - Picker `onValueChange` didn't return a record. (`@alexanderobi`)
+
 # 4.0.0
 
 ## Breaking changes

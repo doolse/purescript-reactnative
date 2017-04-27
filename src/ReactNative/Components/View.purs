@@ -2,7 +2,7 @@
 module ReactNative.Components.View (
   view', view_, view
 , PointerEvents, AccessibilityType, AccessibilityLiveRegion, ImportanceForAccessibility, AccessibilityTraits
-, ViewPropsEx2, ViewPropsEx2'
+, ViewPropsEx, ViewPropsEx'
 , boxOnly, none, boxNone
 , traits, accessibilityTraits, accessibiltyType, accessibiltyLiveRegion
 , importanceForAccessibility
@@ -19,10 +19,10 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (viewU)
 import Unsafe.Coerce (unsafeCoerce)
 
-type ViewPropsO eff = ViewPropsEx2 eff () () ()
+type ViewPropsO eff = ViewPropsEx eff () () ()
 
-type ViewPropsEx2 eff r ra ri = ViewPropsEx2' eff (forall props state. ReactThis props state) r ra ri
-type ViewPropsEx2' eff ref r ra ri = BaseProps (
+type ViewPropsEx eff r ra ri = ViewPropsEx' eff (forall props state. ReactThis props state) r ra ri
+type ViewPropsEx' eff ref r ra ri = BaseProps (
     ref :: RefType ref
   , style :: Styles
   , accessibilityLabel :: String
