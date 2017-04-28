@@ -59,6 +59,9 @@ spaceBetween = JustifyContent "space-between"
 spaceAround :: JustifyContent
 spaceAround = JustifyContent "space-around"
 
+alignContent :: FlexAlignment -> StyleProp
+alignContent = unsafeStyleProp "alignContent"
+
 alignItems :: FlexAlignment -> StyleProp
 alignItems = unsafeStyleProp "alignItems"
 
