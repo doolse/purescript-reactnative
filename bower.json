@@ -19,7 +19,7 @@
     "url": "git://github.com/doolse/purescript-reactnative.git"
   },
   "dependencies": {
-    "purescript-react": "^3.0.0",
+    "purescript-react": "^4.0.1",
     "purescript-maybe": "^3.0.0",
     "purescript-newtype": "^2.0.0",
     "purescript-integers": "^3.0.0",
