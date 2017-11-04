@@ -5,6 +5,7 @@
 
 Purescript bindings for [react-native](http://facebook.github.io/react-native)
 
+- Latest react-native version tested against 0.51
 - [Movie example project](https://github.com/doolse/purescript-reactnative-example)
 - `bower install purescript-reactnative --save`
 - [CHANGELOG](CHANGELOG.md)
@@ -184,9 +185,9 @@ main :: forall e. Eff (register:: REGISTER | e) Unit
 main = do
   registerComponent "HelloWorld" app
 ```
-Then from your project root, build the purescript project and output it to `index.android.js`
+Then from your project root, build the purescript project and output it to `index.js`
 ```sh
-pulp build --to index.android.js
+pulp build --to index.js
 ```
 And that's it! Fire up an emulator (e.g. `android avd`) or connect a device and launch your app:
 ```
@@ -212,7 +213,6 @@ The plan is to initially support a subset of the components fully, and provide u
 |`Image`     |[x]|
 |`RefreshControl` | [x]|
 |`Button`    |[x]|
-|`Navigator` |[x] *|
 |`NavigatorIOS` |[x] *|
 |`DrawerLayoutAndroid` |[x]|
 |`ToolbarAndroid` |[x]|
@@ -235,7 +235,6 @@ The plan is to initially support a subset of the components fully, and provide u
 |`alert`     | [x]|
 |`color`     | [x]|
 |`ListViewDataSource` | [x]|
-|`NavigationExpiremental` | [x] *|
 
 Anything marked with * may not have 100% coverage of API calls yet.
 

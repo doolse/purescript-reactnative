@@ -1,3 +1,9 @@
+# 5.0.0
+
+  - Upgrade to latest purescript-react
+  - Remove navigation components which no longer exist
+  - Remove dependency of purescript-records in favour of reactnative `Optional` class
+
 # 4.0.1
 
   - Edit README doc about platform specific props
