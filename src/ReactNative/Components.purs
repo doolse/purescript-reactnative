@@ -1,6 +1,6 @@
 module ReactNative.Components where
 
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import Unsafe.Coerce (unsafeCoerce)
 
 type BaseProps r = (
@@ -9,8 +9,8 @@ type BaseProps r = (
   | r
 )
 
-iosProps :: forall o r. Subrow o r => {|o} -> {|r}
+iosProps :: forall o r. Optional o r => {|o} -> {|r}
 iosProps = unsafeCoerce
 
-androidProps :: forall o r. Subrow o r => {|o} -> {|r}
+androidProps :: forall o r. Optional o r => {|o} -> {|r}
 androidProps = unsafeCoerce

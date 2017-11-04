@@ -9,7 +9,7 @@ module ReactNative.Components.Modal (
 ) where
 
 import Prelude
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Events (EventHandler, UnitEventHandler)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
@@ -55,7 +55,7 @@ type ModalPropsO a eff = (
 )
 
 modal' :: forall a eff o
-  .  Subrow o (ModalPropsO a eff)
+  .  Optional o (ModalPropsO a eff)
   => {|o} -> Array ReactElement -> ReactElement
 modal' = modalU <<< unsafeApplyProps
 

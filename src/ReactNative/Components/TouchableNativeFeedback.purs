@@ -7,7 +7,7 @@ module ReactNative.Components.TouchableNativeFeedback (
 ) where
 
 import Prelude
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Components.Touchable (TouchablePropsEx)
 import ReactNative.Events (EventHandler, TouchEvent)
@@ -27,7 +27,7 @@ touchableNativeFeedback onPress = touchableNativeFeedbackU {onPress}
 
 -- | Create a TouchableNativeFeedback with the given props
 touchableNativeFeedback' :: forall eff o
-  .  Subrow o (TouchableNativeFeedbackProps eff)
+  .  Optional o (TouchableNativeFeedbackProps eff)
   => {|o} -> ReactElement -> ReactElement
 touchableNativeFeedback' = touchableNativeFeedbackU <<< unsafeApplyProps
 

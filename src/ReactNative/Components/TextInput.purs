@@ -10,7 +10,7 @@ module ReactNative.Components.TextInput (
 
 import Prelude
 import Control.Monad.Eff (Eff)
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactThis)
 import ReactNative.Components.View (ViewPropsEx')
 import ReactNative.Events (ContentSizeEvent, EventHandler, ScrollEvent, TextInputEvent)
@@ -66,7 +66,7 @@ type TextInputPropsO eff = ViewPropsEx' eff TextInputRef (
 
 -- | Create a TextInput with the given props
 textInput' :: forall eff o
-  .  Subrow o (TextInputPropsO eff)
+  .  Optional o (TextInputPropsO eff)
   => {|o} -> ReactElement
 textInput' = textInputU <<< unsafeApplyProps
 

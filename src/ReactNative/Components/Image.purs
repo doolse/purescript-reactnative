@@ -5,7 +5,7 @@ module ReactNative.Components.Image (
 ) where
 
 import Prelude
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, UnitEventHandler, EventHandler)
@@ -51,7 +51,7 @@ backgroundImage style source = imageU {style, source}
 -- |
 -- | Background images are simply normal images with children overalayed ontop
 backgroundImage' :: forall eff o
-  .  Subrow o (ImagePropsO eff)
+  .  Optional o (ImagePropsO eff)
   => ImageProps o -> Array ReactElement -> ReactElement
 backgroundImage' = imageU <<< unsafeApplyProps
 
@@ -65,7 +65,7 @@ image style source = imageU {style, source} []
 
 -- | Create an Image with props and source
 image' :: forall eff o
-  .  Subrow o (ImagePropsO eff)
+  .  Optional o (ImagePropsO eff)
   => ImageProps o -> ReactElement
 image' p = imageU (unsafeApplyProps p) []
 

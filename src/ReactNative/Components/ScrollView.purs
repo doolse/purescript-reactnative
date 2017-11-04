@@ -14,7 +14,7 @@ where
 import Prelude
 import Control.Monad.Eff (Eff)
 import Data.Function.Uncurried (Fn2, runFn2)
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactThis)
 import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.Events (EventHandler2, ScrollEvent, UnitEventHandler, EventHandler)
@@ -28,7 +28,7 @@ import Unsafe.Coerce (unsafeCoerce)
 type ScrollViewPropsO eff = ScrollViewPropsEx eff ()
 
 scrollView' :: forall eff o
-  .  Subrow o (ScrollViewPropsO eff)
+  .  Optional o (ScrollViewPropsO eff)
   => {|o} -> Array ReactElement -> ReactElement
 scrollView' = scrollViewU <<< unsafeApplyProps
 
@@ -65,7 +65,7 @@ refreshControl :: forall eff. UnitEventHandler eff -> Boolean -> RefreshControl
 refreshControl onRefresh refreshing = RefreshControl $ refreshControlU {onRefresh, refreshing}
 
 refreshControl' :: forall eff o
-  .  Subrow o (RefreshPropsO eff)
+  .  Optional o (RefreshPropsO eff)
   => {|o} -> RefreshControl
 refreshControl' = RefreshControl <<< refreshControlU <<< unsafeApplyProps
 

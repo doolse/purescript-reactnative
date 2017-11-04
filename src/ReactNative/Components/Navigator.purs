@@ -10,7 +10,7 @@ module ReactNative.Components.Navigator (
 import Prelude
 import Control.Monad.Eff (Eff)
 import Data.Function.Uncurried (Fn2, mkFn2)
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactState, ReactThis, ReadWrite)
 import ReactNative.Events (UnitEventHandler)
 import ReactNative.PropTypes (RefType)
@@ -40,7 +40,7 @@ type NavigatorPropsO r eff = (
 
 -- | Create a Navigator with the given props, initialRoute and scene renderer
 navigator' :: forall r eff o
-  .  Subrow o (NavigatorPropsO r eff)
+  .  Optional o (NavigatorPropsO r eff)
   => NavigatorProps r o -> ReactElement
 navigator' = navigatorU <<< unsafeApplyProps
 

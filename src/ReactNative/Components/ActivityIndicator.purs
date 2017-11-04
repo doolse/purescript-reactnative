@@ -6,7 +6,7 @@ module ReactNative.Components.ActivityIndicator (
 where
 
 import Prelude
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.PropTypes.Color (Color)
@@ -33,7 +33,7 @@ activityIndicator animating = activityIndicatorU {animating}
 
 -- | Create an ActivityIndicator with props and the `animating` flag
 activityIndicator' :: forall eff o
-  .  Subrow o (ActivityIndicatorPropsO eff)
+  .  Optional o (ActivityIndicatorPropsO eff)
   => ActivityIndicatorProps o -> ReactElement
 activityIndicator' = activityIndicatorU <<< unsafeApplyProps
 

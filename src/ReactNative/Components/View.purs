@@ -9,7 +9,7 @@ module ReactNative.Components.View (
 ) where
 
 import Prelude
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactThis)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, TouchEvent, EventHandler)
@@ -71,7 +71,7 @@ view style = viewU {style}
 
 -- | Create a View with the given props and children
 view' :: forall eff o
-  .  Subrow o (ViewPropsO eff)
+  .  Optional o (ViewPropsO eff)
   => {|o} -> Array ReactElement -> ReactElement
 view' = viewU <<< unsafeApplyProps
 

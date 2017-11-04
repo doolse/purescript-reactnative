@@ -3,7 +3,7 @@ module ReactNative.Components.Switch (
   switch'
 ) where
 
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (EventHandler)
@@ -31,6 +31,6 @@ type SwitchPropsO = BaseProps (
 
 -- | Create a Switch with a value and change handler
 switch' :: forall eff o
-  .  Subrow o SwitchPropsO
+  .  Optional o SwitchPropsO
   => SwitchProps eff o -> ReactElement
 switch' = switchU <<< unsafeApplyProps

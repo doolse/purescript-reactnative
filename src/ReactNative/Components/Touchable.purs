@@ -5,7 +5,7 @@ module ReactNative.Components.Touchable (
 ) where
 
 import Prelude
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Components.View (AccessibilityTraits, AccessibilityType)
 import ReactNative.Events (EventHandler, TouchEvent, LayoutEvent)
@@ -35,7 +35,7 @@ type TouchablePropsEx eff r = (
 
 -- | Create a [TouchableWithoutFeedback](https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html) with the given props
 touchableWithoutFeedback' :: forall eff o
-  .  Subrow o (TouchablePropsEx eff o)
+  .  Optional o (TouchablePropsEx eff o)
   => {|o} -> ReactElement -> ReactElement
 touchableWithoutFeedback' = touchableWithoutFeedbackU <<< unsafeApplyProps
 
@@ -44,7 +44,7 @@ type TouchableOpacityProps eff = TouchablePropsEx eff (
 )
 -- | Create a [TouchableOpacity](https://facebook.github.io/react-native/docs/touchableopacity.html) with the given props
 touchableOpacity' :: forall eff o
-  .  Subrow o (TouchableOpacityProps eff)
+  .  Optional o (TouchableOpacityProps eff)
   => {|o} -> ReactElement -> ReactElement
 touchableOpacity' = touchableOpacityU <<< unsafeApplyProps
 
@@ -62,6 +62,6 @@ touchableHighlight onPress = touchableHighlightU {onPress}
 
 -- | Create a [TouchableHighlight](https://facebook.github.io/react-native/docs/touchablehilight.html) with the given props
 touchableHighlight' :: forall eff o
-  .  Subrow o (TouchableHighlightProps eff)
+  .  Optional o (TouchableHighlightProps eff)
   => {|o} -> ReactElement -> ReactElement
 touchableHighlight' = touchableHighlightU <<< unsafeApplyProps

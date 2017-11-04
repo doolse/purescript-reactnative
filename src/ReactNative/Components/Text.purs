@@ -5,7 +5,7 @@ module ReactNative.Components.Text (
 , EllipsizeMode, ellipsizeMode
 ) where
 
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, TouchEvent, EventHandler)
@@ -35,7 +35,7 @@ textElem :: String -> ReactElement
 textElem = unsafeCoerce
 
 text' :: forall eff o
-  .  Subrow o (TextPropsO eff)
+  .  Optional o (TextPropsO eff)
   => {|o} -> String -> ReactElement
 text' p s = textU (unsafeApplyProps p) [textElem s]
 
@@ -52,7 +52,7 @@ texts_ :: Array ReactElement -> ReactElement
 texts_ = textU {}
 
 texts' :: forall eff o
-  .  Subrow o (TextPropsO eff)
+  .  Optional o (TextPropsO eff)
   => {|o} -> Array ReactElement -> ReactElement
 texts' p = textU (unsafeApplyProps p)
 

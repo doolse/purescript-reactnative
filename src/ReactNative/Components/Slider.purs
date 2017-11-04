@@ -4,7 +4,7 @@ module ReactNative.Components.Slider (
 ) where
 
 import Prelude
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.Events (EventHandler)
@@ -37,7 +37,7 @@ slider = sliderU
 -- | Create a slider using props
 slider' :: forall a eff o
   .  SliderType a
-  => Subrow o (SliderPropsO a eff)
+  => Optional o (SliderPropsO a eff)
   => {|o} -> ReactElement
 slider' = sliderU <<< unsafeApplyProps
 

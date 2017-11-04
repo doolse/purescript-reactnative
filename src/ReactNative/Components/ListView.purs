@@ -17,8 +17,7 @@ import Control.Monad.Eff.Uncurried (EffFn2)
 import Data.Function.Uncurried (Fn2, Fn3, Fn4, mkFn2, mkFn4, runFn3, runFn4)
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
-import Data.Record (merge)
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import Data.StrMap (StrMap)
 import React (ReactElement)
 import ReactNative.Components.ScrollView (ScrollViewPropsEx)
@@ -26,6 +25,8 @@ import ReactNative.Events (EventHandler, EventHandler2, ScrollEvent)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (listViewU)
 import Unsafe.Coerce (unsafeCoerce)
+
+foreign import unsafeMerge :: forall a b c. a -> b -> c
 
 type SectionId = String
 type RowId = String
@@ -57,7 +58,7 @@ listView dataSource rf = listViewU {dataSource,renderRow:rowRenderer rf,enableEm
 
 -- | Create a list view with props, a data source and a row renderer
 listView' :: forall o blob a section eff
-  .  Subrow o (ListViewPropsO section eff)
+  .  Optional o (ListViewPropsO section eff)
   => ListViewProps a section blob o
   -> ReactElement
 listView' = listViewU <<< unsafeApplyProps
@@ -82,9 +83,9 @@ sectionListViewDataSource :: forall blob a section. DataSourceSectionCloneable b
 sectionListViewDataSource = cloneWithRowsAndSections (listViewDataSource' {sectionHeaderHasChanged:refEquality :: Fn2 section section Boolean})
 
 listViewDataSource' :: forall blob a section o
-  .  Subrow o (ListViewDataSourcePropsO blob a section)
+  .  Optional o (ListViewDataSourcePropsO blob a section)
   => {|o} -> ListViewDataSource' blob a section
-listViewDataSource' p = listViewDataSourceImpl $ merge ((unsafeCoerce {rowHasChanged:refEquality}) :: ListViewDataSourceProps blob a section) p
+listViewDataSource' p = listViewDataSourceImpl $ unsafeMerge ((unsafeCoerce {rowHasChanged:refEquality}) :: ListViewDataSourceProps blob a section) p
 
 cloneWithRows :: forall a. ListViewDataSource' (Array a) a (Array a) -> Array a -> ListViewDataSource' (Array a) a (Array a)
 cloneWithRows = cloneWithRows' Nothing

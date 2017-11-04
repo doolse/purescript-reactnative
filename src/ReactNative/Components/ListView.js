@@ -70,3 +70,10 @@ exports.getSectionIDForFlatIndex = function (ds) {
 exports.getSectionLengths = function (ds) {
   return ds.getSectionLengths();
 }
+
+exports.unsafeMerge = function (l) {
+  return function (r) {
+    var o = {};
+    return Object.assign(o, l, r);
+  };
+};

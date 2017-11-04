@@ -6,7 +6,7 @@ module ReactNative.Components.NavigatorIOS (
 
 import Prelude
 import Control.Monad.Eff (Eff, kind Effect)
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactState, ReactThis, ReadWrite)
 import ReactNative.Events (UnitEventHandler)
 import ReactNative.PropTypes (ImageSource, RefType)
@@ -65,13 +65,13 @@ type NavigatorIOSPropsO = RouteDefaults (
 )
 
 mkRoute :: forall props eff o
-  .  Subrow o (RouteO eff)
+  .  Optional o (RouteO eff)
   => RouteM props o -> Route eff
 mkRoute = unsafeCoerce
 
 -- | Create a NavigatorIOS with the given props and initialRoute
 navigatorIOS' :: forall o eff
-  .  Subrow o NavigatorIOSPropsO
+  .  Optional o NavigatorIOSPropsO
   => NavigatorIOSProps o eff -> ReactElement
 navigatorIOS' = navigatorIOSU <<< unsafeApplyProps
 

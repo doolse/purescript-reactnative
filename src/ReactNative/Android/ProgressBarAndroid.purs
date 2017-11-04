@@ -2,7 +2,7 @@ module ReactNative.Android.Components.ProgressBarAndroid (
     progressBarAndroid', progressBarAndroid, progressBarAndroid_
   , StyleAttr, horizontal, normal, small, large, inverse, smallInverse, largeInverse
   ) where
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import Prelude
 import React (ReactElement)
 import ReactNative.Components (BaseProps)
@@ -43,7 +43,7 @@ type ProgressBarAndroidPropsO = BaseProps (
 
 -- | Warning will appear due to bug in react-native: https://github.com/facebook/react-native/pull/11791
 progressBarAndroid' :: forall o
-  .  Subrow o ProgressBarAndroidPropsO
+  .  Optional o ProgressBarAndroidPropsO
   => {|o} -> ReactElement
 progressBarAndroid' = progressBarAndroidU <<< unsafeApplyProps
 

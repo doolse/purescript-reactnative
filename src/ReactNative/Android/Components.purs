@@ -15,7 +15,7 @@ module ReactNative.Android.Components (
 import Prelude
 import Control.Monad.Eff (Eff)
 import Data.Maybe (Maybe(..))
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactThis)
 import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.Events (EventHandler, UnitEventHandler)
@@ -43,7 +43,7 @@ type ToolbarAndroidPropO eff = ViewPropsEx eff (
 
 -- | Create a [ToolbarAndroid](https://facebook.github.io/react-native/docs/toolbarandroid.html) component
 toolbarAndroid' :: forall eff o
-  .  Subrow o (ToolbarAndroidPropO eff)
+  .  Optional o (ToolbarAndroidPropO eff)
   => {|o} -> Array ReactElement -> ReactElement
 toolbarAndroid' = toolbarAndroidU <<< unsafeApplyProps
 
@@ -124,7 +124,7 @@ newtype DrawerLayoutRef = DrawerLayoutRef (forall p s. ReactThis p s)
 
 -- | Create a [DrawerLayoutAndroid](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html) component
 drawerLayoutAndroid' :: forall eff o
-  .  Subrow o (DrawerLayoutPropsO eff)
+  .  Optional o (DrawerLayoutPropsO eff)
   => DrawerLayoutProps o
   -> Array ReactElement
   -> ReactElement

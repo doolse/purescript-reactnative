@@ -5,7 +5,7 @@ module ReactNative.Components.Picker (
 ) where
 
 import Prelude
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.Events (EventHandler)
@@ -30,7 +30,7 @@ picker selectedValue onValueChange items = pickerU {selectedValue, onValueChange
 
 picker' :: forall a eff o
   .  PickerType a
-  => Subrow o (PickerProps a eff)
+  => Optional o (PickerProps a eff)
   => {|o} -> Array PickerItem -> ReactElement
 picker' p items = pickerU (unsafeApplyProps p) $ unsafeCoerce items
 

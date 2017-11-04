@@ -3,7 +3,7 @@ module ReactNative.Components.Button (
   button, button_, button'
 ) where
 
-import Data.Record.Class (class Subrow)
+import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Events (TouchEvent, EventHandler)
 import ReactNative.PropTypes.Color (Color)
@@ -28,5 +28,5 @@ button_ :: String -> ReactElement
 button_ title = buttonU {title}
 
 -- | Create a button with the given props and `title`
-button' :: forall o eff. Subrow o (ButtonPropsO eff) => {|o} -> ReactElement
+button' :: forall o eff. Optional o (ButtonPropsO eff) => {|o} -> ReactElement
 button' = buttonU <<< unsafeApplyProps
