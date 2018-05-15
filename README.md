@@ -169,11 +169,11 @@ module Main where
 
 import Prelude
 import Control.Monad.Eff (Eff)
-import React (ReactClass, Render, createClass, getProps, spec)
+import React (ReactClass, ReactElement, Render, createClass, getProps, spec)
 import ReactNative.API (REGISTER, registerComponent)
 import ReactNative.Components.Text (text_)
 
-render :: forall props state eff. Render props state eff
+render :: forall props state eff. Render props state ReactElement eff
 render ctx = do
             _ <- getProps ctx  -- get props from context if needed
             pure(text_ "Hello World")
