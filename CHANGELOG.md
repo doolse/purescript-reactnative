@@ -1,3 +1,6 @@
+# 5.0.1
+  - Upgrade dependencies and add LICENSE
+  
 # 5.0.0
 
   - Upgrade to latest purescript-react
