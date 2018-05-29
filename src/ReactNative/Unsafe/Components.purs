@@ -1,6 +1,7 @@
 module ReactNative.Unsafe.Components (
   textU
 , viewU
+, safeAreaViewU
 , imageU
 , listViewU
 , toolbarAndroidU
@@ -51,6 +52,7 @@ foreign import pickerItemClass               :: forall props. ReactClass props
 foreign import progressBarAndroidClass       :: forall props. ReactClass props
 foreign import progressViewIOSClass          :: forall props. ReactClass props
 foreign import refreshControlClass           :: forall props. ReactClass props
+foreign import safeAreaViewClass             :: forall props. ReactClass props
 foreign import scrollViewClass               :: forall props. ReactClass props
 foreign import segmentedControlIOSClass      :: forall props. ReactClass props
 foreign import sliderClass                   :: forall props. ReactClass props
@@ -80,6 +82,10 @@ textU = createElement textClass
 -- | Create a [View](https://facebook.github.io/react-native/docs/view.html) component unsafely
 viewU :: forall props. props -> Array ReactElement -> ReactElement
 viewU = createElement viewClass
+
+-- | Create a [SafeAreaView](https://facebook.github.io/react-native/docs/safeareaview.html) component unsafely
+safeAreaViewU :: forall props. props -> Array ReactElement -> ReactElement
+safeAreaViewU = createElement viewClass
 
 -- | Create an [Image](https://facebook.github.io/react-native/docs/image.html) component unsafely
 imageU :: forall props. props -> Array ReactElement -> ReactElement
