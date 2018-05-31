@@ -100,7 +100,7 @@ keyboardType = {
     default: KeyboardType "default"
   , numeric: KeyboardType "numeric"
   , emailAddress: KeyboardType "email-address"
-  , phonePad: KeyboardType "phonePad"
+  , phonePad: KeyboardType "phone-pad"
   , asciiCapable: KeyboardType "ascii-capable"
   , numbersAndPunctuation: KeyboardType "numbers-and-punctuation"
   , url: KeyboardType "url"
