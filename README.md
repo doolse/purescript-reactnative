@@ -201,6 +201,7 @@ The plan is to initially support a subset of the components fully, and provide u
 |Component   | Supported|
 |----------  |-------------|
 |`View`      | [x] |
+|`SafeAreaView`      | [x] |
 |`Text`      | [x] |
 |`TextInput` | [x]|
 |`Switch`    | [x]|

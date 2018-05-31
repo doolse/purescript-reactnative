@@ -17,6 +17,7 @@ exports.pickerItemClass               = RN.Picker.Item;
 exports.progressBarAndroidClass       = RN.ProgressBarAndroid;
 exports.progressViewIOSClass          = RN.ProgressViewIOS;
 exports.refreshControlClass           = RN.RefreshControl;
+exports.safeAreaViewClass             = RN.SafeAreaView;
 exports.scrollViewClass               = RN.ScrollView;
 exports.segmentedControlIOSClass      = RN.SegmentedControlIOS;
 exports.sliderClass                   = RN.Slider;
