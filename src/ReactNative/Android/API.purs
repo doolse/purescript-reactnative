@@ -1,11 +1,11 @@
 module ReactNative.Android.API where
 
 import Prelude
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Uncurried (EffFn1, EffFn2, runEffFn2)
+import Effect (Effect)
+import Effect.Uncurried (EffectFn1, EffectFn2, runEffectFn2)
 
-foreign import backAndroidAddListener :: forall eff. EffFn2 eff String (EffFn1 eff Unit Boolean) Unit
-foreign import exitApp :: forall eff. Int -> Eff eff Unit
+foreign import backAndroidAddListener :: EffectFn2 String (EffectFn1 Unit Boolean) Unit
+foreign import exitApp :: Int -> Effect Unit
 
-addBackEventCallback :: forall eff. EffFn1 eff Unit Boolean -> Eff eff Unit
-addBackEventCallback = runEffFn2 backAndroidAddListener "hardwareBackPress"
+addBackEventCallback :: EffectFn1 Unit Boolean -> Effect Unit
+addBackEventCallback = runEffectFn2 backAndroidAddListener "hardwareBackPress"

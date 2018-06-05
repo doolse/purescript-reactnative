@@ -12,7 +12,7 @@ import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (safeAreaViewU)
 
-type SafeAreaViewPropsO eff = ViewPropsEx eff () () ()
+type SafeAreaViewPropsO = ViewPropsEx () () ()
 
 -- | Create a SafeAreaView with only children
 safeAreaView_ :: Array ReactElement -> ReactElement
@@ -23,7 +23,7 @@ safeAreaView :: Styles -> Array ReactElement -> ReactElement
 safeAreaView style = safeAreaViewU {style}
 
 -- | Create a SafeAreaView with the given props and children
-safeAreaView' :: forall eff o
-  .  Optional o (SafeAreaViewPropsO eff)
+safeAreaView' :: forall o
+  .  Optional o SafeAreaViewPropsO
   => {|o} -> Array ReactElement -> ReactElement
 safeAreaView' = safeAreaViewU <<< unsafeApplyProps

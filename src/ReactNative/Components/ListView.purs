@@ -13,12 +13,12 @@ module ReactNative.Components.ListView (
 ) where
 
 import Prelude
-import Control.Monad.Eff.Uncurried (EffFn2)
+import Effect.Uncurried (EffectFn2)
 import Data.Function.Uncurried (Fn2, Fn3, Fn4, mkFn2, mkFn4, runFn3, runFn4)
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
+import Foreign.Object (Object)
 import ReactNative.Optional (class Optional)
-import Data.StrMap (StrMap)
 import React (ReactElement)
 import ReactNative.Components.ScrollView (ScrollViewPropsEx)
 import ReactNative.Events (EventHandler, EventHandler2, ScrollEvent)
@@ -37,11 +37,11 @@ type ListViewProps a section blob r = {
   | r
 }
 
-type ListViewPropsO section eff = ScrollViewPropsEx eff (
+type ListViewPropsO section = ScrollViewPropsEx (
     enableEmptySections :: Boolean
   , initialListSize :: Int
-  , onChangeVisibleRows :: EventHandler2 eff RowMap RowMap
-  , onEndReached :: EventHandler eff (Nullable ScrollEvent)
+  , onChangeVisibleRows :: EventHandler2 RowMap RowMap
+  , onEndReached :: EventHandler (Nullable ScrollEvent)
   , onEndReachedThreshold :: Int
   , pageSize :: Int
   , renderFooter :: Unit -> ReactElement
@@ -57,8 +57,8 @@ listView :: forall blob a section. ListViewDataSource' blob a section -> (a -> R
 listView dataSource rf = listViewU {dataSource,renderRow:rowRenderer rf,enableEmptySections:true}
 
 -- | Create a list view with props, a data source and a row renderer
-listView' :: forall o blob a section eff
-  .  Optional o (ListViewPropsO section eff)
+listView' :: forall o blob a section
+  .  Optional o (ListViewPropsO section)
   => ListViewProps a section blob o
   -> ReactElement
 listView' = listViewU <<< unsafeApplyProps
@@ -97,8 +97,8 @@ class DataSourceRowCloneable blob a | blob -> a
 class DataSourceSectionCloneable blob a section | blob -> a, blob -> section
 
 instance arrayRowCloneable :: DataSourceRowCloneable (Array a) a
-instance strMapMapCloneable :: DataSourceSectionCloneable (StrMap (StrMap a)) a (StrMap a)
-instance strMapArrayCloneable :: DataSourceSectionCloneable (StrMap (Array a)) a (Array a)
+instance strMapMapCloneable :: DataSourceSectionCloneable (Object (Object a)) a (Object a)
+instance strMapArrayCloneable :: DataSourceSectionCloneable (Object (Array a)) a (Array a)
 instance arrayArrayCloneable :: DataSourceSectionCloneable (Array (Array a)) a (Array a)
 
 cloneWithRowsAndSections :: forall blob a section. DataSourceSectionCloneable blob a section => ListViewDataSource' blob a section -> blob -> ListViewDataSource' blob a section
@@ -135,7 +135,7 @@ foreign import data SectionRenderer :: Type -> Type
 rowRenderer :: forall a. (a -> ReactElement) -> RowRenderer a
 rowRenderer = unsafeCoerce
 
-rowRenderer' :: forall a eff. (a -> SectionId -> RowId -> EffFn2 eff SectionId RowId Unit -> ReactElement) -> RowRenderer a
+rowRenderer' :: forall a. (a -> SectionId -> RowId -> EffectFn2 SectionId RowId Unit -> ReactElement) -> RowRenderer a
 rowRenderer' = unsafeCoerce <<< mkFn4
 
 sectionRenderer :: forall section. (section -> ReactElement) -> SectionRenderer section
@@ -144,4 +144,4 @@ sectionRenderer = unsafeCoerce
 sectionRenderer' :: forall section. (section -> SectionId -> ReactElement) -> SectionRenderer section
 sectionRenderer' = unsafeCoerce <<< mkFn2
 
-type RowMap = StrMap (StrMap Boolean)
+type RowMap = Object (Object Boolean)

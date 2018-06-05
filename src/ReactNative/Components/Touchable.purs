@@ -15,7 +15,7 @@ import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (touchableHighlightU, touchableOpacityU, touchableWithoutFeedbackU)
 
-type TouchablePropsEx eff r = (
+type TouchablePropsEx r = (
     accessible :: Boolean
   , accessibilityComponentType :: AccessibilityType
   , accessibilityTraits :: AccessibilityTraits
@@ -24,44 +24,44 @@ type TouchablePropsEx eff r = (
   , delayPressOut :: Int
   , disabled :: Boolean
   , hitSlop :: Insets
-  , onLayout :: EventHandler eff LayoutEvent
-  , onPress :: EventHandler eff TouchEvent
-  , onLongPress :: EventHandler eff TouchEvent
-  , onPressIn :: EventHandler eff TouchEvent
-  , onPressOut :: EventHandler eff TouchEvent
+  , onLayout :: EventHandler LayoutEvent
+  , onPress :: EventHandler TouchEvent
+  , onLongPress :: EventHandler TouchEvent
+  , onPressIn :: EventHandler TouchEvent
+  , onPressOut :: EventHandler TouchEvent
   , pressRetentionOffset :: Insets
   | r
 )
 
 -- | Create a [TouchableWithoutFeedback](https://facebook.github.io/react-native/docs/touchablewithoutfeedback.html) with the given props
-touchableWithoutFeedback' :: forall eff o
-  .  Optional o (TouchablePropsEx eff o)
+touchableWithoutFeedback' :: forall o
+  .  Optional o (TouchablePropsEx o)
   => {|o} -> ReactElement -> ReactElement
 touchableWithoutFeedback' = touchableWithoutFeedbackU <<< unsafeApplyProps
 
-type TouchableOpacityProps eff = TouchablePropsEx eff (
+type TouchableOpacityProps = TouchablePropsEx (
     activeOpacity :: Number
 )
 -- | Create a [TouchableOpacity](https://facebook.github.io/react-native/docs/touchableopacity.html) with the given props
-touchableOpacity' :: forall eff o
-  .  Optional o (TouchableOpacityProps eff)
+touchableOpacity' :: forall o
+  .  Optional o (TouchableOpacityProps)
   => {|o} -> ReactElement -> ReactElement
 touchableOpacity' = touchableOpacityU <<< unsafeApplyProps
 
-type TouchableHighlightProps eff = TouchablePropsEx eff (
+type TouchableHighlightProps = TouchablePropsEx (
     activeOpacity :: Number
-  , onHideUnderlay :: EventHandler eff TouchEvent
-  , onshowUnderlay :: EventHandler eff TouchEvent
+  , onHideUnderlay :: EventHandler TouchEvent
+  , onshowUnderlay :: EventHandler TouchEvent
   , style :: Styles
   , underlayColor :: Color
 )
 
 -- | Create a [TouchableHighlight](http://facebook.github.io/react-native/docs/touchablehighlight.html#touchablehighlight) with the given onPress handler
-touchableHighlight :: forall eff. EventHandler eff TouchEvent -> ReactElement -> ReactElement
+touchableHighlight :: EventHandler TouchEvent -> ReactElement -> ReactElement
 touchableHighlight onPress = touchableHighlightU {onPress}
 
 -- | Create a [TouchableHighlight](https://facebook.github.io/react-native/docs/touchablehilight.html) with the given props
-touchableHighlight' :: forall eff o
-  .  Optional o (TouchableHighlightProps eff)
+touchableHighlight' :: forall o
+  .  Optional o (TouchableHighlightProps)
   => {|o} -> ReactElement -> ReactElement
 touchableHighlight' = touchableHighlightU <<< unsafeApplyProps

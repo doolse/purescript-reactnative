@@ -5,9 +5,9 @@ module ReactNative.Components.NavigatorIOS (
 ) where
 
 import Prelude
-import Control.Monad.Eff (Eff, kind Effect)
+import Effect (Effect)
 import ReactNative.Optional (class Optional)
-import React (ReactElement, ReactState, ReactThis, ReadWrite)
+import React (ReactElement, ReactThis)
 import ReactNative.Events (UnitEventHandler)
 import ReactNative.PropTypes (ImageSource, RefType)
 import ReactNative.PropTypes.Color (Color)
@@ -28,7 +28,7 @@ type RouteDefaults r = (
   | r
 )
 
-foreign import data Route :: # Effect -> Type
+foreign import data Route :: Type
 
 type RouteM props o = {
     title :: String
@@ -37,23 +37,23 @@ type RouteM props o = {
   | o
 }
 
-type RouteO eff = RouteDefaults (
+type RouteO = RouteDefaults (
     titleImage :: ImageSource
   , backButtonIcon :: ImageSource
   , backButtonTitle :: String
   , leftButtonIcon :: ImageSource
   , leftButtonTitle :: String
   , leftButtonSystemIcon :: String -- Object.keys(SystemIcons)
-  , onLeftButtonPress :: UnitEventHandler eff
+  , onLeftButtonPress :: UnitEventHandler
   , rightButtonIcon :: ImageSource
   , rightButtonTitle :: String
   , rightButtonSystemIcon :: String -- Object.keys(SystemIcons)
-  , onRightButtonPress :: UnitEventHandler eff
+  , onRightButtonPress :: UnitEventHandler
   , wrapperStyle :: Styles
 )
 
-type NavigatorIOSProps o eff = {
-  initialRoute :: Route eff
+type NavigatorIOSProps o = {
+  initialRoute :: Route
   | o
 }
 
@@ -64,17 +64,17 @@ type NavigatorIOSPropsO = RouteDefaults (
   , style :: Styles
 )
 
-mkRoute :: forall props eff o
-  .  Optional o (RouteO eff)
-  => RouteM props o -> Route eff
+mkRoute :: forall props o
+  .  Optional o RouteO
+  => RouteM props o -> Route
 mkRoute = unsafeCoerce
 
 -- | Create a NavigatorIOS with the given props and initialRoute
-navigatorIOS' :: forall o eff
+navigatorIOS' :: forall o
   .  Optional o NavigatorIOSPropsO
-  => NavigatorIOSProps o eff -> ReactElement
+  => NavigatorIOSProps o -> ReactElement
 navigatorIOS' = navigatorIOSU <<< unsafeApplyProps
 
-foreign import push :: forall eff. NavigatorIOS -> Route eff -> Eff (state::ReactState ReadWrite|eff) Unit
+foreign import push :: NavigatorIOS -> Route -> Effect Unit
 
-foreign import pop :: forall eff. NavigatorIOS -> Eff (state::ReactState ReadWrite|eff) Unit
+foreign import pop :: NavigatorIOS -> Effect Unit

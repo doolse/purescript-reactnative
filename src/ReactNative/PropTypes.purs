@@ -1,6 +1,6 @@
 module ReactNative.PropTypes where
 
-import Control.Monad.Eff.Uncurried (EffFn1)
+import Effect.Uncurried (EffectFn1)
 import Data.Nullable (Nullable)
 import Data.Unit (Unit)
 import Unsafe.Coerce (unsafeCoerce)
@@ -15,7 +15,7 @@ import Unsafe.Coerce (unsafeCoerce)
 -- | module Images where
 -- | foreign import myImage :: ImageSource
 -- | ```
--- | 
+-- |
 -- | `Images.js`
 -- | ``` javascript
 -- | exports.myImage = require("myimage.png");
@@ -43,7 +43,7 @@ unsafeRef :: forall a. String -> RefType a
 unsafeRef = unsafeCoerce
 
 -- | Creates a RefType from an effectful function.
-refFunc :: forall eff ref. EffFn1 eff (Nullable ref) Unit -> RefType ref
+refFunc :: forall ref. EffectFn1 (Nullable ref) Unit -> RefType ref
 refFunc = unsafeCoerce
 
 type Insets = {top:: Number, left:: Number, bottom:: Number, right:: Number}

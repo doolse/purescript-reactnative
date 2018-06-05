@@ -19,13 +19,13 @@ type ImageProps r = {
   | r
 }
 
-type ImagePropsO eff = BaseProps (
+type ImagePropsO = BaseProps (
     style :: Styles
-  , onError :: UnitEventHandler eff
-  , onLayout :: EventHandler eff LayoutEvent
-  , onLoad :: UnitEventHandler eff
-  , onLoadEnd :: UnitEventHandler eff
-  , onLoadStart :: UnitEventHandler eff
+  , onError :: UnitEventHandler
+  , onLayout :: EventHandler LayoutEvent
+  , onLoad :: UnitEventHandler
+  , onLoadEnd :: UnitEventHandler
+  , onLoadStart :: UnitEventHandler
   , resizeMode :: ResizeMode
   , android :: {
       resizeMethod :: ResizeMethod
@@ -36,8 +36,8 @@ type ImagePropsO eff = BaseProps (
     , blurRadius :: Number
     , capInsets :: {top::Number, left::Number, bottom::Number, right::Number}
     , defaultSource :: ImageSource
-    , onPartialLoad :: UnitEventHandler eff
-    , onProgress :: EventHandler eff ImageProgressEvent
+    , onPartialLoad :: UnitEventHandler
+    , onProgress :: EventHandler ImageProgressEvent
     }
 )
 
@@ -50,8 +50,8 @@ backgroundImage style source = imageU {style, source}
 -- | Create a background image with props and source
 -- |
 -- | Background images are simply normal images with children overalayed ontop
-backgroundImage' :: forall eff o
-  .  Optional o (ImagePropsO eff)
+backgroundImage' :: forall o
+  .  Optional o ImagePropsO
   => ImageProps o -> Array ReactElement -> ReactElement
 backgroundImage' = imageU <<< unsafeApplyProps
 
@@ -64,8 +64,8 @@ image :: Styles -> ImageSource -> ReactElement
 image style source = imageU {style, source} []
 
 -- | Create an Image with props and source
-image' :: forall eff o
-  .  Optional o (ImagePropsO eff)
+image' :: forall o
+  .  Optional o ImagePropsO
   => ImageProps o -> ReactElement
 image' p = imageU (unsafeApplyProps p) []
 

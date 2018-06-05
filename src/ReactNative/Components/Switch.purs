@@ -12,8 +12,8 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (switchU)
 import Prelude
 
-type SwitchProps eff r = {
-    onValueChange :: EventHandler eff Boolean
+type SwitchProps r = {
+    onValueChange :: EventHandler Boolean
   , value :: Boolean
   | r
 }
@@ -30,7 +30,7 @@ type SwitchPropsO = BaseProps (
 )
 
 -- | Create a Switch with a value and change handler
-switch' :: forall eff o
+switch' :: forall o
   .  Optional o SwitchPropsO
-  => SwitchProps eff o -> ReactElement
+  => SwitchProps o -> ReactElement
 switch' = switchU <<< unsafeApplyProps
