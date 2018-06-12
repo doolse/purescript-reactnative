@@ -12,7 +12,7 @@ module ReactNative.Components.ScrollView (
 where
 
 import Prelude
-import Control.Monad.Eff (Eff)
+import Effect (Effect)
 import Data.Function.Uncurried (Fn2, runFn2)
 import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactThis)
@@ -25,10 +25,10 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (refreshControlU, scrollViewU)
 import Unsafe.Coerce (unsafeCoerce)
 
-type ScrollViewPropsO eff = ScrollViewPropsEx eff ()
+type ScrollViewPropsO = ScrollViewPropsEx ()
 
-scrollView' :: forall eff o
-  .  Optional o (ScrollViewPropsO eff)
+scrollView' :: forall o
+  .  Optional o ScrollViewPropsO
   => {|o} -> Array ReactElement -> ReactElement
 scrollView' = scrollViewU <<< unsafeApplyProps
 
@@ -38,14 +38,14 @@ scrollView_ = scrollViewU {}
 scrollView :: Styles -> Array ReactElement -> ReactElement
 scrollView style = scrollViewU {style}
 
-type RefreshProps eff r = {
-    onRefresh :: UnitEventHandler eff
+type RefreshProps r = {
+    onRefresh :: UnitEventHandler
   , refreshing :: Boolean
   | r
 }
 
-type RefreshPropsO eff = (
-    onRefresh :: UnitEventHandler eff
+type RefreshPropsO = (
+    onRefresh :: UnitEventHandler
   , refreshing :: Boolean
   , android :: {
       colors :: Array Color
@@ -61,11 +61,11 @@ type RefreshPropsO eff = (
   }
 )
 
-refreshControl :: forall eff. UnitEventHandler eff -> Boolean -> RefreshControl
+refreshControl :: UnitEventHandler -> Boolean -> RefreshControl
 refreshControl onRefresh refreshing = RefreshControl $ refreshControlU {onRefresh, refreshing}
 
-refreshControl' :: forall eff o
-  .  Optional o (RefreshPropsO eff)
+refreshControl' :: forall o
+  .  Optional o RefreshPropsO
   => {|o} -> RefreshControl
 refreshControl' = RefreshControl <<< refreshControlU <<< unsafeApplyProps
 
@@ -144,27 +144,27 @@ keyboardShouldPersistTaps = {
   , handled: KeyboardShouldPersistTaps "handled"
 }
 
-type ScrollViewPropsEx eff r = ViewPropsEx eff (
+type ScrollViewPropsEx r = ViewPropsEx (
     contentContainerStyle :: Styles
   , horizontal :: Boolean
   , keyboardDismissMode :: KeyboardDismissMode
   , keyboardShouldPersistTaps :: KeyboardShouldPersistTaps
-  , onContentSizeChange :: EventHandler2 eff Number Number
-  , onScroll :: EventHandler eff ScrollEvent
+  , onContentSizeChange :: EventHandler2 Number Number
+  , onScroll :: EventHandler ScrollEvent
   , pagingEnabled :: Boolean
   , refreshControl :: RefreshControl
   , scrollEnabled :: Boolean
   , showsHorizontalScrollIndicator :: Boolean
   , showsVerticalScrollIndicator :: Boolean
   | r
-) ScrollViewAndroid (ScrollViewIOS eff)
+) ScrollViewAndroid ScrollViewIOS
 
 type ScrollViewAndroid =  (
     endFillColor :: Color
   , scrollPerfTag :: String
 )
 
-type ScrollViewIOS eff = (
+type ScrollViewIOS = (
     alwaysBounceHorizontal :: Boolean
   , alwaysBounceVertical :: Boolean
   , automaticallyAdjustContentInsets :: Boolean
@@ -179,7 +179,7 @@ type ScrollViewIOS eff = (
   , indicatorStyle :: IndicatorStyle
   , maximumZoomScale :: Number
   , minimumZoomScale :: Number
-  , onScrollAnimationEnd :: UnitEventHandler eff
+  , onScrollAnimationEnd :: UnitEventHandler
   , scrollEventThrottle :: Number
   , scrollIndicatorInsets :: Insets
   , scrollsToTop :: Boolean
@@ -191,10 +191,10 @@ type ScrollViewIOS eff = (
 
 newtype Scrollable = Scrollable (forall props state. ReactThis props state)
 
-foreign import scrollToImpl :: forall eff. Fn2 {x:: Int, y :: Int, animated :: Boolean} Scrollable (Eff eff Unit)
+foreign import scrollToImpl :: Fn2 {x:: Int, y :: Int, animated :: Boolean} Scrollable (Effect Unit)
 
-scrollTo' :: forall eff. { x :: Int, y :: Int, animated :: Boolean } -> Scrollable -> Eff eff Unit
+scrollTo' :: { x :: Int, y :: Int, animated :: Boolean } -> Scrollable -> Effect Unit
 scrollTo' = runFn2 scrollToImpl
 
-scrollTo :: forall eff. {x::Int, y::Int} -> Scrollable -> Eff eff Unit
+scrollTo :: {x::Int, y::Int} -> Scrollable -> Effect Unit
 scrollTo {x,y} = scrollTo' {x,y,animated:true}

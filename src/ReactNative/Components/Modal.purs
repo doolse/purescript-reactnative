@@ -37,37 +37,37 @@ orientationType = {
   , landscape: Orientation "landscape"
 }
 
-type OnRequestClose eff =  UnitEventHandler eff
+type OnRequestClose = UnitEventHandler
 
-type ModalPropsO a eff = (
+type ModalPropsO a = (
     animationType :: AnimationType
-  , onShow :: UnitEventHandler eff
+  , onShow :: UnitEventHandler
   , transparent :: Boolean
   , visible :: Boolean
   , android :: {
       hardwareAccelerated :: Boolean
-    , onRequestClose :: OnRequestClose eff
+    , onRequestClose :: OnRequestClose
   }
   , ios :: {
-      onOrientationChange :: EventHandler eff Orientation
+      onOrientationChange :: EventHandler Orientation
     , supportedOrientations :: Array Orientation
   }
 )
 
-modal' :: forall a eff o
-  .  Optional o (ModalPropsO a eff)
+modal' :: forall a o
+  .  Optional o (ModalPropsO a)
   => {|o} -> Array ReactElement -> ReactElement
 modal' = modalU <<< unsafeApplyProps
 
 -- On request is required *for android*. Least nasty solution is to require it, and provide a default for iOS
 -- https://github.com/facebook/react-native/commit/ce81f8b35af8d273072583d369594d4f5fd6d696
-modal_ :: forall eff. OnRequestClose eff -> Array ReactElement -> ReactElement
+modal_ :: OnRequestClose -> Array ReactElement -> ReactElement
 modal_ orc = modalU {onRequestClose: orc}
 
 modalIOS_ :: Array ReactElement -> ReactElement
 modalIOS_ = modalU {}
 
-modal :: forall eff. Boolean -> AnimationType -> OnRequestClose eff -> Array ReactElement -> ReactElement
+modal :: Boolean -> AnimationType -> OnRequestClose -> Array ReactElement -> ReactElement
 modal v at orc = modalU {visible: v, animationType: at, onRequestClose: orc}
 
 modalIOS :: Boolean -> AnimationType -> Array ReactElement -> ReactElement

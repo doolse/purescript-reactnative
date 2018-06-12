@@ -9,7 +9,7 @@ module ReactNative.Components.TextInput (
 ) where
 
 import Prelude
-import Control.Monad.Eff (Eff)
+import Effect (Effect)
 import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactThis)
 import ReactNative.Components.View (ViewPropsEx')
@@ -21,7 +21,7 @@ import Unsafe.Coerce (unsafeCoerce)
 
 newtype TextInputRef = TextInputRef (forall p s. ReactThis p s)
 
-type TextInputPropsO eff = ViewPropsEx' eff TextInputRef (
+type TextInputPropsO = ViewPropsEx' TextInputRef (
     autoCapitalize:: AutoCapitalize
   , autoCorrect :: Boolean
   , autoFocus :: Boolean
@@ -33,15 +33,15 @@ type TextInputPropsO eff = ViewPropsEx' eff TextInputRef (
   , defaultValue :: String
   , keyboardType :: KeyboardType
   , maxLength :: Int
-  , onBlur :: EventHandler eff TextInputEvent
-  , onChange :: EventHandler eff TextInputEvent
-  , onChangeText :: EventHandler eff String
-  , onContentSizeChange :: EventHandler eff ContentSizeEvent
-  , onEndEditing :: EventHandler eff TextInputEvent
-  , onFocus :: EventHandler eff TextInputEvent
-  , onScroll :: EventHandler eff ScrollEvent
-  , onSelectionChange :: EventHandler eff TextInputEvent
-  , onSubmitEditing :: EventHandler eff TextInputEvent
+  , onBlur :: EventHandler TextInputEvent
+  , onChange :: EventHandler TextInputEvent
+  , onChangeText :: EventHandler String
+  , onContentSizeChange :: EventHandler ContentSizeEvent
+  , onEndEditing :: EventHandler TextInputEvent
+  , onFocus :: EventHandler TextInputEvent
+  , onScroll :: EventHandler ScrollEvent
+  , onSelectionChange :: EventHandler TextInputEvent
+  , onSubmitEditing :: EventHandler TextInputEvent
   , placeholder :: String
   , placeholderTextColor :: Color
   , selection :: {start:: Int, end:: Int}
@@ -59,23 +59,23 @@ type TextInputPropsO eff = ViewPropsEx' eff TextInputRef (
   , enablesReturnKeyAutomatically :: Boolean
   , clearButtonMode :: ClearButtonMode
   , keyboardAppearance :: KeyboardAppearance
-  , onKeyPress :: EventHandler eff TextInputEvent
+  , onKeyPress :: EventHandler TextInputEvent
   , selectionState :: DocumentSelectionState
   , dataDetectorTypes :: DataDetectorType
 )
 
 -- | Create a TextInput with the given props
-textInput' :: forall eff o
-  .  Optional o (TextInputPropsO eff)
+textInput' :: forall o
+  .  Optional o (TextInputPropsO)
   => {|o} -> ReactElement
 textInput' = textInputU <<< unsafeApplyProps
 
 -- | Focus the TextInput for the given ref
-foreign import focus :: forall eff. TextInputRef -> Eff eff Unit
+foreign import focus :: TextInputRef -> Effect Unit
 -- | See if TextInput is focussed for the given ref
 foreign import isFocused :: TextInputRef -> Boolean
 -- | Clear the value of the TextInput for the given ref
-foreign import clear :: forall eff. TextInputRef -> Eff eff Unit
+foreign import clear :: TextInputRef -> Effect Unit
 
 foreign import data DocumentSelectionState :: Type
 

@@ -14,13 +14,13 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (textU)
 import Unsafe.Coerce (unsafeCoerce)
 
-type TextPropsO eff = BaseProps (
+type TextPropsO = BaseProps (
     style :: Styles
   , numberOfLines :: Int
   , accessible :: Boolean
-  , onLayout :: EventHandler eff LayoutEvent
-  , onPress :: EventHandler eff TouchEvent
-  , onLongPress :: EventHandler eff TouchEvent
+  , onLayout :: EventHandler LayoutEvent
+  , onPress :: EventHandler TouchEvent
+  , onLongPress :: EventHandler TouchEvent
   , selectable :: Boolean
   , ellipsizeMode :: EllipsizeMode
   , ios:: {
@@ -34,8 +34,8 @@ type TextPropsO eff = BaseProps (
 textElem :: String -> ReactElement
 textElem = unsafeCoerce
 
-text' :: forall eff o
-  .  Optional o (TextPropsO eff)
+text' :: forall o
+  .  Optional o TextPropsO
   => {|o} -> String -> ReactElement
 text' p s = textU (unsafeApplyProps p) [textElem s]
 
@@ -51,8 +51,8 @@ texts style = textU {style}
 texts_ :: Array ReactElement -> ReactElement
 texts_ = textU {}
 
-texts' :: forall eff o
-  .  Optional o (TextPropsO eff)
+texts' :: forall o
+  .  Optional o TextPropsO
   => {|o} -> Array ReactElement -> ReactElement
 texts' p = textU (unsafeApplyProps p)
 

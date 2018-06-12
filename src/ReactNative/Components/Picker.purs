@@ -14,8 +14,8 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (pickerItemU, pickerU)
 import Unsafe.Coerce (unsafeCoerce)
 
-type PickerProps a eff = ViewPropsEx eff (
-    onValueChange :: EventHandler eff a
+type PickerProps a = ViewPropsEx (
+    onValueChange :: EventHandler a
   , selectedValue :: a
 ) (
     enabled :: Boolean
@@ -25,12 +25,12 @@ type PickerProps a eff = ViewPropsEx eff (
   itemStyle :: Styles
 )
 
-picker :: forall a eff. PickerType a => a -> EventHandler eff a -> Array PickerItem -> ReactElement
+picker :: forall a. PickerType a => a -> EventHandler a -> Array PickerItem -> ReactElement
 picker selectedValue onValueChange items = pickerU {selectedValue, onValueChange} (unsafeCoerce items)
 
-picker' :: forall a eff o
+picker' :: forall a o
   .  PickerType a
-  => Optional o (PickerProps a eff)
+  => Optional o (PickerProps a)
   => {|o} -> Array PickerItem -> ReactElement
 picker' p items = pickerU (unsafeApplyProps p) $ unsafeCoerce items
 

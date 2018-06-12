@@ -16,18 +16,18 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (touchableNativeFeedbackU)
 
 foreign import data TouchableNativeBackground :: Type
-type TouchableNativeFeedbackProps eff = TouchablePropsEx eff (
+type TouchableNativeFeedbackProps = TouchablePropsEx (
     background :: TouchableNativeBackground
   , useForeground :: Boolean
 )
 
 -- | Create a TouchableNativeFeedback with the given onPress handler
-touchableNativeFeedback :: forall eff. EventHandler eff TouchEvent -> ReactElement -> ReactElement
+touchableNativeFeedback :: EventHandler TouchEvent -> ReactElement -> ReactElement
 touchableNativeFeedback onPress = touchableNativeFeedbackU {onPress}
 
 -- | Create a TouchableNativeFeedback with the given props
-touchableNativeFeedback' :: forall eff o
-  .  Optional o (TouchableNativeFeedbackProps eff)
+touchableNativeFeedback' :: forall o
+  .  Optional o TouchableNativeFeedbackProps
   => {|o} -> ReactElement -> ReactElement
 touchableNativeFeedback' = touchableNativeFeedbackU <<< unsafeApplyProps
 

@@ -20,7 +20,7 @@ type ActivityIndicatorProps r = {
   | r
 }
 
-type ActivityIndicatorPropsO eff = ViewPropsEx eff (
+type ActivityIndicatorPropsO = ViewPropsEx (
     color :: Color
   , size :: ActivityIndicatorSize
 ) () (
@@ -32,8 +32,8 @@ activityIndicator :: Boolean -> ReactElement
 activityIndicator animating = activityIndicatorU {animating}
 
 -- | Create an ActivityIndicator with props and the `animating` flag
-activityIndicator' :: forall eff o
-  .  Optional o (ActivityIndicatorPropsO eff)
+activityIndicator' :: forall o
+  .  Optional o ActivityIndicatorPropsO
   => ActivityIndicatorProps o -> ReactElement
 activityIndicator' = activityIndicatorU <<< unsafeApplyProps
 

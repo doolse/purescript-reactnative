@@ -13,7 +13,7 @@ module ReactNative.Android.Components (
 ) where
 
 import Prelude
-import Control.Monad.Eff (Eff)
+import Effect (Effect)
 import Data.Maybe (Maybe(..))
 import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactThis)
@@ -25,11 +25,11 @@ import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (drawerLayoutAndroidU, toolbarAndroidU)
 
-type ToolbarAndroidPropO eff = ViewPropsEx eff (
+type ToolbarAndroidPropO = ViewPropsEx (
     actions :: Array ToolbarAction
   , navIcon :: ImageSource
-  , onIconClicked :: UnitEventHandler eff
-  , onActionSelected :: EventHandler eff Int
+  , onIconClicked :: UnitEventHandler
+  , onActionSelected :: EventHandler Int
   , title :: String
   , titleColor :: Color
   , contentInsetEnd :: Int
@@ -42,8 +42,8 @@ type ToolbarAndroidPropO eff = ViewPropsEx eff (
 ) () ()
 
 -- | Create a [ToolbarAndroid](https://facebook.github.io/react-native/docs/toolbarandroid.html) component
-toolbarAndroid' :: forall eff o
-  .  Optional o (ToolbarAndroidPropO eff)
+toolbarAndroid' :: forall o
+  .  Optional o ToolbarAndroidPropO
   => {|o} -> Array ReactElement -> ReactElement
 toolbarAndroid' = toolbarAndroidU <<< unsafeApplyProps
 
@@ -108,27 +108,27 @@ type DrawerLayoutProps o = {
   | o
 }
 
-type DrawerLayoutPropsO eff = (
+type DrawerLayoutPropsO = (
     ref :: RefType DrawerLayoutRef
   , drawerBackgroundColor :: Color
   , drawerLockMode :: DrawerLockMode
   , keyboardDismissMode :: DrawerKeyboardDismissMode
-  , onDrawerClose :: EventHandler eff Unit
-  , onDrawerOpen :: EventHandler eff Unit
-  , onDrawerSlide :: EventHandler eff Unit
-  , onDrawerStateChanged :: EventHandler eff Unit
+  , onDrawerClose :: EventHandler Unit
+  , onDrawerOpen :: EventHandler Unit
+  , onDrawerSlide :: EventHandler Unit
+  , onDrawerStateChanged :: EventHandler Unit
   , statusBarBackgroundColor :: Color
 )
 
 newtype DrawerLayoutRef = DrawerLayoutRef (forall p s. ReactThis p s)
 
 -- | Create a [DrawerLayoutAndroid](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html) component
-drawerLayoutAndroid' :: forall eff o
-  .  Optional o (DrawerLayoutPropsO eff)
+drawerLayoutAndroid' :: forall o
+  .  Optional o DrawerLayoutPropsO
   => DrawerLayoutProps o
   -> Array ReactElement
   -> ReactElement
 drawerLayoutAndroid' = drawerLayoutAndroidU <<< unsafeApplyProps
 
-foreign import openDrawer :: forall eff. DrawerLayoutRef -> Eff eff Unit
-foreign import closeDrawer :: forall eff. DrawerLayoutRef -> Eff eff Unit
+foreign import openDrawer :: DrawerLayoutRef -> Effect Unit
+foreign import closeDrawer :: DrawerLayoutRef -> Effect Unit

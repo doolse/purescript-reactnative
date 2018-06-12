@@ -13,12 +13,12 @@ import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (sliderU)
 
-type SliderPropsO a eff = ViewPropsEx eff (
+type SliderPropsO a = ViewPropsEx (
     disabled :: Boolean
   , maximumValue :: a
   , minimumValue :: a
-  , onSlidingComplete :: EventHandler eff a
-  , onValueChange :: EventHandler eff a
+  , onSlidingComplete :: EventHandler a
+  , onValueChange :: EventHandler a
   , step :: a
   , value :: a
 ) () (
@@ -31,13 +31,13 @@ type SliderPropsO a eff = ViewPropsEx eff (
 )
 
 -- | Create a slider with min, max, step, value and onSlidingComplete
-slider :: forall a eff. SliderType a => {minimumValue::a, maximumValue::a, step::a, value::a, onSlidingComplete::EventHandler eff a} -> ReactElement
+slider :: forall a. SliderType a => {minimumValue::a, maximumValue::a, step::a, value::a, onSlidingComplete::EventHandler a} -> ReactElement
 slider = sliderU
 
 -- | Create a slider using props
-slider' :: forall a eff o
+slider' :: forall a o
   .  SliderType a
-  => Optional o (SliderPropsO a eff)
+  => Optional o (SliderPropsO a)
   => {|o} -> ReactElement
 slider' = sliderU <<< unsafeApplyProps
 

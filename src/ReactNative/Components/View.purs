@@ -19,25 +19,25 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (viewU)
 import Unsafe.Coerce (unsafeCoerce)
 
-type ViewPropsO eff = ViewPropsEx eff () () ()
+type ViewPropsO = ViewPropsEx () () ()
 
-type ViewPropsEx eff r ra ri = ViewPropsEx' eff (forall props state. ReactThis props state) r ra ri
-type ViewPropsEx' eff ref r ra ri = BaseProps (
+type ViewPropsEx r ra ri = ViewPropsEx' (forall props state. ReactThis props state) r ra ri
+type ViewPropsEx' ref r ra ri = BaseProps (
     ref :: RefType ref
   , style :: Styles
   , accessibilityLabel :: String
   , accessible :: Boolean
   , hitSlop :: {top:: Number, left:: Number, bottom:: Number, right:: Number}
-  , onAccessibilityTap :: EventHandler eff TouchEvent
-  , onLayout :: EventHandler eff LayoutEvent
-  , onMagicTap :: EventHandler eff TouchEvent
+  , onAccessibilityTap :: EventHandler TouchEvent
+  , onLayout :: EventHandler LayoutEvent
+  , onMagicTap :: EventHandler TouchEvent
   , onMoveShouldSetResponder :: TouchEvent -> Boolean
   , onMoveShouldSetResponderCapture :: TouchEvent -> Boolean
-  , onResponderGrant :: EventHandler eff TouchEvent
-  , onResponderMove :: EventHandler eff TouchEvent
-  , onResponderReject :: EventHandler eff TouchEvent
-  , onResponderRelease :: EventHandler eff TouchEvent
-  , onResponderTerminate :: EventHandler eff TouchEvent
+  , onResponderGrant :: EventHandler TouchEvent
+  , onResponderMove :: EventHandler TouchEvent
+  , onResponderReject :: EventHandler TouchEvent
+  , onResponderRelease :: EventHandler TouchEvent
+  , onResponderTerminate :: EventHandler TouchEvent
   , onResponderTerminationRequest :: TouchEvent -> Boolean
   , onStartShouldSetResponder :: TouchEvent -> Boolean
   , onStartShouldSetResponderCapture :: TouchEvent -> Boolean
@@ -70,8 +70,8 @@ view :: Styles -> Array ReactElement -> ReactElement
 view style = viewU {style}
 
 -- | Create a View with the given props and children
-view' :: forall eff o
-  .  Optional o (ViewPropsO eff)
+view' :: forall o
+  .  Optional o (ViewPropsO)
   => {|o} -> Array ReactElement -> ReactElement
 view' = viewU <<< unsafeApplyProps
 

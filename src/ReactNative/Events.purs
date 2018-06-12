@@ -1,6 +1,6 @@
 module ReactNative.Events where
 
-import Control.Monad.Eff.Uncurried (EffFn1, EffFn2)
+import Effect.Uncurried (EffectFn1, EffectFn2)
 import Prelude (Unit)
 
 type TouchEvent = {
@@ -43,8 +43,8 @@ type ScrollEvent = {
   }
 }
 
-type EventHandler eff a = EffFn1 eff a Unit
+type EventHandler a = EffectFn1 a Unit
 
-type EventHandler2 eff a b = EffFn2 eff a b Unit
+type EventHandler2 a b = EffectFn2 a b Unit
 
-type UnitEventHandler eff = EffFn1 eff Unit Unit
+type UnitEventHandler = EffectFn1 Unit Unit

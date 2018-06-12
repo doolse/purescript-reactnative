@@ -27,7 +27,7 @@ place to go for help. This will be acheived by:
 lagging behind or the component does not yet have a safe version, it's still possible to use
 the library without too much hassle.
 
-- Stay event framework agnostic. This is acheived by using `EffFnX` to model the event callbacks.
+- Stay event framework agnostic. This is acheived by using `EffectFnX` to model the event callbacks.
 There will be additional libraries for your favourite action library - e.g. `purescript-reactnative-thermite`
 I have also made a very small and simple library for dispatching react actions [purescript-dispatcher-react](http://github.com/doolse/purescript-dispatcher-react).
 
@@ -168,7 +168,7 @@ Replace the contents of `src/Main.purs` with
 module Main where
 
 import Prelude
-import Control.Monad.Eff (Eff)
+import Effect (Eff)
 import React (ReactClass, ReactElement, Render, createClass, getProps, spec)
 import ReactNative.API (REGISTER, registerComponent)
 import ReactNative.Components.Text (text_)
