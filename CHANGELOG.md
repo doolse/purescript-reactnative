@@ -1,3 +1,6 @@
+# 6.0.0
+  - Upgrade to PS 0.12.0 and React 6.0.0 (`@jvliwanag`)
+
 # 5.0.1
   - Upgrade dependencies and add LICENSE
   
