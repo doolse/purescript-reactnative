@@ -2,11 +2,9 @@ module ReactNative.PropTypes where
 
 import Prelude
 
-import Data.Maybe (Maybe)
-import Data.Nullable (Nullable, toMaybe)
-import Effect.Ref (Ref, write)
-import Effect.Uncurried (EffectFn1, mkEffectFn1)
-import Unsafe.Coerce (unsafeCoerce)
+import Data.Nullable (Nullable)
+import Effect.Uncurried (EffectFn1)
+import Unsafe.Coerce (unsafeCoerce) 
 
 -- | A type representing the source of an [image](https://facebook.github.io/react-native/docs/images.html)
 -- |
