@@ -12,12 +12,13 @@ module ReactNative.Components.ScrollView (
 where
 
 import Prelude
-import Effect (Effect)
+
 import Data.Function.Uncurried (Fn2, runFn2)
-import ReactNative.Optional (class Optional)
+import Effect (Effect)
 import React (ReactElement, ReactThis)
-import ReactNative.Components.View (ViewPropsEx)
+import ReactNative.Components.View (ViewPropsEx')
 import ReactNative.Events (EventHandler2, ScrollEvent, UnitEventHandler, EventHandler)
+import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes (Insets)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
@@ -144,7 +145,7 @@ keyboardShouldPersistTaps = {
   , handled: KeyboardShouldPersistTaps "handled"
 }
 
-type ScrollViewPropsEx r = ViewPropsEx (
+type ScrollViewPropsEx r = ViewPropsEx' Scrollable (
     contentContainerStyle :: Styles
   , horizontal :: Boolean
   , keyboardDismissMode :: KeyboardDismissMode

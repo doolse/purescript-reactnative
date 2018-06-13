@@ -1,8 +1,11 @@
 module ReactNative.PropTypes where
 
-import Effect.Uncurried (EffectFn1)
-import Data.Nullable (Nullable)
-import Data.Unit (Unit)
+import Prelude
+
+import Data.Maybe (Maybe)
+import Data.Nullable (Nullable, toMaybe)
+import Effect.Ref (Ref, write)
+import Effect.Uncurried (EffectFn1, mkEffectFn1)
 import Unsafe.Coerce (unsafeCoerce)
 
 -- | A type representing the source of an [image](https://facebook.github.io/react-native/docs/images.html)
@@ -35,7 +38,7 @@ urisSrc :: Array ImageSource -> ImageSource
 urisSrc = unsafeCoerce
 
 -- | Data type representing the ["ref" attribute](https://facebook.github.io/react/docs/refs-and-the-dom.html)
-foreign import data RefType :: Type -> Type
+type RefType ref = EffectFn1 (Nullable ref) Unit
 
 -- | Provide a named ref which will be accessible using `React.getRefs`
 -- | Facebook say they are deprecating the use of named refs.
@@ -44,7 +47,7 @@ unsafeRef = unsafeCoerce
 
 -- | Creates a RefType from an effectful function.
 refFunc :: forall ref. EffectFn1 (Nullable ref) Unit -> RefType ref
-refFunc = unsafeCoerce
+refFunc = identity
 
 type Insets = {top:: Number, left:: Number, bottom:: Number, right:: Number}
 
