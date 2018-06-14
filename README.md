@@ -28,8 +28,7 @@ lagging behind or the component does not yet have a safe version, it's still pos
 the library without too much hassle.
 
 - Stay event framework agnostic. This is acheived by using `EffectFnX` to model the event callbacks.
-There will be additional libraries for your favourite action library - e.g. `purescript-reactnative-thermite`
-I have also made a very small and simple library for dispatching react actions [purescript-dispatcher-react](http://github.com/doolse/purescript-dispatcher-react).
+I have also made a very small and simple library for working with react event handling (based on ReaderT) [purescript-dispatcher-react](http://github.com/doolse/purescript-dispatcher-react).
 
 ## Examples and Naming conventions
 
@@ -168,23 +167,22 @@ Replace the contents of `src/Main.purs` with
 module Main where
 
 import Prelude
-import Effect (Eff)
-import React (ReactClass, ReactElement, Render, createClass, getProps, spec)
-import ReactNative.API (REGISTER, registerComponent)
+
+import Effect (Effect)
+import React (ReactClass, statelessComponent)
+import ReactNative.API (registerComponent)
 import ReactNative.Components.Text (text_)
 
-render :: forall props state eff. Render props state ReactElement eff
-render ctx = do
-            _ <- getProps ctx  -- get props from context if needed
-            pure(text_ "Hello World")
-
-app :: forall p. ReactClass p
-app = createClass $ spec {} render
-
-main :: forall e. Eff (register:: REGISTER | e) Unit
+app :: forall p. ReactClass {|p}
+app = statelessComponent render
+  where
+  render _ = text_ "Hello World"
+ 
+main :: Effect Unit
 main = do
   registerComponent "HelloWorld" app
 ```
+
 Then from your project root, build the purescript project and output it to `index.js`
 ```sh
 pulp build --to index.js
