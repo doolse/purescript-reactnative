@@ -82,7 +82,7 @@ viewU = unsafeCreateElement viewClass
 
 -- | Create a [SafeAreaView](https://facebook.github.io/react-native/docs/safeareaview.html) component unsafely
 safeAreaViewU :: forall props. {|props} -> Array ReactElement -> ReactElement
-safeAreaViewU = unsafeCreateElement viewClass
+safeAreaViewU = unsafeCreateElement safeAreaViewClass
 
 -- | Create an [Image](https://facebook.github.io/react-native/docs/image.html) component unsafely
 imageU :: forall props. {|props} -> Array ReactElement -> ReactElement
