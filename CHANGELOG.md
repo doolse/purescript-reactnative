@@ -1,13 +1,17 @@
+# 6.0.3
+  - Warnings removed
+  - SafeAreaView fixed to use correct class (`@miurussia`)
+
 # 6.0.1
-  - Tag `ScrollView` ref type with `Scrollable` and 
-    use same type for `ref` prop as React 6 does 
+  - Tag `ScrollView` ref type with `Scrollable` and
+    use same type for `ref` prop as React 6 does
 
 # 6.0.0
   - Upgrade to PS 0.12.0 and React 6.0.0 (`@jvliwanag`)
 
 # 5.0.1
   - Upgrade dependencies and add LICENSE
-  
+
 # 5.0.0
 
   - Upgrade to latest purescript-react
