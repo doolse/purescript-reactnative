@@ -1,6 +1,6 @@
 # 6.0.3
   - Warnings removed
-  - SafeAreaView fixed to use correct class (`@miurussia`)
+  - SafeAreaView fixed to use correct class (`@miuirussia`)
 
 # 6.0.1
   - Tag `ScrollView` ref type with `Scrollable` and
