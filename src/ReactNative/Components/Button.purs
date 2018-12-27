@@ -3,13 +3,15 @@ module ReactNative.Components.Button (
   button, button'
 ) where
 
-import ReactNative.Optional (class Optional)
+import Prelude
+
 import React (ReactElement)
 import ReactNative.Events (TouchEvent, EventHandler)
+import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (buttonU)
-import Prelude
+import Type.Data.Boolean (kind Boolean)
 
 type ButtonProps r =
   { onPress :: EventHandler TouchEvent
@@ -21,6 +23,8 @@ type ButtonPropsO =
   ( accessibilityLabel :: String
   , color :: Color
   , disabled :: Boolean
+  , testID :: String
+  , hasTVPreferredFocus :: Boolean -- iOS
   )
 
 -- | Create a button with the given `title` and `onPress` handler
