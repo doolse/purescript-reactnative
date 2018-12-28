@@ -152,12 +152,18 @@ type ScrollViewPropsEx r = ViewPropsEx' Scrollable (
   , keyboardDismissMode :: KeyboardDismissMode
   , keyboardShouldPersistTaps :: KeyboardShouldPersistTaps
   , onContentSizeChange :: EventHandler2 Number Number
+  -- , onMomentumScrollBegin
+  -- , onMomentumScrollEnd
   , onScroll :: EventHandler ScrollEvent
+  -- , onScrollBeginDrag
+  -- , onScrollEndDrag
   , pagingEnabled :: Boolean
   , refreshControl :: RefreshControl
+  , removeClippedSubviews :: Boolean
   , scrollEnabled :: Boolean
   , showsHorizontalScrollIndicator :: Boolean
   , showsVerticalScrollIndicator :: Boolean
+  , stickyHeaderIndices :: Array Number
   | r
 ) ScrollViewAndroid ScrollViewIOS
 
@@ -192,7 +198,6 @@ type ScrollViewIOS = (
   , scrollsToTop :: Boolean
   , snapToAlignment :: SnapToAlignment
   , snapToInterval :: Number
-  , stickyHeaderIndices :: Array Number
   , zoomScale :: Number
 )
 

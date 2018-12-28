@@ -39,7 +39,6 @@ type ListViewProps a section blob r = {
   , initialListSize :: Number
   , onEndReachedThreshold :: Number
   , pageSize :: Number
-  -- , renderScrollComponent ::
   -- , stickyHeaderIndices ::
   | r
 }
