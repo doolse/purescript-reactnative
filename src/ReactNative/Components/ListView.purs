@@ -53,7 +53,6 @@ type ListViewPropsO section = ScrollViewPropsEx (
   , removeClippedSubviews :: Boolean
   , renderFooter :: Unit -> ReactElement
   , stickySectionHeadersEnabled :: Boolean
-  , pageSize :: Int
   , renderHeader :: Unit -> ReactElement
   , renderScrollComponent :: forall props. props -> ReactElement
   , renderSectionHeader :: SectionRenderer section

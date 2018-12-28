@@ -21,7 +21,8 @@ type ButtonProps r =
   }
 
 
-type ButtonPropsO = BaseProps (
+type ButtonPropsO =
+ (
    accessibilityLabel :: String
   , color :: Color
   , disabled :: Boolean

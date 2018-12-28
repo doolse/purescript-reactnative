@@ -50,7 +50,7 @@ refFunc = identity
 
 type Insets = {top:: Number, left:: Number, bottom:: Number, right:: Number}
 
--- type TrackColor = {false:: Color, true:: Color}
+type TrackColor = {"false":: Color, "true":: Color}
 
 foreign import nativeImageSource :: {android::String, width::Int, height::Int } -> ImageSource
 

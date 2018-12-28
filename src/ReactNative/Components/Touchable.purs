@@ -9,7 +9,7 @@ import Prelude
 import Foreign.Object (Object)
 import React (ReactElement)
 import ReactNative.Components.View (AccessibilityTraits, AccessibilityType)
-import ReactNative.Events (EventHandler, TouchEvent, LayoutEvent)
+import ReactNative.Events (EventHandler, TouchEvent, LayoutEvent, UnitEventHandler)
 import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes (Insets)
 import ReactNative.PropTypes.Color (Color)
@@ -31,8 +31,8 @@ type TouchablePropsEx r = (
   , delayPressOut :: Int
   , disabled :: Boolean
   , hitSlop :: Insets
-  -- , onBlur
-  -- , onFocus
+  , onBlur :: UnitEventHandler
+  , onFocus :: UnitEventHandler
   , onLayout :: EventHandler LayoutEvent
   , onPress :: EventHandler TouchEvent
   , onLongPress :: EventHandler TouchEvent

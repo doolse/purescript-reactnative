@@ -14,7 +14,7 @@ import ReactNative.PropTypes (Insets)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (textU)
-import Type.Data.Boolean (kind Boolean)
+import Type.Data.Boolean (kind Boolean)  --TODO: needs to check further
 import Unsafe.Coerce (unsafeCoerce)
 
 newtype TextBreakStrategy = TextBreakStrategy String
@@ -34,7 +34,7 @@ type TextPropsO = BaseProps (
   , numberOfLines :: Int
   , accessible :: Boolean
   , accessibilityHint :: String
-  -- , accessibilityLabel :: Node
+  -- , accessibilityLabel :: Node --TODO: needs to check further
   , disabled :: Boolean
   , nativeID :: String
   , numberOfLines :: Number

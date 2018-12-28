@@ -24,7 +24,8 @@ import Unsafe.Coerce (unsafeCoerce)
 type ViewPropsO = ViewPropsEx () () ()
 
 type ViewPropsEx r ra ri = ViewPropsEx' (forall props state. ReactThis props state) r ra ri
-type ViewPropsEx' ref r ra ri = BaseProps (
+type ViewPropsEx' ref r ra ri =
+ (
     ref :: RefType ref
   , style :: Styles
   , accessibilityHint :: String

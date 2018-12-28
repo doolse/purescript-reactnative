@@ -20,21 +20,22 @@ type ImageProps r = {
   | r
 }
 
-type ImagePropsO = BaseProps (
+type ImagePropsO =
+ (
     style :: Styles
   , blurRadius :: Number
-  , loadingIndicatorSource :: Number
+  -- , loadingIndicatorSource :: array of ImageSourcePropTypes, number  Can accept a number as returned by require('./image.jpg') --TODO: needs to be checked
   , onError :: UnitEventHandler
   , onLayout :: EventHandler LayoutEvent
   , onLoad :: UnitEventHandler
   , onLoadEnd :: UnitEventHandler
   , onLoadStart :: UnitEventHandler
   , resizeMode :: ResizeMode
-  , resizeMethod :: ResizeMethod
   , testID :: String
   , android :: {
       defaultSource :: Number
     , fadeDuration :: Number
+    , resizeMethod :: ResizeMethod
     }
   , ios :: {
       accessibilityLabel :: String

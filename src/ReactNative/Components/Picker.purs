@@ -18,7 +18,7 @@ import Unsafe.Coerce (unsafeCoerce)
 type PickerProps a = ViewPropsEx (
     onValueChange :: EventHandler a
   , selectedValue :: a
-  -- , style
+  -- , style :: pickerStyleType  TODO: needs to be checked
   , testID :: String
 
 ) (

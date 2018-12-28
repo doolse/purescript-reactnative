@@ -10,6 +10,7 @@ import ReactNative.Components (BaseProps)
 import ReactNative.Events (EventHandler)
 import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes.Color (Color)
+-- import ReactNative.PropTypes (TrackColor) --TODO: needs to be checked
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (switchU)
 

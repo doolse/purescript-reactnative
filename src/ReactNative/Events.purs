@@ -1,5 +1,6 @@
 module ReactNative.Events where
 
+import Ansi.Codes (EraseParam(..))
 import Effect.Uncurried (EffectFn1, EffectFn2)
 import Prelude (Unit)
 import React.SyntheticEvent (nativeEvent)
@@ -44,11 +45,11 @@ type ScrollEvent = {
   }
 }
 
--- type KeyPressedEvent = {
---   nativeEvent :: {
---     key:: keyValue
---   }
--- }
+type KeyPressedEvent = {
+  nativeEvent :: {
+    key:: String    --TODO: Types need to be defined
+  }
+}
 
 type EventHandler a = EffectFn1 a Unit
 

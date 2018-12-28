@@ -13,7 +13,7 @@ import Prelude
 import Effect (Effect)
 import React (ReactElement, ReactThis)
 import ReactNative.Components.View (ViewPropsEx')
-import ReactNative.Events (ContentSizeEvent, EventHandler, ScrollEvent, TextInputEvent, LayoutEvent)
+import ReactNative.Events (ContentSizeEvent, EventHandler, ScrollEvent, TextInputEvent, LayoutEvent, KeyPressedEvent)
 import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
@@ -56,8 +56,8 @@ type TextInputPropsO = ViewPropsEx' TextInputRef (
   , onContentSizeChange :: EventHandler ContentSizeEvent
   , onEndEditing :: EventHandler TextInputEvent
   , onFocus :: EventHandler TextInputEvent
-  -- , onKeyPress
-   , onLayout :: EventHandler LayoutEvent
+  , onKeyPress :: EventHandler KeyPressedEvent
+  , onLayout :: EventHandler LayoutEvent
   , onScroll :: EventHandler ScrollEvent
   , onSelectionChange :: EventHandler TextInputEvent
   , onSubmitEditing :: EventHandler TextInputEvent

@@ -48,7 +48,7 @@ type RefreshProps r = {
 }
 
 type RefreshPropsO = (
-    onRefresh :: UnitEventHandler
+    onRefresh :: UnitEventHandler  -- TODO: needs to be checked
   , refreshing :: Boolean
   , android :: {
       colors :: Array Color
@@ -179,11 +179,11 @@ type ScrollViewPropsEx r = ViewPropsEx' Scrollable (
   , keyboardDismissMode :: KeyboardDismissMode
   , keyboardShouldPersistTaps :: KeyboardShouldPersistTaps
   , onContentSizeChange :: EventHandler2 Number Number
-  -- , onMomentumScrollBegin
-  -- , onMomentumScrollEnd
+  , onMomentumScrollBegin :: UnitEventHandler
+  , onMomentumScrollEnd :: UnitEventHandler
   , onScroll :: EventHandler ScrollEvent
-  -- , onScrollBeginDrag
-  -- , onScrollEndDrag
+  , onScrollBeginDrag :: UnitEventHandler
+  , onScrollEndDrag :: UnitEventHandler
   , pagingEnabled :: Boolean
   , refreshControl :: RefreshControl
   , removeClippedSubviews :: Boolean
