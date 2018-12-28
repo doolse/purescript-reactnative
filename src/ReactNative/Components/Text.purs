@@ -2,7 +2,7 @@
 module ReactNative.Components.Text (
   textElem, text', text_, text
 , texts', texts, texts_
-, EllipsizeMode, ellipsizeMode
+, EllipsizeMode, TextBreakStrategy, ellipsizeMode, textBreakStrategy
 ) where
 
 import Ansi.Codes (Color)
@@ -16,6 +16,18 @@ import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (textU)
 import Type.Data.Boolean (kind Boolean)
 import Unsafe.Coerce (unsafeCoerce)
+
+newtype TextBreakStrategy = TextBreakStrategy String
+textBreakStrategy :: {
+    simple :: TextBreakStrategy
+  , highQuality :: TextBreakStrategy
+  , balanced :: TextBreakStrategy
+}
+textBreakStrategy = {
+    simple: TextBreakStrategy "simple"
+  , highQuality: TextBreakStrategy "highQuality"
+  , balanced: TextBreakStrategy "balanced"
+}
 
 type TextPropsO = BaseProps (
     style :: Styles
@@ -41,7 +53,7 @@ type TextPropsO = BaseProps (
   }
   , android:: {
       selectionColor :: Color
-    -- , textBreakStrategy
+    , textBreakStrategy :: TextBreakStrategy
   }
 )
 

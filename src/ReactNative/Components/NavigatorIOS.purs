@@ -1,7 +1,7 @@
 -- | See [NavigatorIOS](https://facebook.github.io/react-native/docs/navigatorios.html)
 module ReactNative.Components.NavigatorIOS (
-    NavigatorIOS, navigatorIOS', NavigatorIOSProps
-  , push, pop, Route, RouteM, RouteO, RouteDefaults, mkRoute
+    NavigatorIOS, navigatorIOS', NavigatorIOSProps, BarStyle
+  , push, pop, barStyle, Route, RouteM, RouteO, RouteDefaults, mkRoute
 ) where
 
 import Prelude
@@ -19,6 +19,16 @@ import Type.Data.Boolean (kind Boolean)
 import Unsafe.Coerce (unsafeCoerce)
 
 newtype NavigatorIOS = NavigatorIOS (forall props state. ReactThis props state)
+
+newtype BarStyle = BarStyle String
+barStyle :: {
+    default :: BarStyle
+  , black :: BarStyle
+}
+barStyle = {
+    default: BarStyle "default"
+  , black: BarStyle "default"
+}
 
 type RouteDefaults r = (
     tintColor :: Color
@@ -49,7 +59,7 @@ type RouteO = RouteDefaults (
   , rightButtonSystemIcon :: String -- Object.keys(SystemIcons)
   , onRightButtonPress :: UnitEventHandler
   , wrapperStyle :: Styles
-  -- , barStyle
+  , barStyle :: BarStyle
   , navigationBarHidden :: Boolean
   , barTintColor :: String
   , tintColor :: Color

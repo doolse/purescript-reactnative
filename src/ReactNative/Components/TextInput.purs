@@ -2,10 +2,10 @@
 module ReactNative.Components.TextInput (
   textInput', TextInputRef
 , ClearButtonMode, KeyboardAppearance, DocumentSelectionState, DataDetectorType
-, AutoCapitalize, KeyboardType, ReturnKeyType
+, AutoCapitalize, KeyboardType, ReturnKeyType, TextBreakStrategy
 , clearButtonMode, keyboardType, dataDetectorType, autoCapitalize, keyboardAppearance
 , dataDetectors, returnKeyType
-, focus, isFocused, clear
+, focus, isFocused, clear, textBreakStrategy
 ) where
 
 import Prelude
@@ -22,6 +22,18 @@ import Type.Data.Boolean (kind Boolean)
 import Unsafe.Coerce (unsafeCoerce)
 
 newtype TextInputRef = TextInputRef (forall p s. ReactThis p s)
+
+newtype TextBreakStrategy = TextBreakStrategy String
+textBreakStrategy :: {
+    simple :: TextBreakStrategy
+  , highQuality :: TextBreakStrategy
+  , balanced :: TextBreakStrategy
+}
+textBreakStrategy = {
+    simple: TextBreakStrategy "simple"
+  , highQuality: TextBreakStrategy "highQuality"
+  , balanced: TextBreakStrategy "balanced"
+}
 
 type TextInputPropsO = ViewPropsEx' TextInputRef (
     autoCapitalize:: AutoCapitalize
@@ -64,7 +76,7 @@ type TextInputPropsO = ViewPropsEx' TextInputRef (
   , returnKeyLabel :: String
   , underlineColorAndroid :: Color
   , numberOfLines :: Int
-  -- , textBreakStrategy
+  , textBreakStrategy :: TextBreakStrategy
 ) (
     clearTextOnFocus :: Boolean
   , enablesReturnKeyAutomatically :: Boolean

@@ -2,9 +2,10 @@
 module ReactNative.Components.ScrollView (
   scrollView', scrollView_, scrollView, scrollTo, scrollTo'
 , Scrollable, DecelerationRate, IndicatorStyle, SnapToAlignment
-, KeyboardDismissMode, KeyboardShouldPersistTaps
+, KeyboardDismissMode, KeyboardShouldPersistTaps, OverScrollModeType
+, ContentInsetAdjustmentBehavior
 , keyboardDismissMode, decelerationRate, decelerateBy, indicatorStyle
-, snapToAlignment, keyboardShouldPersistTaps
+, snapToAlignment, keyboardShouldPersistTaps, overScrollModeType, contentInsetAdjustmentBehavior
 , ScrollViewPropsEx, ScrollViewAndroid, ScrollViewIOS
 , RefreshControl, RefreshControlSize
 , refreshControl, refreshControl', refreshControlSize
@@ -146,6 +147,32 @@ keyboardShouldPersistTaps = {
   , handled: KeyboardShouldPersistTaps "handled"
 }
 
+newtype OverScrollModeType = OverScrollModeType String
+overScrollModeType :: {
+    auto :: OverScrollModeType
+  , always :: OverScrollModeType
+  , never :: OverScrollModeType
+}
+overScrollModeType = {
+    auto: OverScrollModeType "auto"
+  , always: OverScrollModeType "always"
+  , never: OverScrollModeType "never"
+}
+
+newtype ContentInsetAdjustmentBehavior = ContentInsetAdjustmentBehavior String
+contentInsetAdjustmentBehavior :: {
+    automatic :: ContentInsetAdjustmentBehavior
+  , scrollableAxes :: ContentInsetAdjustmentBehavior
+  , never :: ContentInsetAdjustmentBehavior
+  , always :: ContentInsetAdjustmentBehavior
+}
+contentInsetAdjustmentBehavior = {
+    automatic: ContentInsetAdjustmentBehavior "automatic"
+  , scrollableAxes: ContentInsetAdjustmentBehavior "scrollableAxes"
+  , never: ContentInsetAdjustmentBehavior "never"
+  , always: ContentInsetAdjustmentBehavior "always"
+}
+
 type ScrollViewPropsEx r = ViewPropsEx' Scrollable (
     contentContainerStyle :: Styles
   , horizontal :: Boolean
@@ -170,7 +197,7 @@ type ScrollViewPropsEx r = ViewPropsEx' Scrollable (
 type ScrollViewAndroid =  (
     endFillColor :: Color
   , nestedScrollEnabled :: Boolean
-  -- , overScrollMode
+  , overScrollMode :: OverScrollModeType
   , scrollPerfTag :: String
 )
 
@@ -183,7 +210,7 @@ type ScrollViewIOS = (
   , canCancelContentTouches :: Boolean
   , centerContent :: Boolean
   , contentInset :: Insets
-  -- , contentInsetAdjustmentBehavior ::
+  , contentInsetAdjustmentBehavior :: ContentInsetAdjustmentBehavior
   , contentOffset :: {x::Number, y::Number}
   , decelerationRate :: DecelerationRate
   , directionalLockEnabled :: Boolean

@@ -39,7 +39,7 @@ type ListViewProps a section blob r = {
   , initialListSize :: Number
   , onEndReachedThreshold :: Number
   , pageSize :: Number
-  -- , stickyHeaderIndices ::
+  , stickyHeaderIndices :: Array Number
   | r
 }
 
@@ -50,7 +50,7 @@ type ListViewPropsO section = ScrollViewPropsEx (
   , onEndReached :: EventHandler (Nullable ScrollEvent)
   , onEndReachedThreshold :: Int
   -- , onChangeVisibleRows
-  -- , removeClippedSubviews
+  , removeClippedSubviews :: Boolean
   , renderFooter :: Unit -> ReactElement
   , stickySectionHeadersEnabled :: Boolean
   , pageSize :: Int
