@@ -2,6 +2,7 @@ module ReactNative.Events where
 
 import Effect.Uncurried (EffectFn1, EffectFn2)
 import Prelude (Unit)
+import React.SyntheticEvent (nativeEvent)
 
 type TouchEvent = {
   nativeEvent :: {
@@ -42,6 +43,12 @@ type ScrollEvent = {
     contentOffset :: {x::Number, y::Number}
   }
 }
+
+-- type KeyPressedEvent = {
+--   nativeEvent :: {
+--     key:: keyValue
+--   }
+-- }
 
 type EventHandler a = EffectFn1 a Unit
 

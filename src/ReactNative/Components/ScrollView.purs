@@ -24,6 +24,7 @@ import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (refreshControlU, scrollViewU)
+import Type.Data.Boolean (kind Boolean)
 import Unsafe.Coerce (unsafeCoerce)
 
 type ScrollViewPropsO = ScrollViewPropsEx ()
@@ -162,6 +163,8 @@ type ScrollViewPropsEx r = ViewPropsEx' Scrollable (
 
 type ScrollViewAndroid =  (
     endFillColor :: Color
+  , nestedScrollEnabled :: Boolean
+  -- , overScrollMode
   , scrollPerfTag :: String
 )
 
@@ -174,13 +177,16 @@ type ScrollViewIOS = (
   , canCancelContentTouches :: Boolean
   , centerContent :: Boolean
   , contentInset :: Insets
+  -- , contentInsetAdjustmentBehavior ::
   , contentOffset :: {x::Number, y::Number}
   , decelerationRate :: DecelerationRate
   , directionalLockEnabled :: Boolean
+  , sendUpdatedChildFrames :: Boolean
   , indicatorStyle :: IndicatorStyle
   , maximumZoomScale :: Number
   , minimumZoomScale :: Number
   , onScrollAnimationEnd :: UnitEventHandler
+  , pinchGestureEnabled :: Boolean
   , scrollEventThrottle :: Number
   , scrollIndicatorInsets :: Insets
   , scrollsToTop :: Boolean

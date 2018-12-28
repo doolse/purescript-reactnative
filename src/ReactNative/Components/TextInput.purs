@@ -9,14 +9,16 @@ module ReactNative.Components.TextInput (
 ) where
 
 import Prelude
+
 import Effect (Effect)
-import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactThis)
 import ReactNative.Components.View (ViewPropsEx')
-import ReactNative.Events (ContentSizeEvent, EventHandler, ScrollEvent, TextInputEvent)
+import ReactNative.Events (ContentSizeEvent, EventHandler, ScrollEvent, TextInputEvent, LayoutEvent)
+import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (textInputU)
+import Type.Data.Boolean (kind Boolean)
 import Unsafe.Coerce (unsafeCoerce)
 
 newtype TextInputRef = TextInputRef (forall p s. ReactThis p s)
@@ -25,7 +27,10 @@ type TextInputPropsO = ViewPropsEx' TextInputRef (
     autoCapitalize:: AutoCapitalize
   , autoCorrect :: Boolean
   , autoFocus :: Boolean
+  , allowFontScaling :: Boolean
   , blurOnSubmit :: Boolean
+  , caretHidden :: Boolean
+  , contextMenuHidden :: Boolean
   , editable :: Boolean
   , multiline :: Boolean
   , secureTextEntry :: Boolean
@@ -39,6 +44,8 @@ type TextInputPropsO = ViewPropsEx' TextInputRef (
   , onContentSizeChange :: EventHandler ContentSizeEvent
   , onEndEditing :: EventHandler TextInputEvent
   , onFocus :: EventHandler TextInputEvent
+  -- , onKeyPress
+   , onLayout :: EventHandler LayoutEvent
   , onScroll :: EventHandler ScrollEvent
   , onSelectionChange :: EventHandler TextInputEvent
   , onSubmitEditing :: EventHandler TextInputEvent
@@ -46,14 +53,18 @@ type TextInputPropsO = ViewPropsEx' TextInputRef (
   , placeholderTextColor :: Color
   , selection :: {start:: Int, end:: Int}
   , selectionColor :: Color
+  , secureTextEntry :: Boolean
+  , selectTextOnFocus :: Boolean
   , returnKeyType :: ReturnKeyType
   , value :: String
 ) (
-    inlineImagePadding :: Int
+    disableFullscreenUI :: Boolean
+  , inlineImagePadding :: Int
   , inlineImageLeft :: String
   , returnKeyLabel :: String
   , underlineColorAndroid :: Color
   , numberOfLines :: Int
+  -- , textBreakStrategy
 ) (
     clearTextOnFocus :: Boolean
   , enablesReturnKeyAutomatically :: Boolean
@@ -61,6 +72,8 @@ type TextInputPropsO = ViewPropsEx' TextInputRef (
   , keyboardAppearance :: KeyboardAppearance
   , onKeyPress :: EventHandler TextInputEvent
   , selectionState :: DocumentSelectionState
+  , spellCheck :: Boolean
+  , scrollEnabled :: Boolean
   , dataDetectorTypes :: DataDetectorType
 )
 

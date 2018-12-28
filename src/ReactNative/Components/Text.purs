@@ -5,29 +5,43 @@ module ReactNative.Components.Text (
 , EllipsizeMode, ellipsizeMode
 ) where
 
-import ReactNative.Optional (class Optional)
+import Ansi.Codes (Color)
 import React (ReactElement)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, TouchEvent, EventHandler)
+import ReactNative.Optional (class Optional)
+import ReactNative.PropTypes (Insets)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (textU)
+import Type.Data.Boolean (kind Boolean)
 import Unsafe.Coerce (unsafeCoerce)
 
 type TextPropsO = BaseProps (
     style :: Styles
   , numberOfLines :: Int
   , accessible :: Boolean
+  , accessibilityHint :: String
+  -- , accessibilityLabel :: Node
+  , disabled :: Boolean
+  , nativeID :: String
+  , numberOfLines :: Number
   , onLayout :: EventHandler LayoutEvent
   , onPress :: EventHandler TouchEvent
   , onLongPress :: EventHandler TouchEvent
+  , pressRetentionOffset :: Insets
   , selectable :: Boolean
+  , testID :: String
   , ellipsizeMode :: EllipsizeMode
   , ios:: {
       adjustsFontSizeToFit :: Boolean
     , allowFontScaling :: Boolean
     , minimumFontScale :: Number
     , suppressHilighting :: Boolean
+  }
+  , android:: {
+      selectionColor :: Color
+    -- , textBreakStrategy
   }
 )
 

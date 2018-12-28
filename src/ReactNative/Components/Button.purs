@@ -6,6 +6,7 @@ module ReactNative.Components.Button (
 import Prelude
 
 import React (ReactElement)
+import ReactNative.Components (BaseProps)
 import ReactNative.Events (TouchEvent, EventHandler)
 import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes.Color (Color)
@@ -19,13 +20,16 @@ type ButtonProps r =
   | r
   }
 
-type ButtonPropsO =
-  ( accessibilityLabel :: String
+
+type ButtonPropsO = BaseProps (
+   accessibilityLabel :: String
   , color :: Color
   , disabled :: Boolean
   , testID :: String
-  , hasTVPreferredFocus :: Boolean -- iOS
-  )
+  , ios :: {
+      hasTVPreferredFocus :: Boolean
+    }
+)
 
 -- | Create a button with the given `title` and `onPress` handler
 button :: String -> EventHandler TouchEvent -> ReactElement

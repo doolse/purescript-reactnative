@@ -51,6 +51,8 @@ type ModalPropsO a = (
   , ios :: {
       onOrientationChange :: EventHandler Orientation
     , supportedOrientations :: Array Orientation
+    -- , onDismiss
+    -- , presentationStyle
   }
 )
 
