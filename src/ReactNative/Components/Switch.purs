@@ -3,14 +3,16 @@ module ReactNative.Components.Switch (
   switch'
 ) where
 
-import ReactNative.Optional (class Optional)
+import Prelude
+
 import React (ReactElement)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (EventHandler)
+import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes.Color (Color)
+-- import ReactNative.PropTypes (TrackColor) --TODO: needs to be checked
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (switchU)
-import Prelude
 
 type SwitchProps r = {
     onValueChange :: EventHandler Boolean
@@ -26,6 +28,10 @@ type SwitchPropsIOS = (
 
 type SwitchPropsO = BaseProps (
     disabled :: Boolean
+  -- , trackColor :: TrackColor
+  , testID :: String
+  , thumbColor :: Color
+  , ios_backgroundColor :: Color
   , ios:: {|SwitchPropsIOS}
 )
 

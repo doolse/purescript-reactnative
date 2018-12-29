@@ -9,25 +9,32 @@ module ReactNative.Components.View (
 ) where
 
 import Prelude
-import ReactNative.Optional (class Optional)
+
 import React (ReactElement, ReactThis)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, TouchEvent, EventHandler)
+import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes (class AutoEnum, class NoneEnum, RefType)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (viewU)
+import Type.Data.Boolean (kind Boolean)
 import Unsafe.Coerce (unsafeCoerce)
 
 type ViewPropsO = ViewPropsEx () () ()
 
 type ViewPropsEx r ra ri = ViewPropsEx' (forall props state. ReactThis props state) r ra ri
-type ViewPropsEx' ref r ra ri = BaseProps (
+type ViewPropsEx' ref r ra ri =
+ (
     ref :: RefType ref
   , style :: Styles
+  , accessibilityHint :: String
   , accessibilityLabel :: String
+  -- , accessibilityRole :: AccessibilityRole
+  -- , accessibilityStates :: AccessibilityStates
   , accessible :: Boolean
   , hitSlop :: {top:: Number, left:: Number, bottom:: Number, right:: Number}
+  , nativeID :: String
   , onAccessibilityTap :: EventHandler TouchEvent
   , onLayout :: EventHandler LayoutEvent
   , onMagicTap :: EventHandler TouchEvent
@@ -43,6 +50,7 @@ type ViewPropsEx' ref r ra ri = BaseProps (
   , onStartShouldSetResponderCapture :: TouchEvent -> Boolean
   , pointerEvents :: PointerEvents
   , removeClippedSubviews :: Boolean
+  , testID :: String
   , android :: {
       accessibilityComponentType :: AccessibilityType
     , accessibilityLiveRegion :: AccessibilityLiveRegion
@@ -54,6 +62,9 @@ type ViewPropsEx' ref r ra ri = BaseProps (
   }
   , ios :: {
       accessibilityTraits :: AccessibilityTraits
+    , accessibilityViewIsModal :: Boolean
+    , accessibilityElementsHidden :: Boolean
+    , accessibilityIgnoresInvertColors :: Boolean
     , shouldRasterizeIOS :: Boolean
     | ri
   }
@@ -141,7 +152,7 @@ accessibilityTraits :: {
   , text :: AccessibilityTraits
   , summary :: AccessibilityTraits
   , disabled :: AccessibilityTraits
-  , frequentUpdates :: AccessibilityTraits
+  -- , frequentUpdates :: AccesaccessibilityHintsibilityTraits
   , startsMedia :: AccessibilityTraits
   , adjustable :: AccessibilityTraits
   , allowsDirectInteraction :: AccessibilityTraits
@@ -160,7 +171,7 @@ accessibilityTraits = {
   , text: Trait "text"
   , summary: Trait "summary"
   , disabled: Trait "disabled"
-  , frequentUpdates: Trait "frequentUpdates"
+  -- , frequentUpdates: Trait "frequentUpdates"
   , startsMedia: Trait "startsMedia"
   , adjustable: Trait "adjustable"
   , allowsDirectInteraction: Trait "allowsDirectInteraction"

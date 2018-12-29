@@ -2,9 +2,10 @@
 module ReactNative.Components.ScrollView (
   scrollView', scrollView_, scrollView, scrollTo, scrollTo'
 , Scrollable, DecelerationRate, IndicatorStyle, SnapToAlignment
-, KeyboardDismissMode, KeyboardShouldPersistTaps
+, KeyboardDismissMode, KeyboardShouldPersistTaps, OverScrollModeType
+, ContentInsetAdjustmentBehavior
 , keyboardDismissMode, decelerationRate, decelerateBy, indicatorStyle
-, snapToAlignment, keyboardShouldPersistTaps
+, snapToAlignment, keyboardShouldPersistTaps, overScrollModeType, contentInsetAdjustmentBehavior
 , ScrollViewPropsEx, ScrollViewAndroid, ScrollViewIOS
 , RefreshControl, RefreshControlSize
 , refreshControl, refreshControl', refreshControlSize
@@ -24,6 +25,7 @@ import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (refreshControlU, scrollViewU)
+import Type.Data.Boolean (kind Boolean)
 import Unsafe.Coerce (unsafeCoerce)
 
 type ScrollViewPropsO = ScrollViewPropsEx ()
@@ -46,7 +48,7 @@ type RefreshProps r = {
 }
 
 type RefreshPropsO = (
-    onRefresh :: UnitEventHandler
+    onRefresh :: UnitEventHandler  -- TODO: needs to be checked
   , refreshing :: Boolean
   , android :: {
       colors :: Array Color
@@ -145,23 +147,57 @@ keyboardShouldPersistTaps = {
   , handled: KeyboardShouldPersistTaps "handled"
 }
 
+newtype OverScrollModeType = OverScrollModeType String
+overScrollModeType :: {
+    auto :: OverScrollModeType
+  , always :: OverScrollModeType
+  , never :: OverScrollModeType
+}
+overScrollModeType = {
+    auto: OverScrollModeType "auto"
+  , always: OverScrollModeType "always"
+  , never: OverScrollModeType "never"
+}
+
+newtype ContentInsetAdjustmentBehavior = ContentInsetAdjustmentBehavior String
+contentInsetAdjustmentBehavior :: {
+    automatic :: ContentInsetAdjustmentBehavior
+  , scrollableAxes :: ContentInsetAdjustmentBehavior
+  , never :: ContentInsetAdjustmentBehavior
+  , always :: ContentInsetAdjustmentBehavior
+}
+contentInsetAdjustmentBehavior = {
+    automatic: ContentInsetAdjustmentBehavior "automatic"
+  , scrollableAxes: ContentInsetAdjustmentBehavior "scrollableAxes"
+  , never: ContentInsetAdjustmentBehavior "never"
+  , always: ContentInsetAdjustmentBehavior "always"
+}
+
 type ScrollViewPropsEx r = ViewPropsEx' Scrollable (
     contentContainerStyle :: Styles
   , horizontal :: Boolean
   , keyboardDismissMode :: KeyboardDismissMode
   , keyboardShouldPersistTaps :: KeyboardShouldPersistTaps
   , onContentSizeChange :: EventHandler2 Number Number
+  , onMomentumScrollBegin :: UnitEventHandler
+  , onMomentumScrollEnd :: UnitEventHandler
   , onScroll :: EventHandler ScrollEvent
+  , onScrollBeginDrag :: UnitEventHandler
+  , onScrollEndDrag :: UnitEventHandler
   , pagingEnabled :: Boolean
   , refreshControl :: RefreshControl
+  , removeClippedSubviews :: Boolean
   , scrollEnabled :: Boolean
   , showsHorizontalScrollIndicator :: Boolean
   , showsVerticalScrollIndicator :: Boolean
+  , stickyHeaderIndices :: Array Number
   | r
 ) ScrollViewAndroid ScrollViewIOS
 
 type ScrollViewAndroid =  (
     endFillColor :: Color
+  , nestedScrollEnabled :: Boolean
+  , overScrollMode :: OverScrollModeType
   , scrollPerfTag :: String
 )
 
@@ -174,19 +210,21 @@ type ScrollViewIOS = (
   , canCancelContentTouches :: Boolean
   , centerContent :: Boolean
   , contentInset :: Insets
+  , contentInsetAdjustmentBehavior :: ContentInsetAdjustmentBehavior
   , contentOffset :: {x::Number, y::Number}
   , decelerationRate :: DecelerationRate
   , directionalLockEnabled :: Boolean
+  , sendUpdatedChildFrames :: Boolean
   , indicatorStyle :: IndicatorStyle
   , maximumZoomScale :: Number
   , minimumZoomScale :: Number
   , onScrollAnimationEnd :: UnitEventHandler
+  , pinchGestureEnabled :: Boolean
   , scrollEventThrottle :: Number
   , scrollIndicatorInsets :: Insets
   , scrollsToTop :: Boolean
   , snapToAlignment :: SnapToAlignment
   , snapToInterval :: Number
-  , stickyHeaderIndices :: Array Number
   , zoomScale :: Number
 )
 

@@ -2,16 +2,19 @@ module ReactNative.Components.Modal (
     AnimationType
   , OnRequestClose
   , Orientation
+  , PresentationStyle
   , animationType
+  , presentationStyle
   , modal'
   , modal_
   , modal
 ) where
 
 import Prelude
-import ReactNative.Optional (class Optional)
+
 import React (ReactElement)
 import ReactNative.Events (EventHandler, UnitEventHandler)
+import ReactNative.Optional (class Optional)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (modalU)
 
@@ -37,7 +40,21 @@ orientationType = {
   , landscape: Orientation "landscape"
 }
 
-type OnRequestClose = UnitEventHandler
+newtype PresentationStyle = PresentationStyle String
+presentationStyle :: {
+    fullScreen :: PresentationStyle
+  , pageSheet :: PresentationStyle
+  , formSheet :: PresentationStyle
+  , overFullScreen :: PresentationStyle
+}
+presentationStyle = {
+    fullScreen: PresentationStyle "fullScreen"
+  , pageSheet: PresentationStyle "pageSheet"
+  , formSheet: PresentationStyle "formSheet"
+  , overFullScreen: PresentationStyle "overFullScreen"
+}
+
+type OnRequestClose = UnitEventHandler --TODO: Needs to be checked
 
 type ModalPropsO a = (
     animationType :: AnimationType
@@ -46,11 +63,13 @@ type ModalPropsO a = (
   , visible :: Boolean
   , android :: {
       hardwareAccelerated :: Boolean
-    , onRequestClose :: OnRequestClose
+    , onRequestClose :: UnitEventHandler
   }
   , ios :: {
       onOrientationChange :: EventHandler Orientation
     , supportedOrientations :: Array Orientation
+    , onDismiss :: UnitEventHandler
+    , presentationStyle :: PresentationStyle
   }
 )
 

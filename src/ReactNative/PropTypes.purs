@@ -2,9 +2,10 @@ module ReactNative.PropTypes where
 
 import Prelude
 
+import Ansi.Codes (Color)
 import Data.Nullable (Nullable)
 import Effect.Uncurried (EffectFn1)
-import Unsafe.Coerce (unsafeCoerce) 
+import Unsafe.Coerce (unsafeCoerce)
 
 -- | A type representing the source of an [image](https://facebook.github.io/react-native/docs/images.html)
 -- |
@@ -14,7 +15,7 @@ import Unsafe.Coerce (unsafeCoerce)
 -- | `Images.purs`
 -- | ``` purescript
 -- | module Images where
--- | foreign import myImage :: ImageSource
+-- | foreign import myImage -- type ContentInset = enum('automatic', 'scrollableAxes', 'never', 'always'):: ImageSource
 -- | ```
 -- |
 -- | `Images.js`
@@ -48,6 +49,8 @@ refFunc :: forall ref. EffectFn1 (Nullable ref) Unit -> RefType ref
 refFunc = identity
 
 type Insets = {top:: Number, left:: Number, bottom:: Number, right:: Number}
+
+type TrackColor = {"false":: Color, "true":: Color}
 
 foreign import nativeImageSource :: {android::String, width::Int, height::Int } -> ImageSource
 

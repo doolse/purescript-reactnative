@@ -1,32 +1,34 @@
 -- | See [NavigatorIOS](https://facebook.github.io/react-native/docs/navigatorios.html)
 module ReactNative.Components.NavigatorIOS (
-    NavigatorIOS, navigatorIOS', NavigatorIOSProps
-  , push, pop, Route, RouteM, RouteO, RouteDefaults, mkRoute
+    NavigatorIOS, navigatorIOS', NavigatorIOSProps, BarStyle
+  , push, pop, barStyle, Route, RouteM, RouteO, mkRoute
 ) where
 
 import Prelude
+
 import Effect (Effect)
-import ReactNative.Optional (class Optional)
 import React (ReactElement, ReactThis)
 import ReactNative.Events (UnitEventHandler)
+import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes (ImageSource, RefType)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (navigatorIOSU)
+import Type.Data.Boolean (kind Boolean)  --TODO: Boolean needs to be checked
 import Unsafe.Coerce (unsafeCoerce)
 
 newtype NavigatorIOS = NavigatorIOS (forall props state. ReactThis props state)
 
-type RouteDefaults r = (
-    barTintColor :: Color
-  , navigationBarHidden :: Boolean
-  , shadowHidden :: Boolean
-  , tintColor :: Color
-  , titleTextColor :: Color
-  , translucent :: Boolean
-  | r
-)
+newtype BarStyle = BarStyle String
+barStyle :: {
+    default :: BarStyle
+  , black :: BarStyle
+}
+barStyle = {
+    default: BarStyle "default"
+  , black: BarStyle "black"
+}
 
 foreign import data Route :: Type
 
@@ -37,7 +39,8 @@ type RouteM props o = {
   | o
 }
 
-type RouteO = RouteDefaults (
+type RouteO =
+ (
     titleImage :: ImageSource
   , backButtonIcon :: ImageSource
   , backButtonTitle :: String
@@ -50,6 +53,13 @@ type RouteO = RouteDefaults (
   , rightButtonSystemIcon :: String -- Object.keys(SystemIcons)
   , onRightButtonPress :: UnitEventHandler
   , wrapperStyle :: Styles
+  , barStyle :: BarStyle
+  , navigationBarHidden :: Boolean
+  , barTintColor :: String
+  , tintColor :: Color
+  , titleTextColor :: Color
+  , translucent :: Boolean
+  , shadowHidden :: Boolean
 )
 
 type NavigatorIOSProps o = {
@@ -57,7 +67,8 @@ type NavigatorIOSProps o = {
   | o
 }
 
-type NavigatorIOSPropsO = RouteDefaults (
+type NavigatorIOSPropsO =
+ (
     ref :: RefType NavigatorIOS
   , interactivePopGestureEnabled :: Boolean
   , itemWrapperStyle :: Styles

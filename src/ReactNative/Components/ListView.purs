@@ -13,17 +13,19 @@ module ReactNative.Components.ListView (
 ) where
 
 import Prelude
-import Effect.Uncurried (EffectFn2)
+
 import Data.Function.Uncurried (Fn2, Fn3, Fn4, mkFn2, mkFn4, runFn3, runFn4)
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable, toNullable)
+import Effect.Uncurried (EffectFn2)
 import Foreign.Object (Object)
-import ReactNative.Optional (class Optional)
 import React (ReactElement)
 import ReactNative.Components.ScrollView (ScrollViewPropsEx)
 import ReactNative.Events (EventHandler, EventHandler2, ScrollEvent)
+import ReactNative.Optional (class Optional)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (listViewU)
+import Type.Data.Boolean (kind Boolean)
 import Unsafe.Coerce (unsafeCoerce)
 
 foreign import unsafeMerge :: forall a b c. a -> b -> c
@@ -34,6 +36,10 @@ type RowId = String
 type ListViewProps a section blob r = {
     dataSource :: ListViewDataSource' blob a section
   , renderRow :: RowRenderer a
+  , initialListSize :: Number
+  , onEndReachedThreshold :: Number
+  , pageSize :: Number
+  , stickyHeaderIndices :: Array Number
   | r
 }
 
@@ -43,8 +49,10 @@ type ListViewPropsO section = ScrollViewPropsEx (
   , onChangeVisibleRows :: EventHandler2 RowMap RowMap
   , onEndReached :: EventHandler (Nullable ScrollEvent)
   , onEndReachedThreshold :: Int
-  , pageSize :: Int
+  -- , onChangeVisibleRows
+  , removeClippedSubviews :: Boolean
   , renderFooter :: Unit -> ReactElement
+  , stickySectionHeadersEnabled :: Boolean
   , renderHeader :: Unit -> ReactElement
   , renderScrollComponent :: forall props. props -> ReactElement
   , renderSectionHeader :: SectionRenderer section

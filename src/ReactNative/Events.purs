@@ -1,7 +1,9 @@
 module ReactNative.Events where
 
+import Ansi.Codes (EraseParam(..))
 import Effect.Uncurried (EffectFn1, EffectFn2)
 import Prelude (Unit)
+import React.SyntheticEvent (nativeEvent)
 
 type TouchEvent = {
   nativeEvent :: {
@@ -40,6 +42,12 @@ type ContentSizeEvent = {
 type ScrollEvent = {
   nativeEvent :: {
     contentOffset :: {x::Number, y::Number}
+  }
+}
+
+type KeyPressedEvent = {
+  nativeEvent :: {
+    key:: String    --TODO: Types need to be defined
   }
 }
 

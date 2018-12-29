@@ -5,10 +5,11 @@ module ReactNative.Components.Picker (
 ) where
 
 import Prelude
-import ReactNative.Optional (class Optional)
+
 import React (ReactElement)
 import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.Events (EventHandler)
+import ReactNative.Optional (class Optional)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (pickerItemU, pickerU)
@@ -17,6 +18,9 @@ import Unsafe.Coerce (unsafeCoerce)
 type PickerProps a = ViewPropsEx (
     onValueChange :: EventHandler a
   , selectedValue :: a
+  -- , style :: pickerStyleType  TODO: needs to be checked
+  , testID :: String
+
 ) (
     enabled :: Boolean
   , mode :: PickerMode

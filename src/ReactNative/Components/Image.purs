@@ -5,10 +5,11 @@ module ReactNative.Components.Image (
 ) where
 
 import Prelude
-import ReactNative.Optional (class Optional)
+
 import React (ReactElement)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, UnitEventHandler, EventHandler)
+import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes (class AutoEnum, ImageSource)
 import ReactNative.Styles (ResizeMode, Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
@@ -19,21 +20,26 @@ type ImageProps r = {
   | r
 }
 
-type ImagePropsO = BaseProps (
+type ImagePropsO =
+ (
     style :: Styles
+  , blurRadius :: Number
+  -- , loadingIndicatorSource :: array of ImageSourcePropTypes, number  Can accept a number as returned by require('./image.jpg') --TODO: needs to be checked
   , onError :: UnitEventHandler
   , onLayout :: EventHandler LayoutEvent
   , onLoad :: UnitEventHandler
   , onLoadEnd :: UnitEventHandler
   , onLoadStart :: UnitEventHandler
   , resizeMode :: ResizeMode
+  , testID :: String
   , android :: {
-      resizeMethod :: ResizeMethod
+      defaultSource :: Number
+    , fadeDuration :: Number
+    , resizeMethod :: ResizeMethod
     }
   , ios :: {
       accessibilityLabel :: String
     , accessible :: Boolean
-    , blurRadius :: Number
     , capInsets :: {top::Number, left::Number, bottom::Number, right::Number}
     , defaultSource :: ImageSource
     , onPartialLoad :: UnitEventHandler

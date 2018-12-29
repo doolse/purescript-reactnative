@@ -4,10 +4,11 @@ module ReactNative.Components.Slider (
 ) where
 
 import Prelude
-import ReactNative.Optional (class Optional)
+
 import React (ReactElement)
 import ReactNative.Components.View (ViewPropsEx)
 import ReactNative.Events (EventHandler)
+import ReactNative.Optional (class Optional)
 import ReactNative.PropTypes (ImageSource)
 import ReactNative.PropTypes.Color (Color)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
@@ -20,8 +21,11 @@ type SliderPropsO a = ViewPropsEx (
   , onSlidingComplete :: EventHandler a
   , onValueChange :: EventHandler a
   , step :: a
+  , testID :: String
   , value :: a
-) () (
+) (
+    thumbTintColor :: Color
+) (
     maximumTrackImage :: ImageSource
   , maximumTrackTintColor :: Color
   , minimumTrackImage :: ImageSource

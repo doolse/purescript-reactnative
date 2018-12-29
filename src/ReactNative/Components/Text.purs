@@ -2,32 +2,58 @@
 module ReactNative.Components.Text (
   textElem, text', text_, text
 , texts', texts, texts_
-, EllipsizeMode, ellipsizeMode
+, EllipsizeMode, TextBreakStrategy, ellipsizeMode, textBreakStrategy
 ) where
 
-import ReactNative.Optional (class Optional)
+import Ansi.Codes (Color)
 import React (ReactElement)
 import ReactNative.Components (BaseProps)
 import ReactNative.Events (LayoutEvent, TouchEvent, EventHandler)
+import ReactNative.Optional (class Optional)
+import ReactNative.PropTypes (Insets)
 import ReactNative.Styles (Styles)
 import ReactNative.Unsafe.ApplyProps (unsafeApplyProps)
 import ReactNative.Unsafe.Components (textU)
+import Type.Data.Boolean (kind Boolean)  --TODO: needs to check further
 import Unsafe.Coerce (unsafeCoerce)
+
+newtype TextBreakStrategy = TextBreakStrategy String
+textBreakStrategy :: {
+    simple :: TextBreakStrategy
+  , highQuality :: TextBreakStrategy
+  , balanced :: TextBreakStrategy
+}
+textBreakStrategy = {
+    simple: TextBreakStrategy "simple"
+  , highQuality: TextBreakStrategy "highQuality"
+  , balanced: TextBreakStrategy "balanced"
+}
 
 type TextPropsO = BaseProps (
     style :: Styles
   , numberOfLines :: Int
   , accessible :: Boolean
+  , accessibilityHint :: String
+  -- , accessibilityLabel :: Node --TODO: needs to check further
+  , disabled :: Boolean
+  , nativeID :: String
+  , numberOfLines :: Number
   , onLayout :: EventHandler LayoutEvent
   , onPress :: EventHandler TouchEvent
   , onLongPress :: EventHandler TouchEvent
+  , pressRetentionOffset :: Insets
   , selectable :: Boolean
+  , testID :: String
   , ellipsizeMode :: EllipsizeMode
   , ios:: {
       adjustsFontSizeToFit :: Boolean
     , allowFontScaling :: Boolean
     , minimumFontScale :: Number
     , suppressHilighting :: Boolean
+  }
+  , android:: {
+      selectionColor :: Color
+    , textBreakStrategy :: TextBreakStrategy
   }
 )
 
