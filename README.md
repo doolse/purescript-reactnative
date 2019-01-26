@@ -177,7 +177,7 @@ app :: forall p. ReactClass {|p}
 app = statelessComponent render
   where
   render _ = text_ "Hello World"
- 
+
 main :: Effect Unit
 main = do
   registerComponent "HelloWorld" app
@@ -212,7 +212,6 @@ The plan is to initially support a subset of the components fully, and provide u
 |`Image`     |[x]|
 |`RefreshControl` | [x]|
 |`Button`    |[x]|
-|`NavigatorIOS` |[x] *|
 |`DrawerLayoutAndroid` |[x]|
 |`ToolbarAndroid` |[x]|
 |`Modal`|[x]|
